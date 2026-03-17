@@ -59,7 +59,7 @@ Para la primera versión del sistema HealthTech se ha definido los siguientes pu
 - Algoritmo de clasificación y prioridad del paciente, basado en los signos vitales registrados.
 - Dashboard en tiempo real para la gestión de atención de pacientes registrados y en espera.
 - Indicadores visuales en el Dashboard de criticidad por colores de los pacientes en espera.
-- Temporizadores individuales por paciente del tiempo de espera transcurrido.
+- Indicadores visuales del tiempo de espera por prioridad de atencion del paciente.
 - Gestión de estados básicos del paciente: En Espera, Siendo Atendido y Finalizado.
 - Notificación a los médicos disponibles cuando se genere un nuevo registro de paciente.
 - Filtros por criticidad de pacientes en el Dashboard.
