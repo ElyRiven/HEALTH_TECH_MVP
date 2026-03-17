@@ -20,7 +20,7 @@ Funcionalidad: Registro de Usuario
     Entonces la cuenta se crea a través de Firebase Authentication
 ```
 
-#### HU-006 — Temporizador individual por paciente del tiempo de espera transcurrido
+#### HU-006 — Texto de color por paciente del tiempo de espera transcurrido
 
 **Story Points:** 5 SP
 
