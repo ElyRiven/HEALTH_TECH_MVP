@@ -128,15 +128,15 @@ Funcionalidad: Registro de Usuario
     Entonces la cuenta se crea a través de Firebase Authentication
 ```
 
-#### HU-011 —  Alerta sonora inmediata para ingresos Nivel 1 y 2 (Rojo y Naranja)
+#### HU-011 —  Alerta visual por superación de tiempo máximo de espera según categoría
 
-**Story Points:** 5 SP
+**Story Points:** 3 SP
 
 **Descripción:**
 
 > Como **Médico**,
-> Quiero **recibir una notificación sonora cuando se registre un nuevo paciente para los niveles 1 y 2**,
-> Para **priorizar la atención de pacientes con criticidad alta**
+> Quiero **recibir una notificación visual de que un paciente no ha sido atendido en el tiempo máximo de espera según el Protocolo Manchester**,
+> Para **priorizar la atención de pacientes que no han sido atendidos y requieren atención inmediata**
 
 **Criterios de Aceptación (Gherki
 ```gherkin
@@ -148,3 +148,4 @@ Funcionalidad: Registro de Usuario
     Y ingresa su correo electrónico
     Entonces la cuenta se crea a través de Firebase Authentication
 ```
+
