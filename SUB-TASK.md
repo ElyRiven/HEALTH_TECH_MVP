@@ -4,7 +4,7 @@
 
 Desglosar cada historia de usuario en tareas técnicas (Ej. Crear Tabla en BD,Exponer Endpoints POST,Configurar DTO's, Implementar validación de seguridad) para estimar el esfuerzo total de la historia
 
-#### HU-005 — Visualización de lista de pacientes ordenados por criticidad
+## HU-005 — Visualización de lista de pacientes ordenados por criticidad
 
 **Story Points:** 3 SP
 
@@ -16,16 +16,20 @@ Desglosar cada historia de usuario en tareas técnicas (Ej. Crear Tabla en BD,Ex
 
 **Sub-tareas: DEV**
 
-- Crear una base de datos de pacientes que llegan a una institución médica para ser atendidos por urgencias con los siguientes datos: nombres y apellidos, criticidad, tiempo de espera, estado; donde:
+- Crear una base de datos de pacientes que llegan a una institución médica para ser atendidos por urgencias con los siguientes datos: nombres y apellidos, criticidad, tiempo de espera, de la siguiente forma
 
-    - **nombres y apellidos** se refiere al nombre del usuario
-    - **Criticidad** se refiere a la clasificación de riesgo del paciente en un cuadro de servicios de urgencia de acuerdo al Protocolo de Manchester
-    - **Tiempo de espera** corresponde al tiempo de espera en minutos, desde que el paciente notifica a la institución ser atendido por un médico disponible, dependiendo de sus necesidades terapeuticas
-    - **Estado** el estado corresponde al estado en el que se encuentra el paciente
- 
+| Nombres y apellidos | Criticidad | Tiempo de espera | Estado |
+|--------|--------------|---------|-------|
+|Juan David Franco | 🟡 Amarillo | 23 minutos | En espera |
 
+### Backend
 
+- Crear endpoint POST para agregar paciente de acuerdo a nivel de urgencia
+- Crear endpont GET para obtener lista de paciente ingresados al sistema
+- Crear endpoint PUT para actualizar **El estado de atención del paciente (En espera, siendo atendido, finalizado)**
+- Crear endpoint DELETE, este método debe hacer un soft-delete siempre y cuando estén dentro de los niveles III y IV del Protocolo de Manchester
 
+### Frontend
 
-
-
+- Crear un componente de tabla en el que se enlisten todos los usuarios que ingresan al sistema
+- Renderizar la base de datos en la tabla, asignando los datos en filas y columna **IMPORTANTE: Los pacientes deben ser organizados de acuerdo a su clasificación dentro del Protocolo de Manchester**
