@@ -41,3 +41,25 @@ Funcionalidad: Registro de Usuario
     Y ingresa su correo electrónico
     Entonces la cuenta se crea a través de Firebase Authentication
 ```
+
+#### HU-007 —  Filtrado de Dashboard por nivel de criticidad
+
+**Story Points:** 5 SP
+
+**Descripción:**
+
+> Como **Personal Médico**,
+> Quiero **Filtrar la lista de pacientes según las categorías del Protocolo Manchester**,
+> Para **Gestionar eficientemente la lista de pacientes organizandolos por su estado específico de urgencia**
+
+**Criterios de Aceptación (Gherkin):**
+
+```gherkin
+Funcionalidad: Registro de Usuario
+
+  Escenario: Registro exitoso con credenciales válidas
+    Dado que el usuario está en la página de registro (/register)
+    Cuando el usuario ingresa su nombre completo
+    Y ingresa su correo electrónico
+    Entonces la cuenta se crea a través de Firebase Authentication
+```
