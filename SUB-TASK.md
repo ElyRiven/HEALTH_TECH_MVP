@@ -40,7 +40,7 @@ formato JSON
 - Crear un componente de tabla en el que se enlisten todos los usuarios que ingresan al sistema
 - Renderizar los datos obtendios de la petición GET que corresponde a la consulta de pacientes en el backend
 
-#### HU-006 — Texto de color por paciente del tiempo de espera transcurrido
+## HU-006 — Texto de color por paciente del tiempo de espera transcurrido
 
 **Story Points:** 5 SP
 
