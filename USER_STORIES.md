@@ -1,3 +1,25 @@
+# Definición de Historias de Usuario
+
+#### HU-001 - Registro de paciente en el sistema
+
+**Descripción:**
+
+> Como **Personal Médico**,
+> Quiero **generar un nuevo paciente con sus datos personales en el sistema**,
+> Para **identificar de manera única al paciente**
+
+**Criterios de Aceptación (Gherkin):**
+
+```gherkin
+Funcionalidad: Registro de Usuario
+
+  Escenario: Registro exitoso con credenciales válidas
+    Dado que el usuario está en la página de registro (/register)
+    Cuando el usuario ingresa su nombre completo
+    Y hace clic en el botón "Crear Cuenta"
+    Entonces la cuenta se crea a través de Firebase Authentication
+```
+
 #### HU-005 — Visualización de lista de pacientes ordenados por criticidad
 
 **Story Points:** 3 SP
@@ -64,7 +86,7 @@ Funcionalidad: Texto de color de tiempo de espera transcurrido
     Entonces el texto de la columna "Tiempo en espera" debe aparecer de color verde
 ```
 
-#### HU-007 —  Filtrado de Dashboard por nivel de criticidad
+#### HU-007 — Filtrado de Dashboard por nivel de criticidad
 
 **Story Points:** 5 SP
 
@@ -86,7 +108,7 @@ Funcionalidad: Registro de Usuario
     Entonces la cuenta se crea a través de Firebase Authentication
 ```
 
-#### HU-008 —  Cambio de estado del paciente
+#### HU-008 — Cambio de estado del paciente
 
 **Story Points:** 5 SP
 
@@ -108,7 +130,7 @@ Funcionalidad: Registro de Usuario
     Entonces la cuenta se crea a través de Firebase Authentication
 ```
 
-#### HU-009 —  Notificación visual de nuevo registro de paciente al personal médico disponible
+#### HU-009 — Notificación visual de nuevo registro de paciente al personal médico disponible
 
 **Story Points:** 5 SP
 
@@ -118,7 +140,8 @@ Funcionalidad: Registro de Usuario
 > Quiero **recibir una notificación visual cuando se registre un nuevo paciente en el sistema**,
 > Para **gestionar eficientemente la atención de los pacientes en espera**
 
-**Criterios de Aceptación (Gherki
+\*\*Criterios de Aceptación (Gherki
+
 ```gherkin
 Funcionalidad: Registro de Usuario
 
@@ -129,7 +152,7 @@ Funcionalidad: Registro de Usuario
     Entonces la cuenta se crea a través de Firebase Authentication
 ```
 
-#### HU-010 —  Alerta sonora inmediata para ingresos Nivel 1 y 2 (Rojo y Naranja)
+#### HU-010 — Alerta sonora inmediata para ingresos Nivel 1 y 2 (Rojo y Naranja)
 
 **Story Points:** 3 SP
 
@@ -139,7 +162,8 @@ Funcionalidad: Registro de Usuario
 > Quiero **recibir una notificación sonora cuando se registre un nuevo paciente para los niveles 1 y 2**,
 > Para **priorizar la atención de pacientes con criticidad alta**
 
-**Criterios de Aceptación (Gherki
+\*\*Criterios de Aceptación (Gherki
+
 ```gherkin
 Funcionalidad: Registro de Usuario
 
@@ -150,7 +174,7 @@ Funcionalidad: Registro de Usuario
     Entonces la cuenta se crea a través de Firebase Authentication
 ```
 
-#### HU-011 —  Alerta visual por superación de tiempo máximo de espera según categoría
+#### HU-011 — Alerta visual por superación de tiempo máximo de espera según categoría
 
 **Story Points:** 5 SP
 
@@ -160,7 +184,8 @@ Funcionalidad: Registro de Usuario
 > Quiero **recibir una notificación visual de que un paciente no ha sido atendido en el tiempo máximo de espera según el Protocolo Manchester**,
 > Para **priorizar la atención de pacientes que no han sido atendidos y requieren atención inmediata**
 
-**Criterios de Aceptación (Gherki
+\*\*Criterios de Aceptación (Gherki
+
 ```gherkin
 Funcionalidad: Registro de Usuario
 
@@ -170,4 +195,3 @@ Funcionalidad: Registro de Usuario
     Y ingresa su correo electrónico
     Entonces la cuenta se crea a través de Firebase Authentication
 ```
-
