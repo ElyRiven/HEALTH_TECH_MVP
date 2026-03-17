@@ -18,18 +18,16 @@ Desglosar cada historia de usuario en tareas técnicas (Ej. Crear Tabla en BD,Ex
 
 - Crear una base de datos de pacientes que llegan a una institución médica para ser atendidos por urgencias con los siguientes datos: nombres y apellidos, criticidad, tiempo de espera, de la siguiente forma
 
-| Nombres y apellidos | Criticidad | Tiempo de espera | Estado |
-|--------|--------------|---------|-------|
-|Juan David Franco | 🟡 Amarillo | 23 minutos | En espera |
+| Nombres| Apellidos | Criticidad | Tiempo de espera | Estado |
+|--------|--------------|---------|-------|-------|
+|Juan David | Franco Hernandez | 🟡 Amarillo | 23 minutos | En espera |
 
 ### Backend
 
-- Crear endpoint POST para agregar paciente de acuerdo a nivel de urgencia
 - Crear endpont GET para obtener lista de paciente ingresados al sistema
-- Crear endpoint PUT para actualizar **El estado de atención del paciente (En espera, siendo atendido, finalizado)**
-- Crear endpoint DELETE, este método debe hacer un soft-delete siempre y cuando estén dentro de los niveles III y IV del Protocolo de Manchester
+- **IMPORTANTE: Los pacientes deben ser organizados descendentemente de acuerdo a su clasificación dentro del Protocolo de Manchester**
 
 ### Frontend
 
 - Crear un componente de tabla en el que se enlisten todos los usuarios que ingresan al sistema
-- Renderizar la base de datos en la tabla, asignando los datos en filas y columna **IMPORTANTE: Los pacientes deben ser organizados de acuerdo a su clasificación dentro del Protocolo de Manchester**
+- Renderizar los datos obtendios de la petición GET que corresponde a la consulta de pacientes en el backend
