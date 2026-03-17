@@ -8,16 +8,20 @@
 > Quiero **poder visualizar los pacientes registrados ordenados por criticidad**,
 > Para **identificar los pacientes que requieren atención prioritaria**
 
-**Criterios de Aceptación (Gherkin):**
+**Criterios de Aceptación:**
 
 ```gherkin
-Funcionalidad: Registro de Usuario
+Funcionalidad: Lista de pacientes en el Dashboard
 
-  Escenario: Registro exitoso con credenciales válidas
-    Dado que el usuario está en la página de registro (/register)
-    Cuando el usuario ingresa su nombre completo
-    Y ingresa su correo electrónico
-    Entonces la cuenta se crea a través de Firebase Authentication
+  Escenario: Visualización de pacientes en el Dashboard
+    Dado que el personal médico está en la pantalla principal (/dashboard)
+    Cuando existen registros de pacientes con signos vitales completos
+    Entonces sistema debe mostrar la tabla de pacientes ordenados por su nivel de criticidad descendente
+
+  Escenario: Estado vacío del Dashboard
+    Dado que el personal médico está en la pantalla principal (/dashboard)
+    Cuando no existen registros de pacientes en el sistema
+    Entonces el sistema muestra el texto "No hay pacientes en espera" en pantalla
 ```
 
 #### HU-006 — Texto de color por paciente del tiempo de espera transcurrido
