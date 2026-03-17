@@ -22,7 +22,7 @@ Funcionalidad: Registro de Usuario
 
 #### HU-006 — Texto de color por paciente del tiempo de espera transcurrido
 
-**Story Points:** 5 SP
+**Story Points:** 3 SP
 
 **Descripción:**
 
@@ -49,8 +49,8 @@ Funcionalidad: Registro de Usuario
 **Descripción:**
 
 > Como **Personal Médico**,
-> Quiero **Filtrar la lista de pacientes según las categorías del Protocolo Manchester**,
-> Para **Gestionar eficientemente la lista de pacientes organizandolos por su estado específico de urgencia**
+> Quiero **filtrar la lista de pacientes según las categorías del Protocolo Manchester**,
+> Para **gestionar eficientemente la lista de pacientes organizandolos por su estado específico de urgencia**
 
 **Criterios de Aceptación (Gherkin):**
 
@@ -66,13 +66,13 @@ Funcionalidad: Registro de Usuario
 
 #### HU-008 —  Cambio de estado del paciente
 
-**Story Points:** 3 SP
+**Story Points:** 5 SP
 
 **Descripción:**
 
 > Como **Personal Médico**,
-> Quiero **Gestionar los estados de atención en la lista de pacientes**,
-> Para **Modificar el estado de atención del paciente para obtener los pacientes en espera, los pacientes en atención y los pacientes atendidos**
+> Quiero **gestionar los estados de atención en la lista de pacientes (En Espera, Siendo Atendido y Finalizado)**,
+> Para **controlar el progreso de la atención médica y mantener actualizado el estatus de los pacientes en el dashboard**
 
 **Criterios de Aceptación (Gherkin):**
 
