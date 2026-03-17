@@ -63,3 +63,25 @@ Funcionalidad: Registro de Usuario
     Y ingresa su correo electrónico
     Entonces la cuenta se crea a través de Firebase Authentication
 ```
+
+#### HU-008 —  Cambio de estado del paciente
+
+**Story Points:** 3 SP
+
+**Descripción:**
+
+> Como **Personal Médico**,
+> Quiero **Gestionar los estados de atención en la lista de pacientes**,
+> Para **Modificar el estado de atención del paciente para obtener los pacientes en espera, los pacientes en atención y los pacientes atendidos**
+
+**Criterios de Aceptación (Gherkin):**
+
+```gherkin
+Funcionalidad: Registro de Usuario
+
+  Escenario: Registro exitoso con credenciales válidas
+    Dado que el usuario está en la página de registro (/register)
+    Cuando el usuario ingresa su nombre completo
+    Y ingresa su correo electrónico
+    Entonces la cuenta se crea a través de Firebase Authentication
+```
