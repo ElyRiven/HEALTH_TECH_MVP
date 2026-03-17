@@ -85,3 +85,24 @@ Funcionalidad: Registro de Usuario
     Y ingresa su correo electrónico
     Entonces la cuenta se crea a través de Firebase Authentication
 ```
+
+#### HU-009 —  Notificación de nuevo registro de paciente al personal médico disponible
+
+**Story Points:** 5 SP
+
+**Descripción:**
+
+> Como **Personal Médico**,
+> Quiero **notificar al personal médico del registro de un nuevo paciente**,
+> Para **indicar a los doctores disponibles que hay un nuevo paciente en espera**
+
+**Criterios de Aceptación (Gherki
+```gherkin
+Funcionalidad: Registro de Usuario
+
+  Escenario: Registro exitoso con credenciales válidas
+    Dado que el usuario está en la página de registro (/register)
+    Cuando el usuario ingresa su nombre completo
+    Y ingresa su correo electrónico
+    Entonces la cuenta se crea a través de Firebase Authentication
+```
