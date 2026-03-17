@@ -28,6 +28,12 @@ El sistema triage se orienta a la **clasificación de pacientes en un cuadro de 
 | NIvel 4| 🟢 Verde | El paciente presenta condiciones médicas que **no comprometen su estado general, ni representan un riesgo evidente para la vida** o pérdida de algún miembro u órgano. No obstante, el paciente presenta ciertos riesgos de complicación o secuelas de enfermedad si no recibe la atención correspondiente|
 | NIvel 5| 🔵 Azul | El paciente presenta una condición clínica relacionada con **problemas agudos o crónicos sin evidencia de deterioro que comprometa su estado general**, o represente un riesgo evidente para su vida a alguna funcionalidad de un órgano|
 
+### Restricciones del triage
+
+- El triage no puede ser empleado cómo mecanismo de negación para la atención de citas
+- El triage es realizado en el momento en el que el usuario llega al servicio de urgencias, el proceso de verificación de derechos del usuario se realizará posteriormente
+- Los prestadores de servicios de salud deben proporcionar información adecuada a los pacientes y acompañantes de sobre los recursos iniciales a emplear y el tiempo en el que serán atendidos
+- Para los triages IV y V, es importante que las entidades prestadoras de servicios de salud en concordancia con la infraestructura de servicios de atención, adelanten estrategias que **garanticen el acceso a los servicios conexos a los sistemas de urgencias, entre ellos, consulta general, especializada y prioritaria, servicios de apoyo diagnóstico, entre otros**
 
 
 ## Objetivos
