@@ -106,3 +106,24 @@ Funcionalidad: Registro de Usuario
     Y ingresa su correo electrónico
     Entonces la cuenta se crea a través de Firebase Authentication
 ```
+
+#### HU-010 —  Alerta sonora inmediata para ingresos Nivel 1 y 2 (Rojo y Naranja)
+
+**Story Points:** 5 SP
+
+**Descripción:**
+
+> Como **Médico**,
+> Quiero **recibir una notificación sonora cuando se registre un nuevo paciente para los niveles 1 y 2**,
+> Para **priorizar la atención de pacientes con criticidad alta**
+
+**Criterios de Aceptación (Gherki
+```gherkin
+Funcionalidad: Registro de Usuario
+
+  Escenario: Registro exitoso con credenciales válidas
+    Dado que el usuario está en la página de registro (/register)
+    Cuando el usuario ingresa su nombre completo
+    Y ingresa su correo electrónico
+    Entonces la cuenta se crea a través de Firebase Authentication
+```
