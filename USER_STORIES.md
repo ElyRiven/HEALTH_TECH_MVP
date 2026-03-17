@@ -22,7 +22,7 @@ Funcionalidad: Registro de Usuario
 
 #### HU-006 — Texto de color por paciente del tiempo de espera transcurrido
 
-**Story Points:** 3 SP
+**Story Points:** 5 SP
 
 **Descripción:**
 
@@ -130,7 +130,7 @@ Funcionalidad: Registro de Usuario
 
 #### HU-011 —  Alerta visual por superación de tiempo máximo de espera según categoría
 
-**Story Points:** 3 SP
+**Story Points:** 5 SP
 
 **Descripción:**
 
