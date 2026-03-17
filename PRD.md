@@ -34,8 +34,7 @@ El sistema triage se orienta a la **clasificación de pacientes en un cuadro de 
 - El triage es realizado en el momento en el que el usuario llega al servicio de urgencias, el proceso de verificación de derechos del usuario se realizará posteriormente
 - Los prestadores de servicios de salud deben proporcionar información adecuada a los pacientes y acompañantes de sobre los recursos iniciales a emplear y el tiempo en el que serán atendidos
 - Para los triages IV y V, es importante que las entidades prestadoras de servicios de salud en concordancia con la infraestructura de servicios de atención, adelanten estrategias que **garanticen el acceso a los servicios conexos a los sistemas de urgencias, entre ellos, consulta general, especializada y prioritaria, servicios de apoyo diagnóstico, entre otros**
-
-
+s
 ## Objetivos
 
 ### Estandarización Clínica
