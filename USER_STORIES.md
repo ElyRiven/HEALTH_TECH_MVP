@@ -37,13 +37,13 @@ Funcionalidad: Lista de pacientes en el Dashboard
 **Criterios de Aceptación (Gherkin):**
 
 ```gherkin
-Funcionalidad: Registro de Usuario
+Funcionalidad: Texto de color de tiempo de espera transcurrido
 
-  Escenario: Registro exitoso con credenciales válidas
-    Dado que el usuario está en la página de registro (/register)
-    Cuando el usuario ingresa su nombre completo
-    Y ingresa su correo electrónico
-    Entonces la cuenta se crea a través de Firebase Authentication
+  Escenario: Texto de color Rojo en registros de criticidad "Emergencia"
+    Dado que el personal médico está en la pantalla principal (/dashboard)
+    Y se registra un nuevo paciente con criticidad "Emergencia"
+    Cuando el nuevo registro aparece en la tabla del Dasbhoard
+    Entonces el texto de la columna "Tiempo en espera" debe aparecer de color rojo, indicando necesidad de atención inmediata
 ```
 
 #### HU-007 —  Filtrado de Dashboard por nivel de criticidad
