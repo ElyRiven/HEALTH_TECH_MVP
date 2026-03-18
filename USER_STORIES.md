@@ -221,6 +221,13 @@ Funcionalidad: Cambio de estado del paciente
     Cuando se hace click en el botón "Asignar médico"
     Entonces la columna "Estado" muestra el texto "Siendo Atendido"
     Y aparece un botón con el texto "Finalizar cita" al lado derecho del registro
+
+  Escenario: Finalización de atención médica de un paciente
+    Dado que el personal médico está en el Dashboard (/dashboard)
+    Y existe un registro de paciente con estado "Siendo Atendido"
+    Cuando se hace click en el botón "Finalizar cita"
+    Entonces la columna "Estado" muestra el texto "Finalizado"
+    Y no aparece ningún botón al lado derecho del registro
 ```
 
 ### HU-009 — Notificación visual de nuevo registro de paciente al personal médico disponible
