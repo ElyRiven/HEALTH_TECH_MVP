@@ -22,7 +22,7 @@ Funcionalidad: Registro de Paciente
 
   Escenario: Registro falla cuando los campos obligatorios están vacíos
     Dado que el personal médico está en el formulario de registro de paciente
-    Cuando ingresa nombres, apellidos, fecha de nacimiento y genero en el formulario
+    Cuando omite el ingreso del campo identificación del formulario
     Y selecciona el botón "Guardar Registro"
     Entonces el sistema muestra un mensaje de error en el formulario
     Y el personal médico se mantiene en el formulario de registro de paciente
