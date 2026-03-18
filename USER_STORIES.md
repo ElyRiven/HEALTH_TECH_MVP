@@ -1,6 +1,6 @@
 # Definición de Historias de Usuario
 
-#### HU-001 - Registro de paciente en el sistema
+### HU-001 - Registro de paciente en el sistema
 
 **Descripción:**
 
@@ -20,7 +20,7 @@ Funcionalidad: Registro de Usuario
     Entonces la cuenta se crea a través de Firebase Authentication
 ```
 
-#### HU-002 - Registro de constantes vitales de un paciente
+### HU-002 - Registro de constantes vitales de un paciente
 
 **Descripción:**
 
@@ -30,7 +30,7 @@ Funcionalidad: Registro de Usuario
 
 **Criterios de Aceptación (Gherkin):**
 
-#### HU-003 - Clasificación automatizada de criticidad de un paciente
+### HU-003 - Clasificación automatizada de criticidad de un paciente
 
 **Descripción:**
 
@@ -40,7 +40,17 @@ Funcionalidad: Registro de Usuario
 
 **Criterios de Aceptación (Gherkin):**
 
-#### HU-005 — Visualización de lista de pacientes ordenados por criticidad
+### HU-004 - Asignación visual de criticidad de un paciente
+
+**Descripción:**
+
+> Como **Personal Médico**,
+> Quiero **identificar visualmente la criticidad de los pacientes registrados en el sistema**,
+> Para **priorizar la atención de los casos más críticos**
+
+**Criterios de Aceptación (Gherkin):**
+
+### HU-005 — Visualización de lista de pacientes ordenados por criticidad
 
 **Story Points:** 3 SP
 
@@ -66,7 +76,7 @@ Funcionalidad: Lista de pacientes en el Dashboard
     Entonces el sistema muestra el texto "No hay pacientes en espera" en pantalla
 ```
 
-#### HU-006 — Texto de color por paciente del tiempo de espera transcurrido
+### HU-006 — Texto de color por paciente del tiempo de espera transcurrido
 
 **Story Points:** 5 SP
 
@@ -106,7 +116,7 @@ Funcionalidad: Texto de color de tiempo de espera transcurrido
     Entonces el texto de la columna "Tiempo en espera" debe aparecer de color verde
 ```
 
-#### HU-007 — Filtrado de Dashboard por nivel de criticidad
+### HU-007 — Filtrado de Dashboard por nivel de criticidad
 
 **Story Points:** 5 SP
 
@@ -128,7 +138,7 @@ Funcionalidad: Registro de Usuario
     Entonces la cuenta se crea a través de Firebase Authentication
 ```
 
-#### HU-008 — Cambio de estado del paciente
+### HU-008 — Cambio de estado del paciente
 
 **Story Points:** 5 SP
 
@@ -150,7 +160,7 @@ Funcionalidad: Registro de Usuario
     Entonces la cuenta se crea a través de Firebase Authentication
 ```
 
-#### HU-009 — Notificación visual de nuevo registro de paciente al personal médico disponible
+### HU-009 — Notificación visual de nuevo registro de paciente al personal médico disponible
 
 **Story Points:** 5 SP
 
@@ -172,7 +182,7 @@ Funcionalidad: Registro de Usuario
     Entonces la cuenta se crea a través de Firebase Authentication
 ```
 
-#### HU-010 — Alerta sonora inmediata para ingresos Nivel 1 y 2 (Rojo y Naranja)
+### HU-010 — Alerta sonora inmediata para ingresos Nivel 1 y 2 (Rojo y Naranja)
 
 **Story Points:** 3 SP
 
@@ -194,7 +204,7 @@ Funcionalidad: Registro de Usuario
     Entonces la cuenta se crea a través de Firebase Authentication
 ```
 
-#### HU-011 — Alerta visual por superación de tiempo máximo de espera según categoría
+### HU-011 — Alerta visual por superación de tiempo máximo de espera según categoría
 
 **Story Points:** 5 SP
 
