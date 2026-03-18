@@ -80,7 +80,7 @@ Funcionalidad: Clasificación automática de criticidad de pacientes
     Dado que el personal médico está en el Dashboard (/dashboard)
     Y que existen pacientes con sus constantes vitales registradas en el sistema
     Cuando el sistema procesa sus signos vitales en base al Protocolo Manchester
-    Entonces el sistema debe mostrar los registros de pacientes con su criticidad y color correspondiente
+    Entonces el sistema debe mostrar los registros de pacientes con el texto de su criticidad asignada
 ```
 
 ### HU-004 - Asignación visual de criticidad de un paciente
