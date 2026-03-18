@@ -8,7 +8,7 @@
 > Quiero **generar un nuevo paciente con sus datos personales en el sistema**,
 > Para **identificar de manera única al paciente**
 
-**Criterios de Aceptación (Gherkin):**
+**Criterios de Aceptación:**
 
 ```gherkin
 Funcionalidad: Registro de Paciente
@@ -43,7 +43,7 @@ Funcionalidad: Registro de Paciente
 > Quiero **registrar las constantes vitales de un paciente del sistema**,
 > Para **mantener un registro clínico preciso del estado inicial del paciente**
 
-**Criterios de Aceptación (Gherkin):**
+**Criterios de Aceptación:**
 
 ```gherkin
 Funcionalidad: Registro de Constantes Vitales
@@ -71,7 +71,17 @@ Funcionalidad: Registro de Constantes Vitales
 > Quiero **que el sistema procese las constantes vitales del paciente**,
 > Para **determinar automáticamente su nivel de prioridad clínica de acuerdo al Protocolo Manchester**
 
-**Criterios de Aceptación (Gherkin):**
+**Criterios de Aceptación:**
+
+```gherkin
+Funcionalidad: Clasificación automática de criticidad de pacientes
+
+  Escenario: Clasificación automática de criticidad de pacientes
+    Dado que el personal médico está en el Dashboard (/dashboard)
+    Y que existen pacientes con sus constantes vitales registradas en el sistema
+    Cuando el sistema procesa sus signos vitales en base al Protocolo Manchester
+    Entonces el sistema debe mostrar los registros de pacientes con su criticidad y color correspondiente
+```
 
 ### HU-004 - Asignación visual de criticidad de un paciente
 
