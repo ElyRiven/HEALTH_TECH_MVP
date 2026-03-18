@@ -13,14 +13,14 @@
 - Crear **Endpoint POST** (/api/v1/users/register) con los campos: **nombres, apellidos, fecha de nacimiento y genero** para hacer el registro de los usuarios
 **Story Points:** 3 SP
 
-- Crear componente UI **Registro de paciente** el cual sea un formulario en el que el **Personal Médico** ingresa los datos del inciso anterior
+- Crear componente UI **Registro de paciente** en url (/register) el cual sea un formulario en el que el **Personal Médico** ingresa los datos del inciso anterior
 **Story Points:** 2 SP
 
 - Crear elemento UI **Guardar Registro** dentro de componente **Registro de paciente** para guardar los datos del paciente
 **Story Points:** 1 SP
 
-- Crear componente UI de confirmación con el texto "Paciente registrado exitosamente"
-**Story Points:** 1 SP
+- Crear componente UI de confirmación con el texto "Paciente registrado exitosamente", este componente puede: redirigir al **formulario de registro de signos vitales**
+**Story Points:** 2 SP
 
 ### HU-002 - Registro de constantes vitales de un paciente
 
@@ -32,14 +32,17 @@
 
 ### Sub-tareas: DEV
 
-- Crear **Endpoint PUT** (/api/v1/users/update/{id}) para actualizar a **paciente** y añadir las condiciones médicas
+- Crear **Endpoint PUT** (/api/v1/users/update/{id}) para actualizar a **paciente** con los siguientes datos:  frecuencia cardiaca, frecuencia respiratoria, saturacion o2, temperatura, presion, nivel de conciencia y nivel de dolor
+**Story Points:** 3 SP
+
+- Crear compononente UI **Registro de constantes vitales**  el cual es un formulario con los campos: frecuencia cardiaca, frecuencia respiratoria, saturacion o2, temperatura, presion, nivel de conciencia y nivel de dolor
+**Story Points:** 3 SP
+
+- Crear elemento UI **Guardar** en componente **Registro de constantes vitales** para guardar registrar los datos vitales del paciente
 **Story Points:** 2 SP
 
-- añadir un componente UI **Registro de condiciones clínicas del paciente** para registrar las condiciones clínicas del paciente
-**Story Points:** 2 SP
-
-- Integra a componente UI con **Formulario de registro de paciente** para agregar la descripción de la condición del paciente
-**Story Points:** 2 SP
+- Crear componente UI de confirmación, que contenga el texto "Signos vitales registrados exitosamente", este componente debe tener un elemento que redirija al Dashboard Principal
+**Story Points:** 3 SP
 
 ### HU-003 - Clasificación automatizada de criticidad de un paciente
 
