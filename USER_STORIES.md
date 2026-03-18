@@ -15,7 +15,7 @@ Funcionalidad: Registro de Paciente
 
   Escenario: Registro exitoso de nuevo paciente con datos válidos
     Dado que el personal médico está en el formulario de registro de paciente
-    Cuando ingresa "<identificacion>", "<nombres>", "<apellidos>", "<fecha_nacimiento>" y <"genero"> en el formulario
+    Cuando ingresa "<identificacion>", "<nombres>", "<apellidos>", "<fecha_nacimiento>" y "<genero>" en el formulario
     Y selecciona el botón "Guardar Registro"
     Entonces el sistema debe mostrar un cuadro de confirmación con el texto "Paciente registrado exitosamente"
     Y redirige al personal médico al formulario de registro de signos vitales
@@ -29,7 +29,7 @@ Funcionalidad: Registro de Paciente
 
   Escenario: Registro falla cuando la identificación está duplicada
     Dado que el personal médico está en el formulario de registro de paciente
-    Cuando ingresa "<identificacion>", "<nombres>", "<apellidos>", "<fecha_nacimiento>" y <"genero"> en el formulario
+    Cuando ingresa "<identificacion>", "<nombres>", "<apellidos>", "<fecha_nacimiento>" y "<genero>" en el formulario
     Y selecciona el botón "Guardar Registro"
     Entonces el sistema muestra un mensaje de error en el formulario
     Y el personal médico se mantiene en el formulario de registro de paciente
@@ -108,10 +108,10 @@ Funcionalidad: Indicador visual del tiempo de espera
 
   Escenario: Visualización dinámica de texto de colores según el tiempo de espera transcurrido
     Dado que el personal médico está en el Dashboard principal (/dashboard)
-    Y que existe un paciente registrado con criticidad <"nivel_criticidad">
-    Y su tiempo de espera máximo es de <tiempo_max_espera> minutos
-    Cuando el tiempo transcurrido en espera es de <tiempo_transcurrido> minutos
-    Entonces el texto de la columna "Tiempo en espera" debe mostrarse de color <"color_texto">
+    Y que existe un paciente registrado con criticidad "<nivel_criticidad>"
+    Y su tiempo de espera máximo es de "<tiempo_max_espera>" minutos
+    Cuando el tiempo transcurrido en espera es de "<tiempo_transcurrido>" minutos
+    Entonces el texto de la columna "Tiempo en espera" debe mostrarse de color "<color_texto>"
 
     Ejemplos:
     | nivel_criticidad | tiempo_max_espera | tiempo_transcurrido | color_texto |
