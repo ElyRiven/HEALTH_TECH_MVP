@@ -292,14 +292,13 @@ Funcionalidad: Notificación sonora al registrar pacientes de criticidad alta
 > Quiero **recibir una notificación visual de que un paciente no ha sido atendido en el tiempo máximo de espera según el Protocolo Manchester**,
 > Para **priorizar la atención de pacientes que no han sido atendidos y requieren atención inmediata**
 
-\*\*Criterios de Aceptación (Gherki
+**Criterios de Aceptación:**
 
 ```gherkin
-Funcionalidad: Registro de Usuario
+Funcionalidad: Alerta visual por superación de tiempo de espera excedido
 
-  Escenario: Registro exitoso con credenciales válidas
-    Dado que el usuario está en la página de registro (/register)
-    Cuando el usuario ingresa su nombre completo
-    Y ingresa su correo electrónico
-    Entonces la cuenta se crea a través de Firebase Authentication
+  Escenario: Activación de alerta visual por tiempo de espera excedido
+    Dado que el médico se encuentra en el Dashboard (/dashboard)
+    Cuando un paciente ha superado su tiempo máximo de espera definido por su criticidad
+    Entonces el sistema muestra un cuadro de notificación en pantalla con el nombre, apellido y criticidad del paciente
 ```
