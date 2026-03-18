@@ -261,16 +261,15 @@ Funcionalidad: Notificación visual al registrar un nuevo paciente
 > Quiero **recibir una notificación sonora cuando se registre un nuevo paciente para los niveles 1 y 2**,
 > Para **priorizar la atención de pacientes con criticidad alta**
 
-\*\*Criterios de Aceptación (Gherki
+**Criterios de Aceptación:**
 
 ```gherkin
-Funcionalidad: Registro de Usuario
+Funcionalidad: Notificación sonora al registrar pacientes de criticidad alta
 
-  Escenario: Registro exitoso con credenciales válidas
-    Dado que el usuario está en la página de registro (/register)
-    Cuando el usuario ingresa su nombre completo
-    Y ingresa su correo electrónico
-    Entonces la cuenta se crea a través de Firebase Authentication
+  Escenario: Alerta sonora para pacientes con criticidad de nivel 1 (Emergencia)
+    Dado que el médico se encuentra en el Dashboard (/dashboard)
+    Cuando un paciente con criticidad "Emergencia" es registrado en el sistema
+    Entonces se reproduce un sonido de alerta distintivo
 ```
 
 ### HU-011 — Alerta visual por superación de tiempo máximo de espera según categoría
