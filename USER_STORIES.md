@@ -83,37 +83,27 @@ Funcionalidad: Lista de pacientes en el Dashboard
 **Descripción:**
 
 > Como **Personal Médico**,
-> Quiero **visualizar un texto de color (verde, amarillo o rojo) del tiempo transcurrido de un paciente desde su registro dependiendo de su criticidad**,
-> Para **optimizar el tiempo de atención al paciente deacuerdo a sus necesidades médicas**
+> Quiero **identificar visualmente mediante colores el estado del tiempo de espera de los pacientes**,
+> Para **optimizar el tiempo de atención al paciente deacuerdo a los tiempos máximos permitidos**
 
-**Criterios de Aceptación (Gherkin):**
+**Criterios de Aceptación:**
 
 ```gherkin
-Funcionalidad: Texto de color de tiempo de espera transcurrido
+Funcionalidad: Indicador visual del tiempo de espera
 
-  Escenario: Texto de color Rojo en registros de criticidad "Emergencia"
-    Dado que el personal médico está en la pantalla principal (/dashboard)
-    Y se registra un nuevo paciente con criticidad "Emergencia"
-    Cuando el nuevo registro aparece en la tabla del Dasbhoard
-    Entonces el texto de la columna "Tiempo en espera" debe aparecer de color rojo, indicando necesidad de atención inmediata
+  Escenario: Visualización dinámica de texto de colores según el tiempo de espera transcurrido
+    Dado que el personal médico está en el Dashboard principal (/dashboard)
+    Y que existe un paciente registrado con criticidad <"nivel_criticidad">
+    Y su tiempo de espera máximo es de <tiempo_max_espera> minutos
+    Cuando el tiempo transcurrido en espera es de <tiempo_transcurrido> minutos
+    Entonces el texto de la columna "Tiempo en espera" debe mostrarse de color <"color_texto">
 
-  Escenario: Texto de color Rojo en registros de pacientes
-    Dado que el personal médico está en la pantalla principal (/dashboard)
-    Y existen registros de pacientes en espera
-    Cuando la diferencia entre el tiempo máximo de espera y el tiempo registrado en el sistema es menor a 0
-    Entonces el texto de la columna "Tiempo en espera" debe aparecer de color rojo, indicando que el tiempo de espera máximo se ha cumplido
-
-  Escenario: Texto de color Amarillo en registros de pacientes
-    Dado que el personal médico está en la pantalla principal (/dashboard)
-    Y existen registros de pacientes en espera
-    Cuando la diferencia entre el tiempo máximo de espera y el tiempo registrado en el sistema es menor a 5 minutos
-    Entonces el texto de la columna "Tiempo en espera" debe aparecer de color amarillo, indicando que el tiempo de espera máximo está por cumplirse
-
-  Escenario: Texto de color Verde en registros de pacientes
-    Dado que el personal médico está en la pantalla principal (/dashboard)
-    Y existen registros de pacientes en espera
-    Cuando la diferencia entre el tiempo máximo de espera y el tiempo registrado en el sistema es mayor a 5 minutos
-    Entonces el texto de la columna "Tiempo en espera" debe aparecer de color verde
+    Ejemplos:
+    | nivel_criticidad | tiempo_max_espera | tiempo_transcurrido | color_texto |
+    | Emergencia       | 0                 | 1                   | Rojo        |
+    | Muy Urgente      | 10                | 11                  | Rojo        |
+    | Muy Urgente      | 10                | 6                   | Amarillo    |
+    | Muy Urgente      | 10                | 3                   | Verde       |
 ```
 
 ### HU-007 — Filtrado de Dashboard por nivel de criticidad
