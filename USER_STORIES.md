@@ -11,13 +11,14 @@
 **Criterios de Aceptación (Gherkin):**
 
 ```gherkin
-Funcionalidad: Registro de Usuario
+Funcionalidad: Registro de Paciente
 
-  Escenario: Registro exitoso con credenciales válidas
-    Dado que el usuario está en la página de registro (/register)
-    Cuando el usuario ingresa su nombre completo
-    Y hace clic en el botón "Crear Cuenta"
-    Entonces la cuenta se crea a través de Firebase Authentication
+  Escenario: Registro exitoso de nuevo paciente con datos válidos
+    Dado que el personal médico está en el formulario de registro de paciente
+    Cuando ingresa "<nombres>", "<apellidos>", "<fecha_nacimiento>" y <"genero"> en el formulario
+    Y selecciona el botón "Guardar Registro"
+    Entonces el sistema debe mostrar un cuadro de confirmación con el texto "Paciente registrado exitosamente"
+    Y redirige al personal médico al formulario de registro de signos vitales
 ```
 
 ### HU-002 - Registro de constantes vitales de un paciente
