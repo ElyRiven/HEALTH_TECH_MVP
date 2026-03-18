@@ -29,7 +29,7 @@ Funcionalidad: Registro de Paciente
 
   Escenario: Registro falla cuando la identificación está duplicada
     Dado que el personal médico está en el formulario de registro de paciente
-    Cuando ingresa identificacion, nombres, apellidos, fecha de nacimiento y genero en el formulario
+    Cuando ingresa una identificacion ya registrada en el sistema
     Y selecciona el botón "Guardar Registro"
     Entonces el sistema muestra un mensaje de error en el formulario
     Y el personal médico se mantiene en el formulario de registro de paciente
