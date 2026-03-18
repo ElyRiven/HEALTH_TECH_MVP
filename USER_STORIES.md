@@ -54,6 +54,13 @@ Funcionalidad: Registro de Constantes Vitales
     Y selecciona el botón "Guardar"
     Entonces el sistema debe mostrar un cuadro de confirmación con el texto "Signos vitales registrados exitosamente"
     Y redirige al personal médico al Dashboard principal
+
+  Escenario: Registro falla al ingresar valores fuera de rangos permitidos
+    Dado que el personal médico está en el formulario de signos vitales del paciente
+    Cuando ingresa el valor "<valor>" en el campo "<campo>"
+    Y selecciona el botón "Guardar"
+    Entonces el sistema muestra un mensaje de error en el formulario
+    Y el personal médico se mantiene en el formulario de signos vitales del paciente
 ```
 
 ### HU-003 - Clasificación automatizada de criticidad de un paciente
