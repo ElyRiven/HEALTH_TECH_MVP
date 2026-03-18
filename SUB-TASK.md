@@ -54,14 +54,14 @@
 
 ### Sub-tareas: DEV
 
-- Crear **Endpoint PUT** /api/v1/users/{id}/priority-assessment para procesar las constantes vitales del paciente
-**Story Points:** 2 SP
+- Tomar las constantes vitales del paciente registradas en el sistema
+- Procesar los signos vitales con base en el **Protocolo de Manchester**
+- Mostrar
 
 
 #### notas de Ellie
 
-- un formulario registra los datos básicos (HU-001): Nombres y apellidos, 
-- otro formulario 
+
 
 ### HU-004 - Asignación visual de criticidad de un paciente
 

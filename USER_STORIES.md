@@ -22,14 +22,14 @@ Funcionalidad: Registro de Paciente
 
   Escenario: Registro falla cuando los campos obligatorios están vacíos
     Dado que el personal médico está en el formulario de registro de paciente
-    Cuando ingresa "<nombres>", "<apellidos>", "<fecha_nacimiento>" y "<genero>" en el formulario
+    Cuando ingresa nombres, apellidos, fecha de nacimiento>" y genero en el formulario
     Y selecciona el botón "Guardar Registro"
     Entonces el sistema muestra un mensaje de error en el formulario
     Y el personal médico se mantiene en el formulario de registro de paciente
 
   Escenario: Registro falla cuando la identificación está duplicada
     Dado que el personal médico está en el formulario de registro de paciente
-    Cuando ingresa "<identificacion>", "<nombres>", "<apellidos>", "<fecha_nacimiento>" y "<genero>" en el formulario
+    Cuando ingresa identificacion, nombres, apellidos, fecha de nacimiento y genero en el formulario
     Y selecciona el botón "Guardar Registro"
     Entonces el sistema muestra un mensaje de error en el formulario
     Y el personal médico se mantiene en el formulario de registro de paciente
@@ -57,7 +57,7 @@ Funcionalidad: Registro de Constantes Vitales
 
   Escenario: Registro falla al ingresar valores fuera de rangos permitidos
     Dado que el personal médico está en el formulario de signos vitales del paciente
-    Cuando ingresa el valor "<valor>" en el campo "<campo>"
+    Cuando ingresa el valor valor en el campo "signos vitales"
     Y selecciona el botón "Guardar"
     Entonces el sistema muestra un mensaje de error en el formulario
     Y el personal médico se mantiene en el formulario de signos vitales del paciente
