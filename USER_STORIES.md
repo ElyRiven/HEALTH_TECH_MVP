@@ -22,7 +22,7 @@ Funcionalidad: Registro de Paciente
 
   Escenario: Registro falla cuando los campos obligatorios están vacíos
     Dado que el personal médico está en el formulario de registro de paciente
-    Cuando ingresa nombres, apellidos, fecha de nacimiento>" y genero en el formulario
+    Cuando ingresa nombres, apellidos, fecha de nacimiento y genero en el formulario
     Y selecciona el botón "Guardar Registro"
     Entonces el sistema muestra un mensaje de error en el formulario
     Y el personal médico se mantiene en el formulario de registro de paciente
@@ -206,13 +206,14 @@ Funcionalidad: Filtro en el Dasboard por criticidad
 **Criterios de Aceptación (Gherkin):**
 
 ```gherkin
-Funcionalidad: Registro de Usuario
+Funcionalidad: Cambio de estado del paciente
 
-  Escenario: Registro exitoso con credenciales válidas
-    Dado que el usuario está en la página de registro (/register)
-    Cuando el usuario ingresa su nombre completo
-    Y ingresa su correo electrónico
-    Entonces la cuenta se crea a través de Firebase Authentication
+  Escenario: Estado inicial de un paciente
+    Dado que el personal médico está en el Dashboard (/dashboard)
+    Y hay un nuevo paciente con signos vitales registrados
+    Cuando el registro aparece en el Dashboard
+    Entonces la columna "Estado" muestra el texto "En Espera"
+    Y aparece un botón con el texto "Asignar médico" al lado derecho del registro
 ```
 
 ### HU-009 — Notificación visual de nuevo registro de paciente al personal médico disponible
