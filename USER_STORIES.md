@@ -203,7 +203,7 @@ Funcionalidad: Filtro en el Dasboard por criticidad
 > Quiero **gestionar los estados de atención en la lista de pacientes (En Espera, Siendo Atendido y Finalizado)**,
 > Para **controlar el progreso de la atención médica y mantener actualizado el estatus de los pacientes en el dashboard**
 
-**Criterios de Aceptación (Gherkin):**
+**Criterios de Aceptación:**
 
 ```gherkin
 Funcionalidad: Cambio de estado del paciente
@@ -240,16 +240,15 @@ Funcionalidad: Cambio de estado del paciente
 > Quiero **recibir una notificación visual cuando se registre un nuevo paciente en el sistema**,
 > Para **gestionar eficientemente la atención de los pacientes en espera**
 
-\*\*Criterios de Aceptación (Gherki
+**Criterios de Aceptación:**
 
 ```gherkin
-Funcionalidad: Registro de Usuario
+Funcionalidad: Notificación visual al registrar un nuevo paciente
 
-  Escenario: Registro exitoso con credenciales válidas
-    Dado que el usuario está en la página de registro (/register)
-    Cuando el usuario ingresa su nombre completo
-    Y ingresa su correo electrónico
-    Entonces la cuenta se crea a través de Firebase Authentication
+  Escenario: Notificación visual de registro de nuevo paciente
+    Dado que el médico se encuentra en el Dashboard (/dashboard)
+    Cuando un nuevo paciente con signos vitales es registrado en el sistema
+    Entonces el sistema muestra un cuadro de notificación en pantalla
 ```
 
 ### HU-010 — Alerta sonora inmediata para ingresos Nivel 1 y 2 (Rojo y Naranja)
