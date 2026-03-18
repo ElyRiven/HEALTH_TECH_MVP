@@ -248,7 +248,7 @@ Funcionalidad: Notificación visual al registrar un nuevo paciente
   Escenario: Notificación visual de registro de nuevo paciente
     Dado que el médico se encuentra en el Dashboard (/dashboard)
     Cuando un nuevo paciente con signos vitales es registrado en el sistema
-    Entonces el sistema muestra un cuadro de notificación en pantalla
+    Entonces el sistema muestra un cuadro de notificación en pantalla con el nombre y apellido del paciente y su criticidad asignada
 ```
 
 ### HU-010 — Alerta sonora inmediata para ingresos Nivel 1 y 2 (Rojo y Naranja)
