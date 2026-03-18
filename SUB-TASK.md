@@ -10,41 +10,20 @@
 
 ## Sub-tareas: DEV
 
-### Backend
-
-- Crear el endpoint POST con el link (/register) con los siguientes datos: nombres y apellidos, criticidad, tiempo de espera
-
-formato JSON
-```
-{
-    "nombres": "Juan David",
-    "apellidos": "Franco Hernandez",
-    "criticidad": "🟡 Amarillo",
-    "tiempoDeEspera": "23 minutos",
-    "estado": "En espera"
-  }
-```
-
-- Generar el campo **criticidad**, para crear un botón de opciones con las siguientes campos
+- Crear **Endpoint POST** (/api/v1/users/register) con los campos: **nombres y apellidos, criticidad, tiempo de espera, estado** para hacer el registro de los usuarios
+- Modificar campo **criticidad** de acuerdo a las siguientes opciones
 
 | Indicador | Nivel de Criticidad |
 |-----------|---------------------|
-| 🔴 | MUY URGENTE |
-| 🟠 | URGENTE |
-| 🟢 | POCO URGENTE | 
-| 🔵 | NO URGENTE |
+| 🔴        | MUY URGENTE         |
+| 🟠        | URGENTE             |
+| 🟢        | POCO URGENTE        |
+| 🔵        | NO URGENTE          |
 
-el propósito de este botón es que el **Personal médico** haga una identificación del estado del páciente de acuerdo a sus condiciones terapeúticas de acuerdo al **Protocolo de Manchester**
+para clasificar al paciente dentro de **nivel de criticidad de acuerdo a las condiciones terapéuticas del paciente** de acuerdo al **Protocolo de Manchester**
 
-### Frontend
-
-- Crear un formulario en una página pagina (/register) con los siguientes campos: nombres y apellidos, criticidad, tiempo de espera
-- Generar el campo **criticidad**, a partir de la tabla del triage obtenida en el inciso anterior
-- Realizar un campo de **tiempo de espera** el cual activa un **contador en minutos** que registra el tiempo transcurrido entre la generación de la petición, hasta el cambio de estado en la consulta del paciente.
-- Hacer un botón llamado **Registrar Usuario** el cual haga el registro del usuario de manera única
-- Generar un componente de confirmación de **Usuario creado exitosamente**
-
-### Backend
+- Modificar el campo **Tiempo de espera** para *visualizar el tiempo transcurrido desde el ingreso del paciente al sistema hasta el cambio en el tiempo de atención del paciente*
+- Modificar el campo **estado** para *mostrar el estado de atención al paciente de acuerdo a su clasificación en el Sistema de Triage de Urgencias*
 
 
 ## HU-005 — Visualización de lista de pacientes ordenados por criticidad
