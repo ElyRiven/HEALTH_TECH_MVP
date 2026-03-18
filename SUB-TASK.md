@@ -1,5 +1,52 @@
 # Sub-task
 
+## HU-001 - Registro de paciente en el sistema
+
+**Descripción:**
+
+> Como **Personal Médico**,
+> Quiero **generar un nuevo paciente con sus datos personales en el sistema**,
+> Para **identificar de manera única al paciente**
+
+## Sub-tareas: DEV
+
+### Backend
+
+- Crear el endpoint POST con el link (/register) con los siguientes datos: nombres y apellidos, criticidad, tiempo de espera
+
+formato JSON
+```
+{
+    "nombres": "Juan David",
+    "apellidos": "Franco Hernandez",
+    "criticidad": "🟡 Amarillo",
+    "tiempoDeEspera": "23 minutos",
+    "estado": "En espera"
+  }
+```
+
+- Generar el campo **criticidad**, para crear un botón de opciones con las siguientes campos
+
+| Indicador | Nivel de Criticidad |
+|-----------|---------------------|
+| 🔴 | MUY URGENTE |
+| 🟠 | URGENTE |
+| 🟢 | POCO URGENTE | 
+| 🔵 | NO URGENTE |
+
+el propósito de este botón es que el **Personal médico** haga una identificación del estado del páciente de acuerdo a sus condiciones terapeúticas de acuerdo al **Protocolo de Manchester**
+
+### Frontend
+
+- Crear un formulario en una página pagina (/register) con los siguientes campos: nombres y apellidos, criticidad, tiempo de espera
+- Generar el campo **criticidad**, a partir de la tabla del triage obtenida en el inciso anterior
+- Realizar un campo de **tiempo de espera** el cual activa un **contador en minutos** que registra el tiempo transcurrido entre la generación de la petición, hasta el cambio de estado en la consulta del paciente.
+- Hacer un botón llamado **Registrar Usuario** el cual haga el registro del usuario de manera única
+- Generar un componente de confirmación de **Usuario creado exitosamente**
+
+### Backend
+
+
 ## HU-005 — Visualización de lista de pacientes ordenados por criticidad
 
 **Story Points:** 3 SP
@@ -9,6 +56,7 @@
 > Como **Personal Médico**,
 > Quiero **poder visualizar los pacientes registrados ordenados por criticidad**,
 > Para **identificar los pacientes que requieren atención prioritaria**
+
 
 ## Sub-tareas: DEV
 
@@ -72,10 +120,5 @@ formato JSON
 
 - La clasificación para la tabla de suario corresponde al siguiente 
 
-| Indicador | Nivel de Criticidad | Triage |
-|-----------|---------------------|--------|
-| 🔴 | MUY URGENTE | Nivel I |
-| 🟠 | URGENTE | Nivel II |
-| 🟢 | POCO URGENTE | Nivel III |
-| 🔵 | NO URGENTE | Nivel IV |
+
 
