@@ -175,16 +175,16 @@ Funcionalidad: Indicador visual del tiempo de espera
 > Quiero **filtrar la lista de pacientes según las categorías del Protocolo Manchester**,
 > Para **gestionar eficientemente la lista de pacientes organizandolos por su estado específico de urgencia**
 
-**Criterios de Aceptación (Gherkin):**
+**Criterios de Aceptación:**
 
 ```gherkin
-Funcionalidad: Registro de Usuario
+Funcionalidad: Filtro en el Dasboard por criticidad
 
-  Escenario: Registro exitoso con credenciales válidas
-    Dado que el usuario está en la página de registro (/register)
-    Cuando el usuario ingresa su nombre completo
-    Y ingresa su correo electrónico
-    Entonces la cuenta se crea a través de Firebase Authentication
+  Escenario: Filtro de pacientes por criticidad específica
+    Dado que el personal médico se encuentra en el Dashboard (/dashboard)
+    Y existen pacientes registrados con distintos niveles de criticidad
+    Cuando se selecciona el filtro de criticidad "Urgente"
+    Entonces el Dashboard debe mostrar solo los registros de pacientes con la criticidad seleccionada
 ```
 
 ### HU-008 — Cambio de estado del paciente
