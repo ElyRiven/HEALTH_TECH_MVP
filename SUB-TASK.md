@@ -55,13 +55,11 @@
 ### Sub-tareas: DEV
 
 - Tomar las constantes vitales del paciente registradas en el sistema
+**Story Points:** 3 SP
 - Procesar los signos vitales con base en el **Protocolo de Manchester**
-- Mostrar
-
-
-#### notas de Ellie
-
-
+**Story Points:** 3 SP
+- Crear componente UI "Registros de pacientes" para ver los registros existentes incluyendo criticidad asignada 
+**Story Points:** 3 SP
 
 ### HU-004 - Asignación visual de criticidad de un paciente
 
@@ -70,6 +68,8 @@
 > Como **Personal Médico**,
 > Quiero **identificar visualmente la criticidad de los pacientes registrados en el sistema**,
 > Para **priorizar la atención de los casos más críticos**
+
+
 
 - Modificar campo **criticidad** de acuerdo a las siguientes opciones
 
@@ -94,40 +94,17 @@ para clasificar al paciente dentro de **nivel de criticidad de acuerdo a las con
 > Quiero **poder visualizar los pacientes registrados ordenados por criticidad**,
 > Para **identificar los pacientes que requieren atención prioritaria**
 
-
 ## Sub-tareas: DEV
 
-- Crear una base de datos de pacientes que llegan a una institución médica para ser atendidos por urgencias con los siguientes datos: nombres y apellidos, criticidad, tiempo de espera, de la siguiente forma
+- Crear **Endpoint GET** (/api/v1/users/register) para obtener la lista de pacientes 
+**Story Points:** 3 SP
 
-| Nombres| Apellidos | Criticidad | Tiempo de espera | Estado |
-|--------|--------------|---------|-------|-------|
-|Juan David | Franco Hernandez | 🟡 Amarillo | 23 minutos | En espera |
+- Crear componente UI **Lista de pacientes**, el cual sea una tabla que me permita ordenar descentenmente la lista de acuerdo a su orden de criticidad
 
-formato JSON
-```
-{
-    "nombres": "Juan David",
-    "apellidos": "Franco Hernandez",
-    "criticidad": "🟡 Amarillo",
-    "tiempoDeEspera": "23 minutos",
-    "estado": "En espera"
-  }
-```
-
-### Backend
-
-- Crear endpont GET para obtener lista de paciente ingresados al sistema
-- **IMPORTANTE: Los pacientes deben ser organizados descendentemente de acuerdo a su clasificación dentro del Protocolo de Manchester**
-- La organización del elemento se hace en el backend, no en el frontend
-
-### Frontend
-
-- Crear un componente de tabla en el que se enlisten todos los usuarios que ingresan al sistema
-- Renderizar los datos obtendios de la petición GET que corresponde a la consulta de pacientes en el backend
-
-## HU-006 — Texto de color por paciente del tiempo de espera transcurrido
 
 **Story Points:** 5 SP
+
+## HU-006 — Texto de color por paciente del tiempo de espera transcurrido
 
 **Descripción:**
 
