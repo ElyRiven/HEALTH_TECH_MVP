@@ -58,7 +58,7 @@ Funcionalidad: Registro de Constantes Vitales
 
   Escenario: Registro falla al ingresar valores fuera de rangos permitidos
     Dado que el personal médico está en el formulario de signos vitales del paciente
-    Cuando ingresa el valor valor en el campo "signos vitales"
+    Cuando ingresa valores fuera de los rangos permitidos por el sistema
     Y selecciona el botón "Guardar"
     Entonces el sistema muestra un mensaje de error en el formulario
     Y el personal médico se mantiene en el formulario de signos vitales del paciente
