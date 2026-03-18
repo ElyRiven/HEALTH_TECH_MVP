@@ -270,6 +270,11 @@ Funcionalidad: Notificación sonora al registrar pacientes de criticidad alta
     Dado que el médico se encuentra en el Dashboard (/dashboard)
     Cuando un paciente con criticidad "Emergencia" es registrado en el sistema
     Entonces se reproduce un sonido de alerta distintivo
+
+  Escenario: Alerta sonora para pacientes con criticidad de nivel 2 (Muy Urgente)
+    Dado que el médico se encuentra en el Dashboard (/dashboard)
+    Cuando un paciente con criticidad "Muy Urgente" es registrado en el sistema
+    Entonces se reproduce un sonido de alerta distintivo
 ```
 
 ### HU-011 — Alerta visual por superación de tiempo máximo de espera según categoría
