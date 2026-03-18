@@ -26,6 +26,13 @@ Funcionalidad: Registro de Paciente
     Y selecciona el botón "Guardar Registro"
     Entonces el sistema muestra un mensaje de error en el formulario
     Y el personal médico se mantiene en el formulario de registro de paciente
+
+  Escenario: Registro falla cuando la identificación está duplicada
+    Dado que el personal médico está en el formulario de registro de paciente
+    Cuando ingresa "<identificacion>", "<nombres>", "<apellidos>", "<fecha_nacimiento>" y <"genero"> en el formulario
+    Y selecciona el botón "Guardar Registro"
+    Entonces el sistema muestra un mensaje de error en el formulario
+    Y el personal médico se mantiene en el formulario de registro de paciente
 ```
 
 ### HU-002 - Registro de constantes vitales de un paciente
