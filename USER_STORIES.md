@@ -51,6 +51,7 @@ Funcionalidad: Registro de Constantes Vitales
   Escenario: Registro exitoso de constantes vitales válidas de un paciente
     Dado que el personal médico está en el formulario de signos vitales del paciente
     Cuando ingresa frecuencia cardiaca, frecuencia respiratoria, saturacion o2, temperatura, presion, nivel de conciencia y nivel de dolor en el formulario
+    Y todos los campos contienen información válida en el sistema
     Y selecciona el botón "Guardar"
     Entonces el sistema debe mostrar un cuadro de confirmación con el texto "Signos vitales registrados exitosamente"
     Y redirige al personal médico al Dashboard principal
