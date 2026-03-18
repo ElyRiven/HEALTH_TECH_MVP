@@ -214,6 +214,13 @@ Funcionalidad: Cambio de estado del paciente
     Cuando el registro aparece en el Dashboard
     Entonces la columna "Estado" muestra el texto "En Espera"
     Y aparece un botón con el texto "Asignar médico" al lado derecho del registro
+
+  Escenario: Inicio de atención médica de un paciente
+    Dado que el personal médico está en el Dashboard (/dashboard)
+    Y existe un registro de paciente con estado "En Espera"
+    Cuando se hace click en el botón "Asignar médico"
+    Entonces la columna "Estado" muestra el texto "Siendo Atendido"
+    Y aparece un botón con el texto "Finalizar cita" al lado derecho del registro
 ```
 
 ### HU-009 — Notificación visual de nuevo registro de paciente al personal médico disponible
