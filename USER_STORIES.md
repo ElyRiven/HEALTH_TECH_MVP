@@ -101,6 +101,12 @@ Funcionalidad: Asignación visual de colores en el texto
     Y existen pacientes que ya han sido clasificados por el sistema
     Cuando el personal médico revisa la tabla de pacientes en espera
     Entonces cada registro de paciente debe mostrar el texto de su nivel de criticidad en su color correspondiente
+
+  Escenario: Identificación visual de criticidad "Emergencia"
+    Dado que el personal médico se encuentra en el Dashboard (/dashboard)
+    Y que un paciente ha sido clasificado como "Emergencia"
+    Cuando el registro está visible en el Dashboard
+    Entonces el texto de la columna "Criticidad" debe mostrarse en color rojo
 ```
 
 ### HU-005 — Visualización de lista de pacientes ordenados por criticidad
