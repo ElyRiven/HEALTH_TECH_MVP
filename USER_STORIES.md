@@ -20,13 +20,23 @@ Funcionalidad: Registro de Usuario
     Entonces la cuenta se crea a través de Firebase Authentication
 ```
 
-### HU-002 - Registro de constantes vitales de un paciente
+#### HU-002 - Registro de constantes vitales de un paciente
 
 **Descripción:**
 
 > Como **Personal Médico**,
 > Quiero **registrar las constantes vitales de un paciente del sistema**,
 > Para **mantener un registro clínico preciso del estado inicial del paciente**
+
+**Criterios de Aceptación (Gherkin):**
+
+#### HU-003 - Clasificación automatizada de criticidad de un paciente
+
+**Descripción:**
+
+> Como **Personal Médico**,
+> Quiero **que el sistema procese las constantes vitales del paciente**,
+> Para **determinar automáticamente su nivel de prioridad clínica de acuerdo al Protocolo Manchester**
 
 **Criterios de Aceptación (Gherkin):**
 
