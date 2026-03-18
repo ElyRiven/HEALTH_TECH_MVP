@@ -15,10 +15,17 @@ Funcionalidad: Registro de Paciente
 
   Escenario: Registro exitoso de nuevo paciente con datos válidos
     Dado que el personal médico está en el formulario de registro de paciente
-    Cuando ingresa "<nombres>", "<apellidos>", "<fecha_nacimiento>" y <"genero"> en el formulario
+    Cuando ingresa "<identificacion>", "<nombres>", "<apellidos>", "<fecha_nacimiento>" y <"genero"> en el formulario
     Y selecciona el botón "Guardar Registro"
     Entonces el sistema debe mostrar un cuadro de confirmación con el texto "Paciente registrado exitosamente"
     Y redirige al personal médico al formulario de registro de signos vitales
+
+  Escenario: Registro falla cuando los campos obligatorios están vacíos
+    Dado que el personal médico está en el formulario de registro de paciente
+    Cuando ingresa "<nombres>", "<apellidos>", "<fecha_nacimiento>" y "<genero>" en el formulario
+    Y selecciona el botón "Guardar Registro"
+    Entonces el sistema muestra un mensaje de error en el formulario
+    Y el personal médico se mantiene en el formulario de registro de paciente
 ```
 
 ### HU-002 - Registro de constantes vitales de un paciente
