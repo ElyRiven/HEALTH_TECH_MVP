@@ -45,6 +45,17 @@ Funcionalidad: Registro de Paciente
 
 **Criterios de Aceptación (Gherkin):**
 
+```gherkin
+Funcionalidad: Registro de Constantes Vitales
+
+  Escenario: Registro exitoso de constantes vitales válidas de un paciente
+    Dado que el personal médico está en el formulario de signos vitales del paciente
+    Cuando ingresa "<frecuencia_cardiaca>", "<frecuencia_respiratoria>", "<saturacion_o2>", "<temperatura>", "<presion>", "<nuvel_conciencia>" y "<nivel_dolor>" en el formulario
+    Y selecciona el botón "Guardar"
+    Entonces el sistema debe mostrar un cuadro de confirmación con el texto "Signos vitales registrados exitosamente"
+    Y redirige al personal médico al Dashboard principal
+```
+
 ### HU-003 - Clasificación automatizada de criticidad de un paciente
 
 **Descripción:**
