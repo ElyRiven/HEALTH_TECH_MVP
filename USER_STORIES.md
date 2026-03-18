@@ -185,6 +185,12 @@ Funcionalidad: Filtro en el Dasboard por criticidad
     Y existen pacientes registrados con distintos niveles de criticidad
     Cuando se selecciona el filtro de criticidad "Urgente"
     Entonces el Dashboard debe mostrar solo los registros de pacientes con la criticidad seleccionada
+
+  Escenario: Ausencia de registros al seleccionar un filtro
+    Dado que el personal médico se encuentra en el Dashboard (/dashboard)
+    Y no existen pacientes registrados con criticidad "Emergencia"
+    Cuando se selecciona el filtro de criticidad "Emergencia"
+    Entonces el Dashboard muestra el texto "No hay pacientes en esta categoría"
 ```
 
 ### HU-008 — Cambio de estado del paciente
