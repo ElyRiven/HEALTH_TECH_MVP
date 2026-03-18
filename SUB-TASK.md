@@ -10,30 +10,17 @@
 
 ### Sub-tareas: DEV
 
-- Crear **Endpoint POST** (/api/v1/users/register) con los campos: **nombres y apellidos, criticidad, tiempo de espera, estado** para hacer el registro de los usuarios
+- Crear **Endpoint POST** (/api/v1/users/register) con los campos: **nombres, apellidos, fecha de nacimiento y genero** para hacer el registro de los usuarios
 **Story Points:** 3 SP
 
-- Modificar campo **criticidad** de acuerdo a las siguientes opciones
-
-| Indicador | Nivel de Criticidad |
-|-----------|---------------------|
-| 🔴        | MUY URGENTE         |
-| 🟠        | URGENTE             |
-| 🟢        | POCO URGENTE        |
-| 🔵        | NO URGENTE          |
-
-para clasificar al paciente dentro de **nivel de criticidad de acuerdo a las condiciones terapéuticas del paciente** de acuerdo al **Protocolo de Manchester**
+- Crear componente UI **Registro de paciente** el cual sea un formulario en el que el **Personal Médico** ingresa los datos del inciso anterior
 **Story Points:** 2 SP
 
-- Modificar el campo **Tiempo de espera** para visualizar el tiempo transcurrido desde el ingreso del paciente al sistema hasta el cambio en el tiempo de atención del paciente
-**Story Points:** 2 SP
+- Crear elemento UI **Guardar Registro** dentro de componente **Registro de paciente** para guardar los datos del paciente
+**Story Points:** 1 SP
 
-- Modificar el campo **estado** para mostrar el estado de atención al paciente de acuerdo a su clasificación en el Sistema de Triage de Urgencias *(Atendido, En espera, Finalizado)*
-**Story Points:** 3 SP
-
-- Crear componente UI **Formulario de registro de paciente** para diligenciar la información del paciente teniendo en cuentas las condiciones anteriores
-en link (/register)
-**Story Points:** 3 SP
+- Crear componente UI de confirmación con el texto "Paciente registrado exitosamente"
+**Story Points:** 1 SP
 
 ### HU-002 - Registro de constantes vitales de un paciente
 
@@ -51,7 +38,7 @@ en link (/register)
 - añadir un componente UI **Registro de condiciones clínicas del paciente** para registrar las condiciones clínicas del paciente
 **Story Points:** 2 SP
 
-- Integra a componente UI con **Formulario de registro de paciente** para añadir la descripción de la condición del paciente
+- Integra a componente UI con **Formulario de registro de paciente** para agregar la descripción de la condición del paciente
 **Story Points:** 2 SP
 
 ### HU-003 - Clasificación automatizada de criticidad de un paciente
@@ -64,7 +51,35 @@ en link (/register)
 
 ### Sub-tareas: DEV
 
-- Crear Endpoint
+- Crear **Endpoint PUT** /api/v1/users/{id}/priority-assessment para procesar las constantes vitales del paciente
+**Story Points:** 2 SP
+
+
+#### notas de Ellie
+
+- un formulario registra los datos básicos (HU-001): Nombres y apellidos, 
+- otro formulario 
+
+### HU-004 - Asignación visual de criticidad de un paciente
+
+**Descripción:**
+
+> Como **Personal Médico**,
+> Quiero **identificar visualmente la criticidad de los pacientes registrados en el sistema**,
+> Para **priorizar la atención de los casos más críticos**
+
+- Modificar campo **criticidad** de acuerdo a las siguientes opciones
+
+| Indicador | Nivel de Criticidad |
+|-----------|---------------------|
+| 🔴        | MUY URGENTE         |
+| 🟠        | URGENTE             |
+| 🟢        | POCO URGENTE        |
+| 🔵        | NO URGENTE          |
+
+para clasificar al paciente dentro de **nivel de criticidad de acuerdo a las condiciones terapéuticas del paciente** de acuerdo al **Protocolo de Manchester**
+**Story Points:** 2 SP
+
 
 
 
