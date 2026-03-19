@@ -209,6 +209,8 @@
 
 ## HU-010 — Alerta sonora inmediata para ingresos Nivel 1 y 2 (Rojo y Naranja)
 
+**Story Points:** 5 SP
+
 **Descripción:**
 
 > Como **Médico**,
@@ -217,22 +219,15 @@
 
 ### Sub-tareas: DEV
 
-- Crear un componente UI con la **Notificación inmediata** para los niveles 1 y 2 de atención
-**Story Points:** 2 SP
-
-- Agregar una funcionalidad sonora al componente UI de atención inmediata, por cada nivel de atención
-**Story Points:** 5 SP
+- Agregar una funcionalidad sonora al componente UI de atención inmediata para los niveles de criticidad 1 y 2.
 
 ### Sub-tareas: QA
 
 - Diseño de matriz de datos de prueba para comprobar la ejecución de la alerta sonora para pacientes con criticidad alta.
-**Story Points:** 1 SP
 
-- Validación funcional de reproducción de sonido cuando se registre un paciente de criticidad alta en el sistema
-**Story Points:** 1 SP
+- Validación funcional de reproducción de sonido cuando se registre un paciente de criticidad alta en el sistema.
 
 - Automatización de los escenarios de prueba para verificar el comportamiento esperado de la alerta sonora.
-**Story Points:** 2 SP
 
 ## HU-011 — Alerta visual por superación de tiempo máximo de espera según categoría
 
