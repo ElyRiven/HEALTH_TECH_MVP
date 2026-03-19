@@ -91,8 +91,6 @@
 - Ejecución de prueba de caja blanca mediante el endpoint POST (/api/v1/vitals/register/{id}) que compruebe el proceso y asignación correcta de criticidad a un paciente registrado
 **Story Points:** 2 SP
 
-- Validación de UI en el Dashboard que muestre el texto de criticidad asignado al paciente procesado.
-**Story Points:** 1 SP
 
 ## HU-004 - Asignación visual de criticidad de un paciente
 
@@ -113,6 +111,11 @@
 
 para clasificar al paciente dentro de **nivel de criticidad de acuerdo a las condiciones terapéuticas del paciente** de acuerdo al **Protocolo de Manchester**
 **Story Points:** 2 SP
+
+### Sub-tareas: QA
+
+- Validación de UI en el Dashboard que muestre el texto de criticidad en su color correspondiente según el Protocolo Manchester
+**Story Points:** 1 SP
 
 ## HU-005 — Visualización de lista de pacientes ordenados por criticidad
 
