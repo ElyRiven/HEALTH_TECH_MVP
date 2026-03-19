@@ -191,6 +191,8 @@
 
 ## HU-009 — Notificación visual de nuevo registro de paciente al personal médico disponible
 
+**Story Points:** 2 SP
+
 **Descripción:**
 
 > Como **Médico**,
@@ -199,14 +201,11 @@
 
 ### Sub-tareas: DEV
 
-- Crear un elemento UI **Paciente registrado** en la página (/dashboard) el cual contenga los siguientes datos **Nombres, Apellidos, Criticidad, Estado de atención** para notificar a **Médico** del ingreso exitoso de un paciente al sistema
-
-**Story Points:** 5 SP
+- Crear un elemento UI **Paciente registrado** en la página (/dashboard) el cual contenga los siguientes datos **Nombre, Apellido y Criticidad** para notificar a **Médico** del registro exitoso de un paciente al sistema
 
 ### Sub-tareas: QA
 
 - Validación de UI para comprobar que la notificación que se muestra en pantalla contenga los datos del paciente.
-**Story Points:** 1 SP
 
 ## HU-010 — Alerta sonora inmediata para ingresos Nivel 1 y 2 (Rojo y Naranja)
 
