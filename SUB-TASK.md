@@ -210,7 +210,7 @@ para dar un indicador del nivel de prioridad del paciente de acuerdo a su clasif
 - Automatizar script de UI que compruebe los escenarios definidos para validar el correcto funcionamiento del filtro.
 **Story Points:** 2 SP
 
-### HU-008 — Cambio de estado del paciente
+## HU-008 — Cambio de estado del paciente
 
 **Descripción:**
 
@@ -235,6 +235,16 @@ Con las siguientes especificaciones
 
 **Story Points:** 5 SP
 
+### Sub-tareas: QA
+
+- Definición de matriz de estados del paciente y su comportamiento esperado en el sistema.
+**Story Points**: 1 SP
+
+- Verificación de UI para comprobar que el Dashboard muestra u oculta los botones correspondientes dependiendo del estado del paciente.
+**Story Points:** 1 SP
+
+- Automatización de los escenarios de prueba definidos para validar el comportamiento del sistema según el estado del paciente.
+
 ### HU-009 — Notificación visual de nuevo registro de paciente al personal médico disponible
 
 **Descripción:**
@@ -248,38 +258,3 @@ Con las siguientes especificaciones
 - Crear un elemento UI **Paciente registrado** en la página (/dashboard) el cual contenga los siguientes datos **Nombres, Apellidos, Criticidad, Estado de atención** para notificar a **Médico** del ingreso exitoso de un paciente al sistema
 
 **Story Points:** 5 SP
-
-### HU-010 — Alerta sonora inmediata para ingresos Nivel 1 y 2 (Rojo y Naranja)
-
-**Descripción:**
-
-> Como **Médico**,
-> Quiero **recibir una notificación sonora cuando se registre un nuevo paciente para los niveles 1 y 2**,
-> Para **priorizar la atención de pacientes con criticidad alta**
-
-### Sub-tareas: DEV
-
-- Crear un componente UI con la **Notificación inmediata** para los niveles 1 y 2 de atención
-**Story Points:** 2 SP
-
-- Agregar una funcionalidad sonora al componente UI de atención inmediata, por cada nivel de atención
-**Story Points:** 5 SP
-
-
-## HU-011 — Alerta visual por superación de tiempo máximo de espera según categoría
-
-**Story Points:** 3 SP
-
-**Descripción:**
-
-> Como **Médico**,
-> Quiero **recibir una notificación visual de que un paciente no ha sido atendido en el tiempo máximo de espera según el Protocolo Manchester**,
-> Para **priorizar la atención de pacientes que no han sido atendidos y requieren atención inmediata**
-
-### Sub-tareas: DEV
-
-- Agregar visualización a componente **Notificación inmediata** con mensaje **Paciente ingresado "Nombres y apellidos" atención inmediata -Nivel 1** para los pacientes de Nivel I de atención.
-**Story Points:** 3 SP
-
-- Agregar visualización a componente **Notificación inmediata** con mensaje **Paciente ingresado "Nombres y apellidos" secundaria - Nivel 2** para notificar de cuando llega un paciente dentro de los niveles 1 0 2
-**Story Points:** 3 SP
