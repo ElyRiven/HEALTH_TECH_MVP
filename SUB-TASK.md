@@ -210,7 +210,7 @@ para dar un indicador del nivel de prioridad del paciente de acuerdo a su clasif
 - Automatizar script de UI que compruebe los escenarios definidos para validar el correcto funcionamiento del filtro.
 **Story Points:** 2 SP
 
-### HU-008 — Cambio de estado del paciente
+## HU-008 — Cambio de estado del paciente
 
 **Descripción:**
 
@@ -235,9 +235,12 @@ Con las siguientes especificaciones
 
 **Story Points:** 5 SP
 
+### Sub-tareas: QA
+
+- Verificación de UI para comprobar que el Dashboard muestra u oculta los botones correspondientes dependiendo del estado del paciente.
+**Story Points:** 1 SP
+
 ### HU-009 — Notificación visual de nuevo registro de paciente al personal médico disponible
-
-
 
 **Descripción:**
 
