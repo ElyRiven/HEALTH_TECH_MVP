@@ -134,7 +134,7 @@ para clasificar al paciente dentro de **nivel de criticidad de acuerdo a las con
 
 **Story Points:** 5 SP
 
-### Sub-tareas: DEV
+### Sub-tareas: QA
 
 - Validación de UI en el Dashboard para comprobar que la lista de pacientes está ordenada por su criticidad descendentemente.
 **Story Points:** 2 SP
