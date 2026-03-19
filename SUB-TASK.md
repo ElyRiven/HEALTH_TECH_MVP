@@ -38,6 +38,8 @@
 - Validación manual del endpoint POST creado para confirmar la creación de registros en base de datos y respuestas semánticas correctas,
 **Story Points:** 1 SP
 
+- Automatización de los escenarios de prueba para verificar el correcto funcionamiento del registro de nuevos pacientes en el sistema.
+
 ## HU-002 - Registro de constantes vitales de un paciente
 
 **Descripción:**
