@@ -46,13 +46,13 @@
 - Crear **Endpoint PUT** (/api/v1/users/update/{id}) para actualizar a **paciente** con los siguientes datos:  frecuencia cardiaca, frecuencia respiratoria, saturacion o2, temperatura, presion, nivel de conciencia y nivel de dolor
 **Story Points:** 3 SP
 
-- Crear compononente UI **Registro de constantes vitales**  el cual es un formulario con los campos: frecuencia cardiaca, frecuencia respiratoria, saturacion o2, temperatura, presion, nivel de conciencia y nivel de dolor
+- Crear compononente UI **Registro de constantes vitales** el home (/dashboard) el cual es un formulario con los campos: frecuencia cardiaca, frecuencia respiratoria, saturacion o2, temperatura, presion, nivel de conciencia y nivel de dolor
 **Story Points:** 3 SP
 
-- Crear elemento UI **Guardar** en componente **Registro de constantes vitales** para guardar registrar los datos vitales del paciente
+- Crear elemento UI **Guardar** en componente  el home (/dashboard) **Registro de constantes vitales** para guardar registrar los datos vitales del paciente
 **Story Points:** 2 SP
 
-- Crear componente UI de confirmación, que contenga el texto "Signos vitales registrados exitosamente", este componente debe tener un elemento que redirija al Dashboard Principal
+- Crear componente UI de confirmación el home (/dashboard), que contenga el texto "Signos vitales registrados exitosamente", este componente debe tener un elemento que redirija al Dashboard Principal
 **Story Points:** 3 SP
 
 ### Sub-tareas: QA
