@@ -217,7 +217,7 @@ para dar un indicador del nivel de prioridad del paciente de acuerdo a su clasif
 > Quiero **gestionar los estados de atención en la lista de pacientes (En Espera, Siendo Atendido y Finalizado)**,
 > Para **controlar el progreso de la atención médica y mantener actualizado el estatus de los pacientes en el dashboard**
 
-- Crear un elemento UI **Cambiar Estado** en la página (/dashboard) para modificar el estado de atención del 
+- Crear un elemento UI **Cambiar Estado** en el home (/dashboard) para modificar el estado de atención del 
 **Estado de atención (En Espera, Siendo Atendido y Finalizado)** para modificar el estado de atención de los pacientes
 
 | Nombres | Apellidos | Criticidad | Tiempo de espera | **Estado de atención** |
