@@ -88,6 +88,9 @@
 - Diseño de matriz de decisión de criticidad en base a los signos vitales según el Protocolo Manchester
 **Story Points:** 3 SP
 
+- Ejecución de prueba de caja blanca mediante el endpoint POST (/api/v1/vitals/register/{id}) que compruebe el proceso y asignación correcta de criticidad a un paciente registrado
+**Story Points:** 2 SP
+
 ## HU-004 - Asignación visual de criticidad de un paciente
 
 **Descripción:**
