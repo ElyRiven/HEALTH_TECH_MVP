@@ -73,6 +73,8 @@
 - Validación manual del endpoint POST para verificar que el backend acepte únicamente valores permitidos.
 **Story Points:** 1 SP
 
+- Automatización de los escenarios de prueba para comprobar funcionamiento esperado en el registro de constantes vitales de un paciente.
+
 ## HU-003 - Clasificación automatizada de criticidad de un paciente
 
 **Descripción:**
