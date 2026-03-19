@@ -22,6 +22,14 @@
 - Crear componente UI de confirmación con el texto "Paciente registrado exitosamente", este componente puede: redirigir al **formulario de registro de signos vitales**
 **Story Points:** 2 SP
 
+### Sub-tareas: QA
+
+- Diseño de matriz de datos de prueba para los escenarios definidos en los criterios de aceptación.
+**Story Points:** 1 SP
+
+- Validación del formulario de UI que contenga los campos **identificación, nombres, apellidos, fecha de nacimiento y género**.
+**Story Points:** 1 SP
+
 ### HU-002 - Registro de constantes vitales de un paciente
 
 **Descripción:**
