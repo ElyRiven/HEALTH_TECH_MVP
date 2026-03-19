@@ -122,25 +122,9 @@ para clasificar al paciente dentro de **nivel de criticidad de acuerdo a las con
 
 ## Sub-tareas: DEV
 
-Para el cumplimiento de esta historia de usuario, tenemos en cuenta
+- Modificar el elemento UI **celda de paciente** en el componente **Lista de pacientes**
 
-| Nombres| Apellidos | **Criticidad** | Tiempo de espera | Estado |
+| Nombres| Apellidos | Criticidad | **Tiempo de espera** | Estado |
 |--------|--------------|---------|-------|-------|
-|Juan David | Franco Hernandez | **🟡 Amarillo** | 23 minutos | En espera |
-
-formato JSON
-```
-{
-    "nombres": "Juan David",
-    "apellidos": "Franco Hernandez",
-    "criticidad": "🟡 Amarillo", \\para el campo de la criticidad agregamos los siguientes colores 🔴 MUY URGENTE,
-    🟠 URGENTE, 🟢 POCO URGENTE
-    "tiempoDeEspera": "23 minutos",
-    "estado": "En espera"
-  }
-```
-
-- La clasificación para la tabla de suario corresponde al siguiente 
-
-
+|Juan David | Franco Hernandez | 🟢 POCO URGENTE | **23 minutos** | En espera |
 
