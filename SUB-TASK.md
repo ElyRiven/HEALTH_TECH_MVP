@@ -274,3 +274,21 @@ Con las siguientes especificaciones
 
 - Agregar una funcionalidad sonora al componente UI de atención inmediata, por cada nivel de atención
 **Story Points:** 5 SP
+
+## HU-011 — Alerta visual por superación de tiempo máximo de espera según categoría
+
+**Story Points:** 3 SP
+
+**Descripción:**
+
+> Como **Médico**,
+> Quiero **recibir una notificación visual de que un paciente no ha sido atendido en el tiempo máximo de espera según el Protocolo Manchester**,
+> Para **priorizar la atención de pacientes que no han sido atendidos y requieren atención inmediata**
+
+### Sub-tareas: DEV
+
+- Agregar visualización a componente **Notificación inmediata** con mensaje **Paciente ingresado "Nombres y apellidos" atención inmediata -Nivel 1** para los pacientes de Nivel I de atención.
+**Story Points:** 3 SP
+
+- Agregar visualización a componente **Notificación inmediata** con mensaje **Paciente ingresado "Nombres y apellidos" secundaria - Nivel 2** para notificar de cuando llega un paciente dentro de los niveles 1 0 2
+**Story Points:** 3 SP
