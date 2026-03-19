@@ -308,3 +308,8 @@ Con las siguientes especificaciones
 
 - Agregar visualización a componente **Notificación inmediata** con mensaje **Paciente ingresado "Nombres y apellidos" secundaria - Nivel 2** para notificar de cuando llega un paciente dentro de los niveles 1 0 2
 **Story Points:** 3 SP
+
+### Sub-tareas: QA
+
+- Automatización del escenario de prueba que permita verificar la visualización de la alerta en pantalla según los tiempos establecidos en la matriz de tiempos límite definida.
+**Story Points:** 2 SP
