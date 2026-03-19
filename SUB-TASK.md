@@ -282,6 +282,9 @@ Con las siguientes especificaciones
 
 ### Sub-tareas: QA
 
+- Diseño de matriz de datos de prueba para comprobar la ejecución de la alerta sonora para pacientes con criticidad alta.
+**Story Points:** 1 SP
+
 - Validación funcional de reproducción de sonido cuando se registre un paciente de criticidad alta en el sistema
 **Story Points:** 1 SP
 
