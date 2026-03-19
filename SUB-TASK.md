@@ -237,6 +237,9 @@ Con las siguientes especificaciones
 
 ### Sub-tareas: QA
 
+- Definición de matriz de estados del paciente y su comportamiento esperado en el sistema.
+**Story Points**: 1 SP
+
 - Verificación de UI para comprobar que el Dashboard muestra u oculta los botones correspondientes dependiendo del estado del paciente.
 **Story Points:** 1 SP
 
