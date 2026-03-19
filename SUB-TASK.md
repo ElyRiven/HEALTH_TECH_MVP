@@ -127,6 +127,8 @@
 
 ## HU-006 — Texto de color por paciente del tiempo de espera transcurrido
 
+**Story Points:** 5 SP
+
 **Descripción:**
 
 > Como **Personal Médico**,
@@ -135,25 +137,7 @@
 
 ### Sub-tareas: DEV
 
-- Modificar el elemento UI **celda de paciente**, dentro del home (/dashboard) en la columna **Tiempo de espera** en el componente **Lista de pacientes**, 
-
-| Nombres| Apellidos | Criticidad | **Tiempo de espera** | Estado de atención |
-|--------|--------------|---------|-------|-------|
-|Juan David | Franco Hernandez | 🟢 POCO URGENTE | **23 minutos** | En espera |
-
-de acuerdo a los siguientes criterios
-
-| Nivel | **Tiempo de espera** | Tiempo Máximo | Triage |
-|----|---|------|------| 
-| **Nivel 1** | <span style="color:red">**01 min**</span> | Inmediata | Atención inmediata (siempre rojo) |
-| **Nivel 2** | <span style="color:red">**35 min**</span> | 30 min | Atención del urgencia en máximo 30 minutos |
-| **Nivel 3** | <span style="color:red">**65 min**</span> | 40 min | El paciente requiere un examen complementario de urgencias pero se encuentra *estable* |
-| **Nivel 4** | <span style="color:orange">**130 min**</span> | 60 min | El paciente presenta una condición estable sin riesgo vital inmediato, puede ser remitido a otro especialista | 
-| **Nivel 5** | <span style="color:green">**40 min**</span> | 60 min | El paciente estable con problemas agudos o crónicos sin riesgo vital ni compromiso funcional evidente, se puede remitir a otro especialista |
-
-para dar un indicador del nivel de prioridad del paciente de acuerdo a su clasificación en el triage y en términos de su tiempo de espera
-
-**Story Points:** 5 SP
+- Modificar el elemento UI **fila de paciente**, dentro del home (/dashboard) en la columna **Tiempo de espera** en el componente **Lista de pacientes** para dar un indicador visual del nivel de prioridad del paciente de acuerdo a su clasificación definida en la matriz de tiempos límite.
 
 ### Sub-tareas: QA
 
@@ -162,6 +146,8 @@ para dar un indicador del nivel de prioridad del paciente de acuerdo a su clasif
 - Diseño de matriz de datos de prueba que permita comprobar el color del texto de tiempo de espera de los pacientes sin requerir esperas.
 
 - Validación de UI que compruebe que el color del texto de tiempo de espera de los pacientes cambie según la lógica de tiempos de espera.
+
+- Automatización de los escenarios de prueba para validar el comportamiento visual del elemento fila de paciente, en su columna "Tiempo de espera".
 
 ## HU-007 — Filtrado de Dashboard por nivel de criticidad
 
