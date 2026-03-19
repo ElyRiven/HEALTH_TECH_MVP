@@ -2,9 +2,10 @@
 
 ## Stack tecnológico
 
-- Frontend: Angular v20
-- Backend: NestJS v11
+- Frontend: React v19
+- Backend: NodeJS v22.14 + Express
 - Base de Datos: PostgreSQL v15
+- Automatización: SerenityBDD v4.2
 
 ## HU-001 - Registro de paciente en el sistema
 
@@ -22,7 +23,7 @@
 
 - Crear **Tabla de base datos** con nombre **pacientes** con los campos: **identificación, nombres, apellidos, fecha de nacimiento, genero, criticidad, tiempo de espera y estado**
 
-- Crear componente UI **Registro de paciente** en url (/register) el cual sea un formulario en el que el **Personal Médico** ingresa los datos del inciso anterior, excluyendo los campos  **criticidad, tiempo de espera y estado**
+- Crear componente UI **Registro de paciente** en url (/register) el cual sea un formulario en el que el **Personal Médico** ingresa los datos del inciso anterior, excluyendo los campos **criticidad, tiempo de espera y estado**
 
 - Crear elemento UI **Guardar Registro** dentro de componente **Registro de paciente** para guardar los datos del paciente
 
