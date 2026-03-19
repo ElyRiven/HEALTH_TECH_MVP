@@ -65,6 +65,8 @@
 
 ## HU-003 - Clasificación automatizada de criticidad de un paciente
 
+**Story Points:** 13 SP
+
 **Descripción:**
 
 > Como **Personal Médico**,
@@ -74,6 +76,7 @@
 ### Sub-tareas: DEV
 
 - Crear el algoritmo dentro del **endpoint POST** (/api/v1/vitals/register/{id}) que ejecute la clasificación de criticidad automática cuando se genere un nuevo registro en la tabla **Constantes vitales**
+
 - Actualiza el campo **criticidad** del paciente al que se le registraron los signos vitales con el resultado de la clasificación automática
 
 ### Sub-tareas: QA
