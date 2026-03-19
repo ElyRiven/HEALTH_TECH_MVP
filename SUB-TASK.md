@@ -258,3 +258,19 @@ Con las siguientes especificaciones
 - Crear un elemento UI **Paciente registrado** en la página (/dashboard) el cual contenga los siguientes datos **Nombres, Apellidos, Criticidad, Estado de atención** para notificar a **Médico** del ingreso exitoso de un paciente al sistema
 
 **Story Points:** 5 SP
+
+### HU-010 — Alerta sonora inmediata para ingresos Nivel 1 y 2 (Rojo y Naranja)
+
+**Descripción:**
+
+> Como **Médico**,
+> Quiero **recibir una notificación sonora cuando se registre un nuevo paciente para los niveles 1 y 2**,
+> Para **priorizar la atención de pacientes con criticidad alta**
+
+### Sub-tareas: DEV
+
+- Crear un componente UI con la **Notificación inmediata** para los niveles 1 y 2 de atención
+**Story Points:** 2 SP
+
+- Agregar una funcionalidad sonora al componente UI de atención inmediata, por cada nivel de atención
+**Story Points:** 5 SP
