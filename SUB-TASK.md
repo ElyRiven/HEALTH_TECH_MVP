@@ -13,30 +13,23 @@
 ### Sub-tareas: DEV
 
 - Crear **Endpoint POST** (/api/v1/pacients/register) con los campos: **identificación, nombres, apellidos, fecha de nacimiento y genero** para hacer el registro de los pacientes
-**Story Points:** 2 SP
+
 
 - Crear **Tabla de base datos** con nombre **pacientes** con los campos: **identificación, nombres, apellidos, fecha de nacimiento, genero, criticidad, tiempo de espera y estado**
-**Story Points:** 2 SP
 
 - Crear componente UI **Registro de paciente** en url (/register) el cual sea un formulario en el que el **Personal Médico** ingresa los datos del inciso anterior, excluyendo los campos  **criticidad, tiempo de espera y estado**
-**Story Points:** 2 SP
 
 - Crear elemento UI **Guardar Registro** dentro de componente **Registro de paciente** para guardar los datos del paciente
-**Story Points:** 1 SP
 
 - Crear componente UI de confirmación con el texto "Paciente registrado exitosamente", este componente debe: redirigir al **formulario de registro de signos vitales**
-**Story Points:** 2 SP
 
 ### Sub-tareas: QA
 
 - Diseño de matriz de datos de prueba para los escenarios definidos en los criterios de aceptación.
-**Story Points:** 2 SP
 
 - Validación del formulario de UI que contenga los campos **identificación, nombres, apellidos, fecha de nacimiento y género**.
-**Story Points:** 1 SP
 
 - Validación manual del endpoint POST creado para confirmar la creación de registros en base de datos y respuestas semánticas correctas,
-**Story Points:** 1 SP
 
 - Automatización de los escenarios de prueba para verificar el correcto funcionamiento del registro de nuevos pacientes en el sistema.
 
@@ -50,28 +43,21 @@
 
 ### Sub-tareas: DEV
 
-- Crear **Endpoint PUT** (/api/v1/users/update/{id}) para actualizar a **paciente** con los siguientes datos:  frecuencia cardiaca, frecuencia respiratoria, saturacion o2, temperatura, presion, nivel de conciencia y nivel de dolor
-**Story Points:** 2 SP
+- Crear **Endpoint POST** (/api/v1/vitals/register/{id}) para actualizar a **paciente** con los siguientes datos: frecuencia cardiaca, frecuencia respiratoria, saturacion o2, temperatura, presion, nivel de conciencia y nivel de dolor
 
-- Crear compononente UI **Registro de constantes vitales** el home (/dashboard) el cual es un formulario con los campos: frecuencia cardiaca, frecuencia respiratoria, saturacion o2, temperatura, presion, nivel de conciencia y nivel de dolor
-**Story Points:** 3 SP
+- Crear compononente UI **Registro de constantes vitales** dentor de la página (/vitals/{id}) el cual es un formulario con los campos: frecuencia cardiaca, frecuencia respiratoria, saturacion o2, temperatura, presion, nivel de conciencia y nivel de dolor
 
-- Crear elemento UI **Guardar** en componente  el home (/dashboard) **Registro de constantes vitales** para guardar registrar los datos vitales del paciente
-**Story Points:** 2 SP
+- Crear elemento UI **Guardar** en componente **Registro de constantes vitales** para registrar los datos vitales del paciente
 
-- Crear componente UI de confirmación el home (/dashboard), que contenga el texto "Signos vitales registrados exitosamente", este componente debe tener un elemento que redirija al Dashboard Principal
-**Story Points:** 3 SP
+- Crear componente UI de confirmación dentro de página (/vitals/{id}), que contenga el texto "Signos vitales registrados exitosamente", este componente debe tener un elemento que redirija al Dashboard Principal
 
 ### Sub-tareas: QA
 
 - Diseño de matriz de rangos válidos y límites que el sistema puede aceptar en los campos de acuerdo con el Protocolo Manchester.
-**Story Points:** 2 SP
 
 - Diseño de matriz de datos de prueba para comprobar la validación de datos en el formulario a través de los escenarios definidos.
-**Story Points:** 1 SP
 
 - Validación manual del endpoint POST para verificar que el backend acepte únicamente valores permitidos.
-**Story Points:** 1 SP
 
 - Automatización de los escenarios de prueba para comprobar funcionamiento esperado en el registro de constantes vitales de un paciente.
 
@@ -85,20 +71,14 @@
 
 ### Sub-tareas: DEV
 
-- Tomar las constantes vitales del paciente registradas en el sistema
-**Story Points:** 3 SP
-- Procesar los signos vitales con base en el **Protocolo de Manchester**
-**Story Points:** 3 SP
-- Crear componente UI "Registros de pacientes" el home (/dashboard) para ver los registros existentes incluyendo criticidad asignada 
-**Story Points:** 3 SP
+- Crear el algoritmo dentro del **endpoint POST** (/api/v1/vitals/register/{id}) que ejecute la clasificación de criticidad automática cuando se genere un nuevo registro en la tabla **Constantes vitales**
+- Actualiza el campo **criticidad** del paciente al que se le registraron los signos vitales con el resultado de la clasificación automática
 
 ### Sub-tareas: QA
 
 - Diseño de matriz de decisión de criticidad en base a los signos vitales según el Protocolo Manchester
-**Story Points:** 3 SP
 
 - Ejecución de prueba de caja blanca mediante el endpoint POST (/api/v1/vitals/register/{id}) que compruebe el proceso y asignación correcta de criticidad a un paciente registrado
-**Story Points:** 2 SP
 
 ## HU-004 - Asignación visual de criticidad de un paciente
 
@@ -118,12 +98,10 @@
 | 🔵        | NO URGENTE          |
 
 para clasificar al paciente dentro de **nivel de criticidad de acuerdo a las condiciones terapéuticas del paciente** de acuerdo al **Protocolo de Manchester**
-**Story Points:** 2 SP
 
 ### Sub-tareas: QA
 
 - Validación de UI en el Dashboard que muestre el texto de criticidad en su color correspondiente según el Protocolo Manchester
-**Story Points:** 1 SP
 
 ## HU-005 — Visualización de lista de pacientes ordenados por criticidad
 
@@ -136,19 +114,14 @@ para clasificar al paciente dentro de **nivel de criticidad de acuerdo a las con
 ### Sub-tareas: DEV
 
 - Crear **Endpoint GET** (/api/v1/users/register) para obtener la lista de pacientes 
-**Story Points:** 3 SP
 
 - Crear componente UI **Lista de pacientes**, ubicado en el home (/dashboard) el cual sea una tabla que me permita ordenar descentenmente la lista de acuerdo a su orden de criticidad
-
-**Story Points:** 5 SP
 
 ### Sub-tareas: QA
 
 - Validación de UI en el Dashboard para comprobar que la lista de pacientes está ordenada por su criticidad descendentemente.
-**Story Points:** 2 SP
 
 - Validación de UI en el Dashboard para comprobar que se muestra el mensaje correcto en ausencia de registros de pacientes.
-**Story Points:** 1 SP
 
 ## HU-006 — Texto de color por paciente del tiempo de espera transcurrido
 
@@ -183,13 +156,10 @@ para dar un indicador del nivel de prioridad del paciente de acuerdo a su clasif
 ### Sub-tareas: QA
 
 - Diseño de matriz de tiempos límite para cada nivel de criticidad siguiendo el Protocolo Manchester.
-**Story Points:** 1 SP
 
 - Diseño de matriz de datos de prueba que permita comprobar el color del texto de tiempo de espera de los pacientes sin requerir esperas.
-**Story Points:** 1 SP
 
 - Validación de UI que compruebe que el color del texto de tiempo de espera de los pacientes cambie según la lógica de tiempos de espera.
-**Story Points:** 1 SP
 
 ## HU-007 — Filtrado de Dashboard por nivel de criticidad
 
@@ -208,15 +178,11 @@ para dar un indicador del nivel de prioridad del paciente de acuerdo a su clasif
 |--------|--------------|---------|-------|-------|
 |Juan David | Franco Hernandez | **🟢 POCO URGENTE** | 23 minutos | En espera |
 
-**Story Points:** 5 SP
-
 ### Sub-tareas: QA
 
 - Validación de UI al aplicar el filtro de criticidad y que el Dashboard muestre solo los registros con la criticidad seleccionada.
-**Story Points:** 1 SP
 
 - Automatizar script de UI que compruebe los escenarios definidos para validar el correcto funcionamiento del filtro.
-**Story Points:** 2 SP
 
 ## HU-008 — Cambio de estado del paciente
 
@@ -241,18 +207,13 @@ Con las siguientes especificaciones
 | Siendo Atendido | Cambiar el estado de "En Espera" a "Siendo atendido" cuando el paciente ingresa a urgencias |
 | Finalizado | Cambiar el estado de "Siendo atendido" a "Finalizado" cuando el paciente ya ha sido atendido |
 
-**Story Points:** 5 SP
-
 ### Sub-tareas: QA
 
 - Definición de matriz de estados del paciente y su comportamiento esperado en el sistema.
-**Story Points**: 1 SP
 
 - Verificación de UI para comprobar que el Dashboard muestra u oculta los botones correspondientes dependiendo del estado del paciente.
-**Story Points:** 1 SP
 
 - Automatización de los escenarios de prueba definidos para validar el comportamiento del sistema según el estado del paciente.
-**Story Points:** 2 SP
 
 ## HU-009 — Notificación visual de nuevo registro de paciente al personal médico disponible
 
