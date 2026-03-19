@@ -183,7 +183,7 @@ para dar un indicador del nivel de prioridad del paciente de acuerdo a su clasif
 - Validación de UI que compruebe que el color del texto de tiempo de espera de los pacientes cambie según la lógica de tiempos de espera.
 **Story Points:** 1 SP
 
-### HU-007 — Filtrado de Dashboard por nivel de criticidad
+## HU-007 — Filtrado de Dashboard por nivel de criticidad
 
 **Descripción:**
 
@@ -201,6 +201,11 @@ para dar un indicador del nivel de prioridad del paciente de acuerdo a su clasif
 |Juan David | Franco Hernandez | **🟢 POCO URGENTE** | 23 minutos | En espera |
 
 **Story Points:** 5 SP
+
+### Sub-tareas: QA
+
+- Validación de UI al aplicar el filtro de criticidad y que el Dashboard muestre solo los registros con la criticidad seleccionada.
+**Story Points:** 1 SP
 
 ### HU-008 — Cambio de estado del paciente
 
