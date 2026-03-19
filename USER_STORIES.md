@@ -151,19 +151,20 @@ Funcionalidad: Lista de pacientes en el Dashboard
 ```gherkin
 Funcionalidad: Indicador visual del tiempo de espera
 
-  Escenario: Visualización dinámica de texto de colores según el tiempo de espera transcurrido
-    Dado que el personal médico está en el Dashboard principal (/dashboard)
-    Y que existe un paciente registrado con criticidad "<nivel_criticidad>"
-    Y su tiempo de espera máximo es de "<tiempo_max_espera>" minutos
-    Cuando el tiempo transcurrido en espera es de "<tiempo_transcurrido>" minutos
-    Entonces el texto de la columna "Tiempo en espera" debe mostrarse de color "<color_texto>"
+  Escenario: Visualización de texto de color rojo por tiempo de espera excedido
+    Dado que el personal médico está en el Dashboard (/dashboard)
+    Cuando un paciente ha superado su tiempo máximo de espera definido por su criticidad
+    Entonces el texto de la columna "Tiempo en espera" debe mostrarse de color rojo
 
-    Ejemplos:
-    | nivel_criticidad | tiempo_max_espera | tiempo_transcurrido | color_texto |
-    | Emergencia       | 0                 | 1                   | Rojo        |
-    | Muy Urgente      | 10                | 11                  | Rojo        |
-    | Muy Urgente      | 10                | 6                   | Amarillo    |
-    | Muy Urgente      | 10                | 3                   | Verde       |
+  Escenario: Visualización del texto de color amarillo por tiempo de espera cercano a excederse
+    Dado que el personal médico está en el Dashboard
+    Cuando la diferencia de su tiempo de espera máximo y el tiempo de espera transcurrido es menor a 5 minutos
+    Entonces el texto de la columna "Tiempo en espera" debe mostrarse de color amarillo
+
+  Escenario: Visualización del texto de color verde por tiempo de espera en su rango aceptable
+    Dado que el personal médico está en el Dashboard
+    Cuando la diferencia de su tiempo de espera máximo y el tiempo de espera transcurrido es mayor a 5 minutos
+    Entonces el texto de la columna "Tiempo en espera" debe mostrarse de color verde
 ```
 
 ### HU-007 — Filtrado de Dashboard por nivel de criticidad
