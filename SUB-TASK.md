@@ -123,7 +123,7 @@ para clasificar al paciente dentro de **nivel de criticidad de acuerdo a las con
 - Crear **Endpoint GET** (/api/v1/users/register) para obtener la lista de pacientes 
 **Story Points:** 3 SP
 
-- Crear componente UI **Lista de pacientes**, el cual sea una tabla que me permita ordenar descentenmente la lista de acuerdo a su orden de criticidad
+- Crear componente UI **Lista de pacientes**, ubicado en el home (/dashboard) el cual sea una tabla que me permita ordenar descentenmente la lista de acuerdo a su orden de criticidad
 
 **Story Points:** 5 SP
 
@@ -155,5 +155,25 @@ de acuerdo a los siguientes criterios
 
 para dar un indicador del nivel de prioridad del paciente de acuerdo a su clasificación en el triage y en términos de su tiempo de espera
 
-**Story Points:** 3 SP
+**Story Points:** 5 SP
 
+### HU-007 — Filtrado de Dashboard por nivel de criticidad
+
+**Descripción:**
+
+> Como **Personal Médico**,
+> Quiero **filtrar la lista de pacientes según las categorías del Protocolo Manchester**,
+> Para **gestionar eficientemente la lista de pacientes organizandolos por su estado específico de urgencia**
+
+### Sub-tareas: DEV
+
+- Crear un elemento de UI por encima del componente **Lista de pacientes** en la página (/dashboard) para filtrar por la colunmna 
+**Estado (En espera, siendo atendido, finalizado)** el cual es un *botón de opciones* para filtrar al paciente
+
+| Nombres| Apellidos | Criticidad | Tiempo de espera| **Estado** |
+|--------|--------------|---------|-------|-------|
+|Juan David | Franco Hernandez | 🟢 POCO URGENTE | 23 minutos | **En espera** |
+
+para obtener la lista de pacientes filtrados en términos del estado de atención en la institución
+
+**Story Points:** 5 SP
