@@ -80,7 +80,7 @@
 **Story Points:** 3 SP
 - Procesar los signos vitales con base en el **Protocolo de Manchester**
 **Story Points:** 3 SP
-- Crear componente UI "Registros de pacientes" para ver los registros existentes incluyendo criticidad asignada 
+- Crear componente UI "Registros de pacientes" el home (/dashboard) para ver los registros existentes incluyendo criticidad asignada 
 **Story Points:** 3 SP
 
 ### Sub-tareas: QA
@@ -90,7 +90,6 @@
 
 - Ejecución de prueba de caja blanca mediante el endpoint POST (/api/v1/vitals/register/{id}) que compruebe el proceso y asignación correcta de criticidad a un paciente registrado
 **Story Points:** 2 SP
-
 
 ## HU-004 - Asignación visual de criticidad de un paciente
 
@@ -152,7 +151,7 @@ para clasificar al paciente dentro de **nivel de criticidad de acuerdo a las con
 
 ### Sub-tareas: DEV
 
-- Modificar el elemento UI **celda de paciente**, en la columna **Tiempo de espera** en el componente **Lista de pacientes**, 
+- Modificar el elemento UI **celda de paciente**, dentro del home (/dashboard) en la columna **Tiempo de espera** en el componente **Lista de pacientes**, 
 
 | Nombres| Apellidos | Criticidad | **Tiempo de espera** | Estado de atención |
 |--------|--------------|---------|-------|-------|
@@ -193,7 +192,7 @@ para dar un indicador del nivel de prioridad del paciente de acuerdo a su clasif
 
 ### Sub-tareas: DEV
 
-- Crear un elemento de UI **Criticidad** en la página (/dashboard) para filtrar por la columna 
+- Crear un elemento de UI **Criticidad** en el home (/dashboard) para filtrar por la columna 
 **Criticidad (🔴 MUY URGENTE, 🟠 URGENTE, 🟢 POCO URGENTE, 🔵 NO URGENTE)** para filtrar al paciente por su nivel de criticidad
 
 | Nombres| Apellidos | **Criticidad** | Tiempo de espera| Estado de atención |
