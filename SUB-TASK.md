@@ -25,6 +25,14 @@
 
 - Configurar el campo `identificación` como identidad y primary key de la tabla.
 
+**Backend**
+
+- Crear **Endpoint POST** `/api/v1/pacients` con Express y gestionar código de estado semántico (201 creado, 409 identificación duplicada, 400 campos obligatorios faltantes).
+
+- Implementar validaciones de datos obligatorios y tipos de datos adecuados para los campos `identificación, nombres, apellidos, fecha de nacimiento, genero, hora de registro y estado`.
+
+- Aplicar valores por defecto en los campos: `hora de registro y estado` iguales a la hora del servidor y "En Espera" correspondientemente.
+
 ### Sub-tareas: QA
 
 - Diseño de matriz de datos de prueba para los escenarios definidos en los criterios de aceptación.
