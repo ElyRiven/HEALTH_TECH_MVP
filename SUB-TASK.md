@@ -19,15 +19,11 @@
 
 ### Sub-tareas: DEV
 
-- Crear **Endpoint POST** (/api/v1/pacients/register) con los campos: **identificación, nombres, apellidos, fecha de nacimiento y genero** para hacer el registro de los pacientes
+**Base de Datos**
 
-- Crear **Tabla de base datos** con nombre **pacientes** con los campos: **identificación, nombres, apellidos, fecha de nacimiento, genero, criticidad, tiempo de espera y estado**
+- Crear tabla `pacientes` con los campos `identificación, nombres, apellidos, fecha de nacimiento, genero, criticidad, hora de registro y estado`.
 
-- Crear componente UI **Registro de paciente** en url (/register) el cual sea un formulario en el que el **Personal Médico** ingresa los datos del inciso anterior, excluyendo los campos **criticidad, tiempo de espera y estado**
-
-- Crear elemento UI **Guardar Registro** dentro de componente **Registro de paciente** para guardar los datos del paciente
-
-- Crear componente UI de confirmación con el texto "Paciente registrado exitosamente", este componente debe: redirigir al **formulario de registro de signos vitales**
+- Configurar el campo `identificación` como identidad y primary key de la tabla.
 
 ### Sub-tareas: QA
 
