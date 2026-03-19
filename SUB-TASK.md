@@ -146,7 +146,7 @@ para clasificar al paciente dentro de **nivel de criticidad de acuerdo a las con
 
 - Modificar el elemento UI **celda de paciente**, en la columna **Tiempo de espera** en el componente **Lista de pacientes**, 
 
-| Nombres| Apellidos | Criticidad | **Tiempo de espera** | Estado |
+| Nombres| Apellidos | Criticidad | **Tiempo de espera** | Estado de atención |
 |--------|--------------|---------|-------|-------|
 |Juan David | Franco Hernandez | 🟢 POCO URGENTE | **23 minutos** | En espera |
 
@@ -174,14 +174,12 @@ para dar un indicador del nivel de prioridad del paciente de acuerdo a su clasif
 
 ### Sub-tareas: DEV
 
-- Crear un elemento de UI **Criticidad** por encima del componente **Lista de pacientes** en la página (/dashboard) para filtrar por la colunmna 
+- Crear un elemento de UI **Criticidad** en la página (/dashboard) para filtrar por la columna 
 **Criticidad (🔴 MUY URGENTE, 🟠 URGENTE, 🟢 POCO URGENTE, 🔵 NO URGENTE)** el cual es un *botón de opciones* para filtrar al paciente
 
-| Nombres| Apellidos | **Criticidad** | Tiempo de espera| Estado |
+| Nombres| Apellidos | **Criticidad** | Tiempo de espera| Estado de atención |
 |--------|--------------|---------|-------|-------|
 |Juan David | Franco Hernandez | **🟢 POCO URGENTE** | 23 minutos | En espera |
-
-para obtener la lista de pacientes filtrados en términos del estado de atención en la institución
 
 **Story Points:** 5 SP
 
@@ -193,5 +191,11 @@ para obtener la lista de pacientes filtrados en términos del estado de atenció
 > Quiero **gestionar los estados de atención en la lista de pacientes (En Espera, Siendo Atendido y Finalizado)**,
 > Para **controlar el progreso de la atención médica y mantener actualizado el estatus de los pacientes en el dashboard**
 
-**Story Points:** 5 SP
+- Crear un elemento de UI **Estado** en la página (/dashboard) para filtrar por la colunmna 
+**Estado de atención (En Espera, Siendo Atendido y Finalizado)** el cual es un *botón de opciones* para controlar el estado de atención de los pacientes
 
+| Nombres| Apellidos | Criticidad | Tiempo de espera | **Estado de atención** |
+|--------|--------------|---------|-------|-------|
+|Juan David | Franco Hernandez | 🟢 POCO URGENTE | 23 minutos | **En espera** |
+
+**Story Points:** 5 SP
