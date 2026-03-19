@@ -106,9 +106,11 @@
 
 ### Sub-tareas: DEV
 
-- Crear **Endpoint GET** (/api/v1/users/register) para obtener la lista de pacientes 
+- Crear **Endpoint GET** (/api/v1/pacients) para obtener la lista de pacientes
 
-- Crear componente UI **Lista de pacientes**, ubicado en el home (/dashboard) el cual sea una tabla que me permita ordenar descentenmente la lista de acuerdo a su orden de criticidad
+- Para **Endpoint GET** (/api/v1/pacients) ordenar la lista de pacientes descendentemente de acuerdo a su nivel de criticidad
+
+- Crear componente UI **Lista de pacientes**, ubicado en el home (/dashboard) el cual sea una tabla para cumplir con el punto anterior
 
 ### Sub-tareas: QA
 
