@@ -245,7 +245,7 @@ Con las siguientes especificaciones
 
 - Automatización de los escenarios de prueba definidos para validar el comportamiento del sistema según el estado del paciente.
 
-### HU-009 — Notificación visual de nuevo registro de paciente al personal médico disponible
+## HU-009 — Notificación visual de nuevo registro de paciente al personal médico disponible
 
 **Descripción:**
 
@@ -258,6 +258,11 @@ Con las siguientes especificaciones
 - Crear un elemento UI **Paciente registrado** en la página (/dashboard) el cual contenga los siguientes datos **Nombres, Apellidos, Criticidad, Estado de atención** para notificar a **Médico** del ingreso exitoso de un paciente al sistema
 
 **Story Points:** 5 SP
+
+### Sub-tareas: QA
+
+- Validación de UI para comprobar que la notificación que se muestra en pantalla contenga los datos del paciente.
+**Story Points:** 1 SP
 
 ### HU-010 — Alerta sonora inmediata para ingresos Nivel 1 y 2 (Rojo y Naranja)
 
