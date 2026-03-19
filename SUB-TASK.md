@@ -35,6 +35,8 @@
 
 ## HU-002 - Registro de constantes vitales de un paciente
 
+**Story Points:** 13 SP
+
 **Descripción:**
 
 > Como **Personal Médico**,
