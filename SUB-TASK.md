@@ -91,6 +91,9 @@
 - Ejecución de prueba de caja blanca mediante el endpoint POST (/api/v1/vitals/register/{id}) que compruebe el proceso y asignación correcta de criticidad a un paciente registrado
 **Story Points:** 2 SP
 
+- Validación de UI en el Dashboard que muestre el texto de criticidad asignado al paciente procesado.
+**Story Points:** 1 SP
+
 ## HU-004 - Asignación visual de criticidad de un paciente
 
 **Descripción:**
