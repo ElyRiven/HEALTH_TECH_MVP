@@ -264,7 +264,7 @@ Con las siguientes especificaciones
 - Validación de UI para comprobar que la notificación que se muestra en pantalla contenga los datos del paciente.
 **Story Points:** 1 SP
 
-### HU-010 — Alerta sonora inmediata para ingresos Nivel 1 y 2 (Rojo y Naranja)
+## HU-010 — Alerta sonora inmediata para ingresos Nivel 1 y 2 (Rojo y Naranja)
 
 **Descripción:**
 
@@ -279,6 +279,11 @@ Con las siguientes especificaciones
 
 - Agregar una funcionalidad sonora al componente UI de atención inmediata, por cada nivel de atención
 **Story Points:** 5 SP
+
+### Sub-tareas: QA
+
+- Validación funcional de reproducción de sonido cuando se registre un paciente de criticidad alta en el sistema
+**Story Points:** 1 SP
 
 ## HU-011 — Alerta visual por superación de tiempo máximo de espera según categoría
 
