@@ -33,7 +33,7 @@
 - Validación manual del endpoint POST creado para confirmar la creación de registros en base de datos y respuestas semánticas correctas,
 **Story Points:** 1 SP
 
-### HU-002 - Registro de constantes vitales de un paciente
+## HU-002 - Registro de constantes vitales de un paciente
 
 **Descripción:**
 
@@ -55,7 +55,18 @@
 - Crear componente UI de confirmación, que contenga el texto "Signos vitales registrados exitosamente", este componente debe tener un elemento que redirija al Dashboard Principal
 **Story Points:** 3 SP
 
-### HU-003 - Clasificación automatizada de criticidad de un paciente
+### Sub-tareas: QA
+
+- Diseño de matriz de rangos válidos y límites que el sistema puede aceptar en los campos de acuerdo con el Protocolo Manchester.
+**Story Points:** 2 SP
+
+- Diseño de matriz de datos de prueba para comprobar la validación de datos en el formulario a través de los escenarios definidos.
+**Story Points:** 1 SP
+
+- Validación manual del endpoint POST para verificar que el backend acepte únicamente valores permitidos.
+**Story Points:** 1 SP
+
+## HU-003 - Clasificación automatizada de criticidad de un paciente
 
 **Descripción:**
 
@@ -72,7 +83,12 @@
 - Crear componente UI "Registros de pacientes" para ver los registros existentes incluyendo criticidad asignada 
 **Story Points:** 3 SP
 
-### HU-004 - Asignación visual de criticidad de un paciente
+### Sub-tareas: QA
+
+- Diseño de matriz de decisión de criticidad en base a los signos vitales según el Protocolo Manchester
+**Story Points:** 3 SP
+
+## HU-004 - Asignación visual de criticidad de un paciente
 
 **Descripción:**
 
@@ -102,7 +118,7 @@ para clasificar al paciente dentro de **nivel de criticidad de acuerdo a las con
 > Quiero **poder visualizar los pacientes registrados ordenados por criticidad**,
 > Para **identificar los pacientes que requieren atención prioritaria**
 
-## Sub-tareas: DEV
+### Sub-tareas: DEV
 
 - Crear **Endpoint GET** (/api/v1/users/register) para obtener la lista de pacientes 
 **Story Points:** 3 SP
@@ -119,7 +135,7 @@ para clasificar al paciente dentro de **nivel de criticidad de acuerdo a las con
 > Quiero **visualizar un texto de color (verde, amarillo o rojo) del tiempo transcurrido de un paciente desde su registro dependiendo de su criticidad**,
 > Para **optimizar el tiempo de atención al paciente deacuerdo a sus necesidades médicas**
 
-## Sub-tareas: DEV
+### Sub-tareas: DEV
 
 - Modificar el elemento UI **celda de paciente**, en la columna **Tiempo de espera** en el componente **Lista de pacientes**, 
 
