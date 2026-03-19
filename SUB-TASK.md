@@ -16,13 +16,13 @@
 - Crear **Tabla de base datos** con nombre **pacientes** con los campos: **identificación, nombres, apellidos, fecha de nacimiento, genero, criticidad, tiempo de espera y estado**
 **Story Points:** 2 SP
 
-- Crear componente UI **Registro de paciente** en url (/register) el cual sea un formulario en el que el **Personal Médico** ingresa los datos del inciso anterior
+- Crear componente UI **Registro de paciente** en url (/register) el cual sea un formulario en el que el **Personal Médico** ingresa los datos del inciso anterior, excluyendo los campos  **criticidad, tiempo de espera y estado**
 **Story Points:** 2 SP
 
 - Crear elemento UI **Guardar Registro** dentro de componente **Registro de paciente** para guardar los datos del paciente
 **Story Points:** 1 SP
 
-- Crear componente UI de confirmación con el texto "Paciente registrado exitosamente", este componente puede: redirigir al **formulario de registro de signos vitales**
+- Crear componente UI de confirmación con el texto "Paciente registrado exitosamente", este componente debe: redirigir al **formulario de registro de signos vitales**
 **Story Points:** 2 SP
 
 ### Sub-tareas: QA
