@@ -22,11 +22,11 @@ El sistema triage se orienta a la **clasificación de pacientes en un cuadro de 
 
 | Nivel | Color | Tipo de prioridad|
 |--------|-------|--------------|
-| NIvel 1 | 🔴 Rojo | Requiere **atención inmediata**, la condición clínica del paciente representa un **riesgo vital** y necesita maniobras de reanimación |
-| NIvel 2| 🟠 Naranja | La condición del paciente puede evolucionar a un rápido deterioro o su muerte,  o está en serio riesgo de perder un órgano, **la atención no debe superar los 30 minutos** La presencia de un dolor extremo de acuerdo al sistema de clasificación usado debe ser considerada cómo un criterio de esta categoría |
-| NIvel 3| 🟡 Amarillo | La condición clínica del paciente requiere **medidas diagnósticas y terapéuticas de urgencias**. Son el tipo de pacientes que requieren un *examen complementario o un tratamiento rápido*, pero que se encuentran estables desde el punto de vista fisiológico|
-| NIvel 4| 🟢 Verde | El paciente presenta condiciones médicas que **no comprometen su estado general, ni representan un riesgo evidente para la vida** o pérdida de algún miembro u órgano. No obstante, el paciente presenta ciertos riesgos de complicación o secuelas de enfermedad si no recibe la atención correspondiente|
-| NIvel 5| 🔵 Azul | El paciente presenta una condición clínica relacionada con **problemas agudos o crónicos sin evidencia de deterioro que comprometa su estado general**, o represente un riesgo evidente para su vida a alguna funcionalidad de un órgano|
+| Nivel 1 | 🔴 Rojo | Requiere **atención inmediata**, la condición clínica del paciente representa un **riesgo vital** y necesita maniobras de reanimación |
+| Nivel 2| 🟠 Naranja | La condición del paciente puede evolucionar a un rápido deterioro o su muerte,  o está en serio riesgo de perder un órgano, **la atención no debe superar los 30 minutos** La presencia de un dolor extremo de acuerdo al sistema de clasificación usado debe ser considerada cómo un criterio de esta categoría |
+| Nivel 3| 🟡 Amarillo | La condición clínica del paciente requiere **medidas diagnósticas y terapéuticas de urgencias**. Son el tipo de pacientes que requieren un *examen complementario o un tratamiento rápido*, pero que se encuentran estables desde el punto de vista fisiológico|
+| Nivel 4| 🟢 Verde | El paciente presenta condiciones médicas que **no comprometen su estado general, ni representan un riesgo evidente para la vida** o pérdida de algún miembro u órgano. No obstante, el paciente presenta ciertos riesgos de complicación o secuelas de enfermedad si no recibe la atención correspondiente|
+| Nivel 5| 🔵 Azul | El paciente presenta una condición clínica relacionada con **problemas agudos o crónicos sin evidencia de deterioro que comprometa su estado general**, o represente un riesgo evidente para su vida a alguna funcionalidad de un órgano|
 
 ### Restricciones del triage
 

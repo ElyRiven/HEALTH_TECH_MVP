@@ -94,9 +94,6 @@
 para clasificar al paciente dentro de **nivel de criticidad de acuerdo a las condiciones terapéuticas del paciente** de acuerdo al **Protocolo de Manchester**
 **Story Points:** 2 SP
 
-
-
-
 ## HU-005 — Visualización de lista de pacientes ordenados por criticidad
 
 **Descripción:**
@@ -112,7 +109,6 @@ para clasificar al paciente dentro de **nivel de criticidad de acuerdo a las con
 
 - Crear componente UI **Lista de pacientes**, el cual sea una tabla que me permita ordenar descentenmente la lista de acuerdo a su orden de criticidad
 
-
 **Story Points:** 5 SP
 
 ## HU-006 — Texto de color por paciente del tiempo de espera transcurrido
@@ -125,9 +121,23 @@ para clasificar al paciente dentro de **nivel de criticidad de acuerdo a las con
 
 ## Sub-tareas: DEV
 
-- Modificar el elemento UI **celda de paciente** en el componente **Lista de pacientes**
+- Modificar el elemento UI **celda de paciente**, en la columna **Tiempo de espera** en el componente **Lista de pacientes**, 
 
 | Nombres| Apellidos | Criticidad | **Tiempo de espera** | Estado |
 |--------|--------------|---------|-------|-------|
 |Juan David | Franco Hernandez | 🟢 POCO URGENTE | **23 minutos** | En espera |
+
+de acuerdo a los siguientes criterios
+
+| Nivel | **Tiempo de espera** | Tiempo Máximo | Triage |
+|----|---|------|------| 
+| **Nivel 1** | <span style="color:red">**01 min**</span> | Inmediata | Atención inmediata (siempre rojo) |
+| **Nivel 2** | <span style="color:red">**35 min**</span> | 30 min | Atención del urgencia en máximo 30 minutos |
+| **Nivel 3** | <span style="color:red">**65 min**</span> | 40 min | El paciente requiere un examen complementario de urgencias pero se encuentra *estable* |
+| **Nivel 4** | <span style="color:orange">**130 min**</span> | 60 min | El paciente presenta una condición estable sin riesgo vital inmediato, puede ser remitido a otro especialista | 
+| **Nivel 5** | <span style="color:green">**40 min**</span> | 60 min | El paciente estable con problemas agudos o crónicos sin riesgo vital ni compromiso funcional evidente, se puede remitir a otro especialista |
+
+para dar un indicador del nivel de prioridad del paciente de acuerdo a su clasificación en el triage y en términos de su tiempo de espera
+
+**Story Points:** 3 SP
 
