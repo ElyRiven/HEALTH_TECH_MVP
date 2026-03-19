@@ -151,6 +151,8 @@
 
 ## HU-007 — Filtrado de Dashboard por nivel de criticidad
 
+**Story Points:** 5 SP
+
 **Descripción:**
 
 > Como **Personal Médico**,
@@ -159,12 +161,7 @@
 
 ### Sub-tareas: DEV
 
-- Crear un elemento de UI **Criticidad** en el home (/dashboard) para filtrar por la columna 
-**Criticidad (🔴 MUY URGENTE, 🟠 URGENTE, 🟢 POCO URGENTE, 🔵 NO URGENTE)** para filtrar al paciente por su nivel de criticidad
-
-| Nombres| Apellidos | **Criticidad** | Tiempo de espera| Estado de atención |
-|--------|--------------|---------|-------|-------|
-|Juan David | Franco Hernandez | **🟢 POCO URGENTE** | 23 minutos | En espera |
+- Crear un elemento de UI **Criticidad** en el home (/dashboard) para filtrar por la columna **Criticidad** para mostrar la lista de pacientes por la criticidad asignada.
 
 ### Sub-tareas: QA
 
