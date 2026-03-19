@@ -82,22 +82,15 @@
 
 ## HU-004 - Asignación visual de criticidad de un paciente
 
+**Story Points:** 2 PS
+
 **Descripción:**
 
 > Como **Personal Médico**,
 > Quiero **identificar visualmente la criticidad de los pacientes registrados en el sistema**,
 > Para **priorizar la atención de los casos más críticos**
 
-- Modificar campo **criticidad** de acuerdo a las siguientes opciones
-
-| Indicador | Nivel de Criticidad |
-|-----------|---------------------|
-| 🔴        | MUY URGENTE         |
-| 🟠        | URGENTE             |
-| 🟢        | POCO URGENTE        |
-| 🔵        | NO URGENTE          |
-
-para clasificar al paciente dentro de **nivel de criticidad de acuerdo a las condiciones terapéuticas del paciente** de acuerdo al **Protocolo de Manchester**
+- Modificar el elemento UI **fila de paciente**, en la columna **criticidad** en la tabla **Lista de pacientes**, para que tenga el color correspondiente a la criticidad asiganada al paciente, según la matriz de criticidad definida
 
 ### Sub-tareas: QA
 
