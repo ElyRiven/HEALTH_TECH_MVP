@@ -30,6 +30,9 @@
 - Validación del formulario de UI que contenga los campos **identificación, nombres, apellidos, fecha de nacimiento y género**.
 **Story Points:** 1 SP
 
+- Validación manual del endpoint POST creado para confirmar la creación de registros en base de datos y respuestas semánticas correctas,
+**Story Points:** 1 SP
+
 ### HU-002 - Registro de constantes vitales de un paciente
 
 **Descripción:**
