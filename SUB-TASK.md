@@ -285,6 +285,9 @@ Con las siguientes especificaciones
 - Validación funcional de reproducción de sonido cuando se registre un paciente de criticidad alta en el sistema
 **Story Points:** 1 SP
 
+- Automatización de los escenarios de prueba para verificar el comportamiento esperado de la alerta sonora.
+**Story Points:** 2 SP
+
 ## HU-011 — Alerta visual por superación de tiempo máximo de espera según categoría
 
 **Story Points:** 3 SP
