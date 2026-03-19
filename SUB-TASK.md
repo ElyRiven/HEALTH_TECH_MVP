@@ -134,13 +134,21 @@ para clasificar al paciente dentro de **nivel de criticidad de acuerdo a las con
 
 **Story Points:** 5 SP
 
+### Sub-tareas: QA
+
+- Validación de UI en el Dashboard para comprobar que la lista de pacientes está ordenada por su criticidad descendentemente.
+**Story Points:** 2 SP
+
+- Validación de UI en el Dashboard para comprobar que se muestra el mensaje correcto en ausencia de registros de pacientes.
+**Story Points:** 1 SP
+
 ## HU-006 — Texto de color por paciente del tiempo de espera transcurrido
 
 **Descripción:**
 
 > Como **Personal Médico**,
-> Quiero **visualizar un texto de color (verde, amarillo o rojo) del tiempo transcurrido de un paciente desde su registro dependiendo de su criticidad**,
-> Para **optimizar el tiempo de atención al paciente deacuerdo a sus necesidades médicas**
+> Quiero **identificar visualmente mediante colores el estado del tiempo de espera de los pacientes**,
+> Para **optimizar el tiempo de atención al paciente deacuerdo a los tiempos máximos permitidos**
 
 ### Sub-tareas: DEV
 
