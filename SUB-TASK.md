@@ -10,8 +10,11 @@
 
 ### Sub-tareas: DEV
 
-- Crear **Endpoint POST** (/api/v1/users/register) con los campos: **nombres, apellidos, fecha de nacimiento y genero** para hacer el registro de los usuarios
-**Story Points:** 3 SP
+- Crear **Endpoint POST** (/api/v1/pacients/register) con los campos: **identificación, nombres, apellidos, fecha de nacimiento y genero** para hacer el registro de los pacientes
+**Story Points:** 2 SP
+
+- Crear **Tabla de base datos** con nombre **pacientes** con los campos: **identificación, nombres, apellidos, fecha de nacimiento, genero, criticidad, tiempo de espera y estado**
+**Story Points:** 2 SP
 
 - Crear componente UI **Registro de paciente** en url (/register) el cual sea un formulario en el que el **Personal Médico** ingresa los datos del inciso anterior
 **Story Points:** 2 SP
