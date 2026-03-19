@@ -55,6 +55,14 @@
 - Crear componente UI de confirmación, que contenga el texto "Signos vitales registrados exitosamente", este componente debe tener un elemento que redirija al Dashboard Principal
 **Story Points:** 3 SP
 
+### Sub-tareas: QA
+
+- Diseño de matriz de rangos válidos y límites que el sistema puede aceptar en los campos de acuerdo con el Protocolo Manchester.
+**Story Points:** 2 SP
+
+- Diseño de matriz de datos de prueba para comprobar la validación de datos en el formulario a través de los escenarios definidos.
+**Story Points:** 1 SP
+
 ### HU-003 - Clasificación automatizada de criticidad de un paciente
 
 **Descripción:**
