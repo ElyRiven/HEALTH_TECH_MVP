@@ -99,8 +99,6 @@
 > Quiero **identificar visualmente la criticidad de los pacientes registrados en el sistema**,
 > Para **priorizar la atención de los casos más críticos**
 
-
-
 - Modificar campo **criticidad** de acuerdo a las siguientes opciones
 
 | Indicador | Nivel de Criticidad |
@@ -170,13 +168,24 @@ para dar un indicador del nivel de prioridad del paciente de acuerdo a su clasif
 
 ### Sub-tareas: DEV
 
-- Crear un elemento de UI por encima del componente **Lista de pacientes** en la página (/dashboard) para filtrar por la colunmna 
-**Estado (En espera, siendo atendido, finalizado)** el cual es un *botón de opciones* para filtrar al paciente
+- Crear un elemento de UI **Criticidad** por encima del componente **Lista de pacientes** en la página (/dashboard) para filtrar por la colunmna 
+**Criticidad (🔴 MUY URGENTE, 🟠 URGENTE, 🟢 POCO URGENTE, 🔵 NO URGENTE)** el cual es un *botón de opciones* para filtrar al paciente
 
-| Nombres| Apellidos | Criticidad | Tiempo de espera| **Estado** |
+| Nombres| Apellidos | **Criticidad** | Tiempo de espera| Estado |
 |--------|--------------|---------|-------|-------|
-|Juan David | Franco Hernandez | 🟢 POCO URGENTE | 23 minutos | **En espera** |
+|Juan David | Franco Hernandez | **🟢 POCO URGENTE** | 23 minutos | En espera |
 
 para obtener la lista de pacientes filtrados en términos del estado de atención en la institución
 
 **Story Points:** 5 SP
+
+### HU-008 — Cambio de estado del paciente
+
+**Descripción:**
+
+> Como **Personal Médico**,
+> Quiero **gestionar los estados de atención en la lista de pacientes (En Espera, Siendo Atendido y Finalizado)**,
+> Para **controlar el progreso de la atención médica y mantener actualizado el estatus de los pacientes en el dashboard**
+
+**Story Points:** 5 SP
+
