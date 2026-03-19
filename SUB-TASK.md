@@ -83,6 +83,11 @@
 - Crear componente UI "Registros de pacientes" para ver los registros existentes incluyendo criticidad asignada 
 **Story Points:** 3 SP
 
+### Sub-tareas: QA
+
+- Diseño de matriz de decisión de criticidad en base a los signos vitales según el Protocolo Manchester
+**Story Points:** 3 SP
+
 ## HU-004 - Asignación visual de criticidad de un paciente
 
 **Descripción:**
