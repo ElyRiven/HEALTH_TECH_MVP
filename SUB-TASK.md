@@ -2,6 +2,8 @@
 
 ## HU-001 - Registro de paciente en el sistema
 
+**Story Points:** 13 SP
+
 **Descripción:**
 
 > Como **Personal Médico**,
@@ -28,7 +30,7 @@
 ### Sub-tareas: QA
 
 - Diseño de matriz de datos de prueba para los escenarios definidos en los criterios de aceptación.
-**Story Points:** 1 SP
+**Story Points:** 2 SP
 
 - Validación del formulario de UI que contenga los campos **identificación, nombres, apellidos, fecha de nacimiento y género**.
 **Story Points:** 1 SP
@@ -47,7 +49,7 @@
 ### Sub-tareas: DEV
 
 - Crear **Endpoint PUT** (/api/v1/users/update/{id}) para actualizar a **paciente** con los siguientes datos:  frecuencia cardiaca, frecuencia respiratoria, saturacion o2, temperatura, presion, nivel de conciencia y nivel de dolor
-**Story Points:** 3 SP
+**Story Points:** 2 SP
 
 - Crear compononente UI **Registro de constantes vitales** el home (/dashboard) el cual es un formulario con los campos: frecuencia cardiaca, frecuencia respiratoria, saturacion o2, temperatura, presion, nivel de conciencia y nivel de dolor
 **Story Points:** 3 SP
