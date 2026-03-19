@@ -171,26 +171,15 @@
 
 ## HU-008 — Cambio de estado del paciente
 
+**Story Points:** 3 SP
+
 **Descripción:**
 
 > Como **Personal Médico**,
 > Quiero **gestionar los estados de atención en la lista de pacientes (En Espera, Siendo Atendido y Finalizado)**,
 > Para **controlar el progreso de la atención médica y mantener actualizado el estatus de los pacientes en el dashboard**
 
-- Crear un elemento UI **Cambiar Estado** en el home (/dashboard) para modificar el estado de atención del 
-**Estado de atención (En Espera, Siendo Atendido y Finalizado)** para modificar el estado de atención de los pacientes
-
-| Nombres | Apellidos | Criticidad | Tiempo de espera | **Estado de atención** |
-|---------|--------------|---------|-------|-------|
-|Juan David | Franco Hernandez | 🟢 POCO URGENTE | 23 minutos | **En espera** |
-
-Con las siguientes especificaciones
-
-| Estado Actual | Acción Disponible |
-|---------------|-------------------|
-| En Espera | Asignado automaticamente cuando se ingresa el paciente |
-| Siendo Atendido | Cambiar el estado de "En Espera" a "Siendo atendido" cuando el paciente ingresa a urgencias |
-| Finalizado | Cambiar el estado de "Siendo atendido" a "Finalizado" cuando el paciente ya ha sido atendido |
+- Crear un elemento UI **Cambiar Estado** en el home (/dashboard) para modificar el estado de atención de la columna **Estado** para modificar el estado de atención de los pacientes.
 
 ### Sub-tareas: QA
 
