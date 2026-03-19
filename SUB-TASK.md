@@ -241,13 +241,10 @@
 
 ### Sub-tareas: DEV
 
-- Agregar visualización a componente **Notificación inmediata** con mensaje **Paciente ingresado "Nombres y apellidos" atención inmediata -Nivel 1** para los pacientes de Nivel I de atención.
-**Story Points:** 3 SP
-
-- Agregar visualización a componente **Notificación inmediata** con mensaje **Paciente ingresado "Nombres y apellidos" secundaria - Nivel 2** para notificar de cuando llega un paciente dentro de los niveles 1 0 2
-**Story Points:** 3 SP
+- Agregar visualización a componente **Notificación inmediata** con mensaje **Tiempo de espera excedido. Paciente "Nombre y apellido", Criticidad "criticidad del paciente"** cuando el tiempo de espera del paciente haya excedido el límite máximo.
 
 ### Sub-tareas: QA
 
+- Diseño de matriz de datos de pruebas para comprobar que la alerta visual por tiempo de espera máximo excedido aparezca en pantalla.
+
 - Automatización del escenario de prueba que permita verificar la visualización de la alerta en pantalla según los tiempos establecidos en la matriz de tiempos límite definida.
-**Story Points:** 2 SP
