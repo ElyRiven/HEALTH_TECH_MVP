@@ -243,6 +243,8 @@ Con las siguientes especificaciones
 - Verificación de UI para comprobar que el Dashboard muestra u oculta los botones correspondientes dependiendo del estado del paciente.
 **Story Points:** 1 SP
 
+- Automatización de los escenarios de prueba definidos para validar el comportamiento del sistema según el estado del paciente.
+
 ### HU-009 — Notificación visual de nuevo registro de paciente al personal médico disponible
 
 **Descripción:**
