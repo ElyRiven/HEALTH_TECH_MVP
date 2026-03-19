@@ -1,4 +1,10 @@
-# Sub-task
+# Desgloce de Sub-Tareas de historias de Usuarios
+
+## Stack tecnológico
+
+- Frontend: Angular v20
+- Backend: NestJS v11
+- Base de Datos: PostgreSQL v15
 
 ## HU-001 - Registro de paciente en el sistema
 
@@ -13,7 +19,6 @@
 ### Sub-tareas: DEV
 
 - Crear **Endpoint POST** (/api/v1/pacients/register) con los campos: **identificación, nombres, apellidos, fecha de nacimiento y genero** para hacer el registro de los pacientes
-
 
 - Crear **Tabla de base datos** con nombre **pacientes** con los campos: **identificación, nombres, apellidos, fecha de nacimiento, genero, criticidad, tiempo de espera y estado**
 
