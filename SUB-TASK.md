@@ -213,8 +213,8 @@ para dar un indicador del nivel de prioridad del paciente de acuerdo a su clasif
 - Crear un elemento UI **Cambiar Estado** en la página (/dashboard) para modificar el estado de atención del 
 **Estado de atención (En Espera, Siendo Atendido y Finalizado)** para modificar el estado de atención de los pacientes
 
-| Nombres| Apellidos | Criticidad | Tiempo de espera | **Estado de atención** |
-|--------|--------------|---------|-------|-------|
+| Nombres | Apellidos | Criticidad | Tiempo de espera | **Estado de atención** |
+|---------|--------------|---------|-------|-------|
 |Juan David | Franco Hernandez | 🟢 POCO URGENTE | 23 minutos | **En espera** |
 
 Con las siguientes especificaciones
@@ -224,5 +224,21 @@ Con las siguientes especificaciones
 | En Espera | Asignado automaticamente cuando se ingresa el paciente |
 | Siendo Atendido | Cambiar el estado de "En Espera" a "Siendo atendido" cuando el paciente ingresa a urgencias |
 | Finalizado | Cambiar el estado de "Siendo atendido" a "Finalizado" cuando el paciente ya ha sido atendido |
+
+**Story Points:** 5 SP
+
+### HU-009 — Notificación visual de nuevo registro de paciente al personal médico disponible
+
+
+
+**Descripción:**
+
+> Como **Médico**,
+> Quiero **recibir una notificación visual cuando se registre un nuevo paciente en el sistema**,
+> Para **gestionar eficientemente la atención de los pacientes en espera**
+
+### Sub-tareas: DEV
+
+- Crear un elemento UI **Paciente registrado** en la página (/dashboard) el cual contenga los siguientes datos **Nombres, Apellidos, Criticidad, Estado de atención** para notificar a **Médico** del ingreso exitoso de un paciente al sistema
 
 **Story Points:** 5 SP
