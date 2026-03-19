@@ -184,6 +184,8 @@
 > Quiero **gestionar los estados de atención en la lista de pacientes (En Espera, Siendo Atendido y Finalizado)**,
 > Para **controlar el progreso de la atención médica y mantener actualizado el estatus de los pacientes en el dashboard**
 
+### Sub-tareas: DEV
+
 - Crear un elemento UI **Cambiar Estado** en el home (/dashboard) para modificar el estado de atención de la columna **Estado** para modificar el estado de atención de los pacientes.
 
 ### Sub-tareas: QA
