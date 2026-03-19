@@ -172,6 +172,17 @@ para dar un indicador del nivel de prioridad del paciente de acuerdo a su clasif
 
 **Story Points:** 5 SP
 
+### Sub-tareas: QA
+
+- Diseño de matriz de tiempos límite para cada nivel de criticidad siguiendo el Protocolo Manchester.
+**Story Points:** 1 SP
+
+- Diseño de matriz de datos de prueba que permita comprobar el color del texto de tiempo de espera de los pacientes sin requerir esperas.
+**Story Points:** 1 SP
+
+- Validación de UI que compruebe que el color del texto de tiempo de espera de los pacientes cambie según la lógica de tiempos de espera.
+**Story Points:** 1 SP
+
 ### HU-007 — Filtrado de Dashboard por nivel de criticidad
 
 **Descripción:**
