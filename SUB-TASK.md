@@ -207,6 +207,9 @@ para dar un indicador del nivel de prioridad del paciente de acuerdo a su clasif
 - Validación de UI al aplicar el filtro de criticidad y que el Dashboard muestre solo los registros con la criticidad seleccionada.
 **Story Points:** 1 SP
 
+- Automatizar script de UI que compruebe los escenarios definidos para validar el correcto funcionamiento del filtro.
+**Story Points:** 2 SP
+
 ### HU-008 — Cambio de estado del paciente
 
 **Descripción:**
