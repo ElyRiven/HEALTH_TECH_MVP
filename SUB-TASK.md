@@ -147,8 +147,8 @@ para clasificar al paciente dentro de **nivel de criticidad de acuerdo a las con
 **Descripción:**
 
 > Como **Personal Médico**,
-> Quiero **visualizar un texto de color (verde, amarillo o rojo) del tiempo transcurrido de un paciente desde su registro dependiendo de su criticidad**,
-> Para **optimizar el tiempo de atención al paciente deacuerdo a sus necesidades médicas**
+> Quiero **identificar visualmente mediante colores el estado del tiempo de espera de los pacientes**,
+> Para **optimizar el tiempo de atención al paciente deacuerdo a los tiempos máximos permitidos**
 
 ### Sub-tareas: DEV
 
