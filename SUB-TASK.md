@@ -160,15 +160,17 @@
 
 **Datos**
 
-- Insertar 2 registros de pacientes y constantes vitales válidas en el sistema manualmente en PostgreSQL.
-
 - Diseñar una matriz de datos de prueba que incluya todos los flujos de criticidad del Protocolo Manchester en base a la matriz "Reglas de Criticidad".
+
+- Insertar los registros de pacientes y sus constantes vitales definidas en la matriz de datos.
 
 **Pruebas Manuales**
 
 - Validar mediante Postman que los registros de pacientes generados manualmente incluyan el campo `criticidad` asignado automáticamente.
 
-- Ejecución de prueba de caja blanca mediante el endpoint POST (/api/v1/vitals/register/{id}) que compruebe el proceso y asignación correcta de criticidad a un paciente registrado
+**Automatización**
+
+- Desarrollar scripts en SerenityBDD que cubran los escenarios definidos para la historia de usuario.
 
 ## HU-004 - Asignación visual de criticidad de un paciente
 
