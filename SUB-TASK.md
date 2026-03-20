@@ -182,7 +182,13 @@
 > Quiero **identificar visualmente la criticidad de los pacientes registrados en el sistema**,
 > Para **priorizar la atención de los casos más críticos**
 
-- Modificar el elemento UI **fila de paciente**, en la columna **criticidad** en la tabla **Lista de pacientes**, para que tenga el color correspondiente a la criticidad asiganada al paciente, según la matriz de criticidad definida
+### Sub-tareas: DEV
+
+**Frontend**
+
+- Crear un objeto utilitario `TriageColors.ts` que asocie cada nivel de criticidad con su clase CSS correspondiente.
+
+- Modificar el componente `PatientTable.tsx` para aplicar los estilos condicionales al texto de la columna "Criticidad" basado en el valor recibido en cada fila.
 
 ### Sub-tareas: QA
 
