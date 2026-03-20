@@ -33,6 +33,16 @@
 
 - Aplicar valores por defecto en los campos: `hora de registro y estado` iguales a la hora del servidor y "En Espera" correspondientemente.
 
+**Frontend**
+
+- Desarrollar el componente `PatientForm.tsx` usando la librería de componentes shadcn e integrarlo en la ruta `/register`.
+
+- Crear el componente `SuccessAlert.tsx` para mostrar el mensaje "Paciente registrado exitosamente" en caso del envio correcto del formulario.
+
+- Implementar lógica de envío del formulario para consumir el endpoint POST.
+
+- Implementar errores de validaciones en el formulario.
+
 ### Sub-tareas: QA
 
 - Diseño de matriz de datos de prueba para los escenarios definidos en los criterios de aceptación.
