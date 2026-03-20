@@ -148,9 +148,13 @@
 
 ### Sub-tareas: DEV
 
-- Crear el algoritmo dentro del **endpoint POST** (/api/v1/vitals/register/{id}) que ejecute la clasificación de criticidad automática cuando se genere un nuevo registro en la tabla **Constantes vitales**
+**Backend**
 
-- Actualiza el campo **criticidad** del paciente al que se le registraron los signos vitales con el resultado de la clasificación automática
+- Implementar el servicio `TriageEngine.ts` que procese las constantes vitales y retorne el nivel de criticidad respectivo según la matriz "Reglas de Criticidad".
+
+- Integrar el servicio de clasificación en el endpoint POST para calcular la criticidad cuando un registro se genera exitosamente.
+
+- Implementar la actualización del campo criticidad del paciente en la tabla `pacientes` con el resultado del servicio.
 
 ### Sub-tareas: QA
 
