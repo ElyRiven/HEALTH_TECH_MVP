@@ -320,7 +320,11 @@
 
 ### Sub-tareas: DEV
 
-- Crear un elemento UI **Cambiar Estado** en el home (/dashboard) para modificar el estado de atención de la columna **Estado** para modificar el estado de atención de los pacientes.
+**Backend**
+
+- Crear **Endpoint PATCH** `(/api/v1/pacients/:pacientId)` con Express.
+
+- Implementar la actualización del campo `estado` del registro correspondiente de la tabla `pacientes` con el valor que recibe el endpoint.
 
 ### Sub-tareas: QA
 
