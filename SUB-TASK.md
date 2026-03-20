@@ -86,7 +86,21 @@
 
 - Configurar el campo `id paciente` como foreign key con relación uno - muchos con la tabla `pacientes`.
 
-- Crear **Endpoint POST** (/api/v1/vitals/register/{id}) para actualizar a **paciente** con los siguientes datos: frecuencia cardiaca, frecuencia respiratoria, saturacion o2, temperatura, presion, nivel de conciencia y nivel de dolor
+**Backend**
+
+- Crear **Endpoint POST** `/api/v1/vitals/:patientId` con Express.
+
+- Gestionar código de estado semántico y mensajes de respuesta:
+  - 201, "Signos vitales registrados exitosamente"
+  - 400, "Campos obligatorios faltantes"
+  - 404, "El paciente con Id enviado no fue encontrado"
+  - 422, "Los datos no cumplen con las validaciones"
+
+- Implementar validaciones de datos obligatorios a todos los campos de la tabla.
+
+- Implementar validaciones de rangos permitidos en los campos, definidos en la matriz de datos "Valores Permitidos por el Sistema".
+
+- Implementar el registro en la tabla `constantes-vitales` si todas las validaciones han pasado.
 
 - Crear compononente UI **Registro de constantes vitales** dentor de la página (/vitals/{id}) el cual es un formulario con los campos: frecuencia cardiaca, frecuencia respiratoria, saturacion o2, temperatura, presion, nivel de conciencia y nivel de dolor
 
