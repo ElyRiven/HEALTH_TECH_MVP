@@ -404,11 +404,17 @@
 
 ### Sub-tareas: QA
 
-- Diseño de matriz de datos de prueba para comprobar la ejecución de la alerta sonora para pacientes con criticidad alta.
+**Datos**
 
-- Validación funcional de reproducción de sonido cuando se registre un paciente de criticidad alta en el sistema.
+- Diseñar una matriz de datos que incluya al menos un registro de pacientes con criticidad "Emergencia", "Muy Urgente" y "Urgente"
 
-- Automatización de los escenarios de prueba para verificar el comportamiento esperado de la alerta sonora.
+**Pruebas Manuales**
+
+- Registrar manualmente un paciente con signos vitales de criticidad "No Urgente" mediante los formularios del sistema y comprobar que la alerta sonora no se reproduzca.
+
+**Automatización**
+
+- Desarrollar scripts en SerenityBDD que cubran los escenarios de prueba definidos para la historia de usuario.
 
 ## HU-011 — Alerta visual por superación de tiempo máximo de espera según categoría
 
