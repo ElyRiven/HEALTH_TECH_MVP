@@ -212,9 +212,13 @@
 
 ### Sub-tareas: DEV
 
-- Crear **Endpoint GET** (/api/v1/pacients) para obtener la lista de pacientes
+**Backend**
 
-- Para **Endpoint GET** (/api/v1/pacients) ordenar la lista de pacientes descendentemente de acuerdo a su nivel de criticidad
+- Crear **Endpoint GET** `(/api/v1/pacients)` con Express.
+
+- Implementar la consulta a la tabla `pacientes` que retorne la lista de pacientes registrados ordenados descendentemente por su criticidad.
+
+- Gestionar el envío del código de status `200` y los datos cuando la consulta se procesa correctamente.
 
 - Crear componente UI **Lista de pacientes**, ubicado en el home (/dashboard) el cual sea una tabla para cumplir con el punto anterior
 
