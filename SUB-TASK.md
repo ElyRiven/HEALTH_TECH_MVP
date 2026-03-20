@@ -300,9 +300,13 @@
 
 ### Sub-tareas: QA
 
-- Validación de UI al aplicar el filtro de criticidad y que el Dashboard muestre solo los registros con la criticidad seleccionada.
+**Datos**
 
-- Automatizar script de UI que compruebe los escenarios definidos para validar el correcto funcionamiento del filtro.
+- Insertar al menos un registro de paciente y constantes vitales manualmente en PostgreSQL que incluya cada nivel de criticidad.
+
+**Automatización**
+
+- Desarrollar scripts de automatización en SerenityBDD que cubran los escenarios definidos en la historia de usuario.
 
 ## HU-008 — Cambio de estado del paciente
 
