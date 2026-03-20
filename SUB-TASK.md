@@ -38,6 +38,8 @@
 
 - Aplicar valores por defecto en los campos: `hora de registro y estado` iguales a la hora del servidor y "En Espera" correspondientemente.
 
+- Implementar la creacion de un nuevo registro en la tabla `pacientes` si todas las validaciones han pasado.
+
 **Frontend**
 
 - Desarrollar el componente `PatientForm.tsx` usando la librería de componentes shadcn e integrarlo en la ruta `/register`.
@@ -100,7 +102,7 @@
 
 - Implementar validaciones de rangos permitidos en los campos, definidos en la matriz de datos "Valores Permitidos por el Sistema".
 
-- Implementar el registro en la tabla `constantes-vitales` si todas las validaciones han pasado.
+- Implementar la creacion de un nuevo registro en la tabla `constantes-vitales` si todas las validaciones han pasado.
 
 - Crear compononente UI **Registro de constantes vitales** dentor de la página (/vitals/{id}) el cual es un formulario con los campos: frecuencia cardiaca, frecuencia respiratoria, saturacion o2, temperatura, presion, nivel de conciencia y nivel de dolor
 
