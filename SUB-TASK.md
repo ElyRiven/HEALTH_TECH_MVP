@@ -113,18 +113,20 @@
 - Reutilizar el componente `ResponseAlert.tsx` para mostrar el mensaje recibido en la respuesta del endpoint.
 
 - Implementar lógica de envío del formulario para consumir el endpoint POST.
--
+
 - Implementar lógica de acceso al componente `VitalSignsForm.tsx` únicamente si se especifica un id en la ruta.
 
 - Implementar errores de validaciones en el formulario.
--
+
 - Implementar el redireccionamiento hacia la ruta `/dashboard` si la respuesta es exitosa.
 
 ### Sub-tareas: QA
 
-- Diseño de matriz de rangos válidos y límites que el sistema puede aceptar en los campos de acuerdo con el Protocolo Manchester.
+**Datos**
 
-- Diseño de matriz de datos de prueba para comprobar la validación de datos en el formulario a través de los escenarios definidos.
+- Insertar 2 registros de pacientes manualmente en la base de datos PostgreSQL.
+
+- Diseñar una matriz de datos que incluya casos borde (temperatura 0°, campos vacíos, saturación o2 5%) para las pruebas automatizadas.
 
 - Validación manual del endpoint POST para verificar que el backend acepte únicamente valores permitidos.
 
