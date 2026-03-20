@@ -132,7 +132,9 @@
 
 - Validar mediante Postman que el endpoint retorne los estados semánticos correspondientes con datos de prueba.
 
-- Automatización de los escenarios de prueba para comprobar funcionamiento esperado en el registro de constantes vitales de un paciente.
+**Automatización**
+
+- Desarrollar los scripts de prueba en SerenityBDD con el patrón Screenplay para cubrir los escenarios de prueba definidos usando la matriz de datos creada.
 
 ## HU-003 - Clasificación automatizada de criticidad de un paciente
 
