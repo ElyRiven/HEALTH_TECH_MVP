@@ -30,7 +30,7 @@
 - Crear **Endpoint POST** `/api/v1/pacients` con Express.
 
 - Gestionar código de estado semántico y mensajes de respuesta:
-  - 201, "Paciente registrado exitosamente"
+  - 201, "Paciente registrado exitosamente", Id del paciente generado
   - 409, "Identificación duplicada"
   - 400, "campos obligatorios faltantes"
 
@@ -49,6 +49,8 @@
 - Implementar lógica de envío del formulario para consumir el endpoint POST.
 
 - Implementar errores de validaciones en el formulario.
+
+- Implementar el redireccionamiento hacia la ruta `/register/:pacientId` usando el Id enviado en la respuesta exitosa.
 
 ### Sub-tareas: QA
 
