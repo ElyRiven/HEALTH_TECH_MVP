@@ -310,7 +310,7 @@
 
 ## HU-008 — Cambio de estado del paciente
 
-**Story Points:** 3 SP
+**Story Points:** 5 SP
 
 **Descripción:**
 

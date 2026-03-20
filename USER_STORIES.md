@@ -2,6 +2,8 @@
 
 ### HU-001 - Registro de paciente en el sistema
 
+**Story Points:** 13 SP
+
 **Descripción:**
 
 > Como **Personal Médico**,
@@ -37,6 +39,8 @@ Funcionalidad: Registro de Paciente
 
 ### HU-002 - Registro de constantes vitales de un paciente
 
+**Story Points:** 13 SP
+
 **Descripción:**
 
 > Como **Personal Médico**,
@@ -66,6 +70,8 @@ Funcionalidad: Registro de Constantes Vitales
 
 ### HU-003 - Clasificación automatizada de criticidad de un paciente
 
+**Story Points:** 13 SP
+
 **Descripción:**
 
 > Como **Personal Médico**,
@@ -85,6 +91,8 @@ Funcionalidad: Clasificación automática de criticidad de pacientes
 ```
 
 ### HU-004 - Asignación visual de criticidad de un paciente
+
+**Story Points:** 2 PS
 
 **Descripción:**
 
@@ -112,7 +120,7 @@ Funcionalidad: Asignación visual de colores en el texto
 
 ### HU-005 — Visualización de lista de pacientes ordenados por criticidad
 
-**Story Points:** 3 SP
+**Story Points:** 8 SP
 
 **Descripción:**
 
@@ -234,7 +242,7 @@ Funcionalidad: Cambio de estado del paciente
 
 ### HU-009 — Notificación visual de nuevo registro de paciente al personal médico disponible
 
-**Story Points:** 5 SP
+**Story Points:** 2 SP
 
 **Descripción:**
 
@@ -255,7 +263,7 @@ Funcionalidad: Notificación visual al registrar un nuevo paciente
 
 ### HU-010 — Alerta sonora inmediata para ingresos Nivel 1 y 2 (Rojo y Naranja)
 
-**Story Points:** 3 SP
+**Story Points:** 5 SP
 
 **Descripción:**
 
@@ -286,7 +294,7 @@ Funcionalidad: Notificación sonora al registrar pacientes de criticidad alta
 
 ### HU-011 — Alerta visual por superación de tiempo máximo de espera según categoría
 
-**Story Points:** 5 SP
+**Story Points:** 3 SP
 
 **Descripción:**
 
