@@ -334,6 +334,10 @@
 
 ### Sub-tareas: QA
 
+**Datos**
+
+- Insertar manualmente 3 registros de pacientes y constantes vitales en PostgreSQL, cada uno con los tres estados posibles en el campo "estado".
+
 - Definición de matriz de estados del paciente y su comportamiento esperado en el sistema.
 
 - Verificación de UI para comprobar que el Dashboard muestra u oculta los botones correspondientes dependiendo del estado del paciente.
