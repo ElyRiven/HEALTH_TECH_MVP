@@ -128,7 +128,9 @@
 
 - Diseñar una matriz de datos que incluya casos borde (temperatura 0°, campos vacíos, saturación o2 5%) para las pruebas automatizadas.
 
-- Validación manual del endpoint POST para verificar que el backend acepte únicamente valores permitidos.
+**Pruebas Manuales**
+
+- Validar mediante Postman que el endpoint retorne los estados semánticos correspondientes con datos de prueba.
 
 - Automatización de los escenarios de prueba para comprobar funcionamiento esperado en el registro de constantes vitales de un paciente.
 
