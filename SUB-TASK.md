@@ -372,7 +372,13 @@
 
 ### Sub-tareas: QA
 
-- Validación de UI para comprobar que la notificación que se muestra en pantalla contenga los datos del paciente.
+**Pruebas Manuales**
+
+- Registrar manualmente un nuevo paciente y sus signos vitales en el sistema y comprobar que la notificación aparece en pantalla con la información del registro generado.
+
+**Automatización**
+
+- Desarrollar scripts de prueba en SerenityBDD para cubrir los escenarios de prueba definidos en la historia de usuario.
 
 ## HU-010 — Alerta sonora inmediata para ingresos Nivel 1 y 2 (Rojo y Naranja)
 
