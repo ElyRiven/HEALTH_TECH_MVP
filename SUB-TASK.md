@@ -290,7 +290,13 @@
 
 ### Sub-tareas: DEV
 
-- Crear un elemento de UI **Criticidad** en el home (/dashboard) para filtrar por la columna **Criticidad** para mostrar la lista de pacientes por la criticidad asignada.
+**Frontend**
+
+- Crear el componente `CriticityFilter.tsx` de tipo dropdown usando la librería de componentes shadcn que incluya las 5 categorías de criticidad más la opción "Todos".
+
+- Implementar la lógica del filtro seleccionado mediante el método `.filter()` sobre los datos de pacientes obtenido del backend para generar la lista filtrada.
+
+- Modificar la lógica de renderizado para mostrar el mensaje "No hay pacientes en esta categoría" cuando el array resultante del filtro esté vacío.
 
 ### Sub-tareas: QA
 
