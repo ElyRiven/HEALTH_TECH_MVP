@@ -326,6 +326,12 @@
 
 - Implementar la actualización del campo `estado` del registro correspondiente de la tabla `pacientes` con el valor que recibe el endpoint.
 
+**Frontend**
+
+- Desarrollar el componente `StatusButton.tsx` que renderice condicionalmente el botón en base al estado actual del paciente según la matriz "Estados del Paciente".
+
+- Implementar la funcionalidad de consumo del endpoint PATCH para enviar el nuevo estado del paciente y actualizar su registro en la base de datos.
+
 ### Sub-tareas: QA
 
 - Definición de matriz de estados del paciente y su comportamiento esperado en el sistema.
