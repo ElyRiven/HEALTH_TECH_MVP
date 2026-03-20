@@ -266,13 +266,17 @@
 
 ### Sub-tareas: QA
 
-- Diseño de matriz de tiempos límite para cada nivel de criticidad siguiendo el Protocolo Manchester.
+**Datos**
 
-- Diseño de matriz de datos de prueba que permita comprobar el color del texto de tiempo de espera de los pacientes sin requerir esperas.
+- Registrar manualmente 3 pacientes y signos vitales en PostgreSQL con el campo `hora de registro` modificada para forzar los 3 estados de color en el sistema.
 
-- Validación de UI que compruebe que el color del texto de tiempo de espera de los pacientes cambie según la lógica de tiempos de espera.
+**Pruebas Manuales**
 
-- Automatización de los escenarios de prueba para validar el comportamiento visual del elemento fila de paciente, en su columna "Tiempo de espera".
+- Comprobar visualmente que el dashboard muestra el texto de la columna "Tiempo en espera" de los colores correspondientes a cada registro.
+
+**Automatización**
+
+- Desarrollar los scripts de automatización en SerenityBDD para cubrir los escenarios de prueba definidos en la historia de usuario.
 
 ## HU-007 — Filtrado de Dashboard por nivel de criticidad
 
