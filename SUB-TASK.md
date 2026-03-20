@@ -55,7 +55,11 @@
 
 - Validar mediante Postman que el endpoint retorne los estados semánticos correspondientes con datos de prueba.
 
-- Automatización de los escenarios de prueba para verificar el correcto funcionamiento del registro de nuevos pacientes en el sistema.
+- Validar que el formulario de la vista `/register` muestre errores de validación usando datos de prueba.
+
+**Automatización**
+
+- Desarrollar los scripts de prueba en SerenityBDD con el patrón Screenplay para cubrir los escenarios de prueba definidos.
 
 ## HU-002 - Registro de constantes vitales de un paciente
 
