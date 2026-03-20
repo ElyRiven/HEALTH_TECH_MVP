@@ -192,7 +192,13 @@
 
 ### Sub-tareas: QA
 
-- Validación de UI en el Dashboard que muestre el texto de criticidad en su color correspondiente según el Protocolo Manchester
+**Datos**
+
+- Insertar 5 registros manualmente de pacientes y constantes vitales en PostgreSQL que cubran los 5 posibles niveles de criticidad del sistema.
+
+**Automatización**
+
+- Desarrollar los scripts de prueba en SerenityBDD para cubrir los escenarios definidos en la historia de usuario.
 
 ## HU-005 — Visualización de lista de pacientes ordenados por criticidad
 
