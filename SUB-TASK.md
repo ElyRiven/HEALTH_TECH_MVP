@@ -51,9 +51,9 @@
 
 - Diseñar una matriz de datos que incluya casos borde (campos vacíos, fechas inválidas e identificaciones repetidas) para las pruebas automatizadas.
 
-- Validación del formulario de UI que contenga los campos **identificación, nombres, apellidos, fecha de nacimiento y género**.
+**Pruebas Manuales**
 
-- Validación manual del endpoint POST creado para confirmar la creación de registros en base de datos y respuestas semánticas correctas,
+- Validar mediante Postman que el endpoint retorne los estados semánticos correspondientes con datos de prueba.
 
 - Automatización de los escenarios de prueba para verificar el correcto funcionamiento del registro de nuevos pacientes en el sistema.
 
