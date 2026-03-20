@@ -78,6 +78,14 @@
 
 ### Sub-tareas: DEV
 
+**Base de Datos**
+
+- Crear tabla `constantes-vitales` con los campos `id constantes, id paciente, frecuencia cardiaca, frecuencia respiratoria, saturacion o2, temperatura, presion, nivel de conciencia y nivel de dolor`.
+
+- Configurar el campo `id constantes` como identidad y primary key de la tabla.
+
+- Configurar el campo `id paciente` como foreign key con relación uno - muchos con la tabla `pacientes`.
+
 - Crear **Endpoint POST** (/api/v1/vitals/register/{id}) para actualizar a **paciente** con los siguientes datos: frecuencia cardiaca, frecuencia respiratoria, saturacion o2, temperatura, presion, nivel de conciencia y nivel de dolor
 
 - Crear compononente UI **Registro de constantes vitales** dentor de la página (/vitals/{id}) el cual es un formulario con los campos: frecuencia cardiaca, frecuencia respiratoria, saturacion o2, temperatura, presion, nivel de conciencia y nivel de dolor
