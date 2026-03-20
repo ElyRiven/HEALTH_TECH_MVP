@@ -220,7 +220,15 @@
 
 - Gestionar el envío del código de status `200` y los datos cuando la consulta se procesa correctamente.
 
-- Crear componente UI **Lista de pacientes**, ubicado en el home (/dashboard) el cual sea una tabla para cumplir con el punto anterior
+**Frontend**
+
+- Crear el componente `PatientTable.tsx` usando la librería de componentes shadcn e integrarlo en la ruta `/dashboard`.
+
+- Implementar el consumo del endpoint GET automáticamente al acceder a la ruta `/dashboard` usando la librería axios.
+
+- Implementar el mapeo de la respuesta del endpoint para renderizar los datos obtenidos en el componente `PatientTable.tsx`.
+
+- Implementar el renderizado del texto "No hay pacientes en espera" si la consulta no contiene datos.
 
 ### Sub-tareas: QA
 
