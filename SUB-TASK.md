@@ -438,6 +438,10 @@
 
 ### Sub-tareas: QA
 
-- Diseño de matriz de datos de pruebas para comprobar que la alerta visual por tiempo de espera máximo excedido aparezca en pantalla.
+**Datos**
 
-- Automatización del escenario de prueba que permita verificar la visualización de la alerta en pantalla según los tiempos establecidos en la matriz de tiempos límite definida.
+- Diseñar una matriz de datos que incluya registros de pacientes con el campo `hora de registro` cerca de cumplir su tiempo límite según la criticidad.
+
+**Automatización**
+
+- Desarrollar scripts en SerenityBDD que cubran los escenarios de prueba definidos haciendo uso de la matriz de datos de prueba definida.
