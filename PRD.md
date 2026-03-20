@@ -47,7 +47,7 @@ Agilizar el registro de datos y signos vitales mediante formularios estandarizad
 
 ### Gestión Eficiente de Alertas
 
-Garantizar la notificación de casos de nivel 1 (prioritarios) al personal médico disponible mediante un dashboard en tiempo real, optimizando la asignación y atención de pacientes.
+Garantizar la notificación de casos de nivel 1 (prioritarios) al personal médico disponible mediante un dashboard, optimizando la asignación y atención de pacientes.
 
 ## Alcance
 
@@ -57,7 +57,7 @@ Para la primera versión del sistema HealthTech se ha definido los siguientes pu
 
 - Formulario estandarizado para el registro rápido de datos y signos vitales de pacientes.
 - Algoritmo de clasificación y prioridad del paciente, basado en los signos vitales registrados.
-- Dashboard en tiempo real para la gestión de atención de pacientes registrados y en espera.
+- Dashboard para la gestión de atención de pacientes registrados y en espera.
 - Indicadores visuales en el Dashboard de criticidad por colores de los pacientes en espera.
 - Indicadores visuales del tiempo de espera por prioridad de atencion del paciente.
 - Gestión de estados básicos del paciente: En Espera, Siendo Atendido y Finalizado.
