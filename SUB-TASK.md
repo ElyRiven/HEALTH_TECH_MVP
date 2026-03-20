@@ -23,7 +23,7 @@
 
 - Crear tabla `pacientes` con los campos `identificación, nombres, apellidos, fecha de nacimiento, genero, criticidad, hora de registro y estado`.
 
-- Configurar el campo `identificación` como identidad y primary key de la tabla.
+- Configurar el campo `identificación` como primary key de la tabla.
 
 **Backend**
 
