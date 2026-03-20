@@ -428,7 +428,13 @@
 
 ### Sub-tareas: DEV
 
-- Agregar visualización a componente **Notificación inmediata** con mensaje **Tiempo de espera excedido. Paciente "Nombre y apellido", Criticidad "criticidad del paciente"** cuando el tiempo de espera del paciente haya excedido el límite máximo.
+**Frontend**
+
+- Desarrollar un servicio de monitoreo `WaitTimeMonitor.ts`que compare continuamente el tiempo transcurrido de cada paciente contra el tiempo máximo de su categoría.
+
+- Extender el componente de notificaciones `PatientNotificationToast.tsx` para incluir un tipo de alerta que muestre el mensaje "Tiempo de espera excedido. Paciente: `nombre`, `apellido`, Criticidad: `criticidad`"
+
+- Diseñar un estilo visual distintivo para la alerta con un borde rojo.
 
 ### Sub-tareas: QA
 
