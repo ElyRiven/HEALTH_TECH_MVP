@@ -202,7 +202,7 @@
 
 ## HU-005 — Visualización de lista de pacientes ordenados por criticidad
 
-**Story Points:** 13 SP
+**Story Points:** 8 SP
 
 **Descripción:**
 
