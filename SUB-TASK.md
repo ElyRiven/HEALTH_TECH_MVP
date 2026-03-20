@@ -164,6 +164,10 @@
 
 - Diseñar una matriz de datos de prueba que incluya todos los flujos de criticidad del Protocolo Manchester en base a la matriz "Reglas de Criticidad".
 
+**Pruebas Manuales**
+
+- Validar mediante Postman que los registros de pacientes generados manualmente incluyan el campo `criticidad` asignado automáticamente.
+
 - Ejecución de prueba de caja blanca mediante el endpoint POST (/api/v1/vitals/register/{id}) que compruebe el proceso y asignación correcta de criticidad a un paciente registrado
 
 ## HU-004 - Asignación visual de criticidad de un paciente
