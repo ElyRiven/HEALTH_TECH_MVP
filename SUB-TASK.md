@@ -158,7 +158,11 @@
 
 ### Sub-tareas: QA
 
-- Diseño de matriz de decisión de criticidad en base a los signos vitales según el Protocolo Manchester
+**Datos**
+
+- Insertar 2 registros de pacientes y constantes vitales válidas en el sistema manualmente en PostgreSQL.
+
+- Diseñar una matriz de datos de prueba que incluya todos los flujos de criticidad del Protocolo Manchester en base a la matriz "Reglas de Criticidad".
 
 - Ejecución de prueba de caja blanca mediante el endpoint POST (/api/v1/vitals/register/{id}) que compruebe el proceso y asignación correcta de criticidad a un paciente registrado
 
