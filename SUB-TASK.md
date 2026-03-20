@@ -104,6 +104,10 @@
 
 - Implementar la creacion de un nuevo registro en la tabla `constantes-vitales` si todas las validaciones han pasado.
 
+**Frontend**
+
+- Crear componente `VitalSignsForm.tsx` usando la librería de componentes shadcn e integrarlo en la ruta `/register/:pacientId`.
+
 - Crear compononente UI **Registro de constantes vitales** dentor de la página (/vitals/{id}) el cual es un formulario con los campos: frecuencia cardiaca, frecuencia respiratoria, saturacion o2, temperatura, presion, nivel de conciencia y nivel de dolor
 
 - Crear elemento UI **Guardar** en componente **Registro de constantes vitales** para registrar los datos vitales del paciente
