@@ -392,7 +392,15 @@
 
 ### Sub-tareas: DEV
 
-- Agregar una funcionalidad sonora al componente UI de atención inmediata para los niveles de criticidad 1 y 2.
+**Utilidades**
+
+- Añadir a la carpeta `/public` un archivo de audio breve `emergency_audio.mp3`.
+
+**Frontend**
+
+- Crear un hook personalizado `useNotificationSound.ts` que implemente la lógica de reproducción del archivo de audio mediante la API `Audio`.
+
+- Implementar la reproducción de la alerta, evaluando si la `criticidad` de nuevos pacientes con signos vitales registrados en el sistema es "Emergencia" o "Muy Urgente".
 
 ### Sub-tareas: QA
 
