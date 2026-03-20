@@ -232,9 +232,17 @@
 
 ### Sub-tareas: QA
 
-- Validación de UI en el Dashboard para comprobar que la lista de pacientes está ordenada por su criticidad descendentemente.
+**Datos**
 
-- Validación de UI en el Dashboard para comprobar que se muestra el mensaje correcto en ausencia de registros de pacientes.
+- Insertar manualmente 5 registros de pacientes y constantes vitales en PostgreSQL para registrar todos los niveles de criticidad en el sistema.
+
+**Pruebas Manuales**
+
+- Validar mediante Postman que el endpoint GET retorne la estructura JSON esperada y el código de estado correcto.
+
+**Automatización**
+
+- Desarrollar los script de automatización en SerenityBDD para cubrir los escenarios de prueba definidos.
 
 ## HU-006 — Texto de color por paciente del tiempo de espera transcurrido
 
