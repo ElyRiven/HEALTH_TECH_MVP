@@ -108,11 +108,15 @@
 
 - Crear componente `VitalSignsForm.tsx` usando la librería de componentes shadcn e integrarlo en la ruta `/register/:pacientId`.
 
-- Crear compononente UI **Registro de constantes vitales** dentor de la página (/vitals/{id}) el cual es un formulario con los campos: frecuencia cardiaca, frecuencia respiratoria, saturacion o2, temperatura, presion, nivel de conciencia y nivel de dolor
+- Reutilizar el componente `ResponseAlert.tsx` para mostrar el mensaje recibido en la respuesta del endpoint.
 
-- Crear elemento UI **Guardar** en componente **Registro de constantes vitales** para registrar los datos vitales del paciente
+- Implementar lógica de envío del formulario para consumir el endpoint POST.
+-
+- Implementar lógica de acceso al componente `VitalSignsForm.tsx` únicamente si se especifica un id en la ruta.
 
-- Crear componente UI de confirmación dentro de página (/vitals/{id}), que contenga el texto "Signos vitales registrados exitosamente", este componente debe tener un elemento que redirija al Dashboard Principal
+- Implementar errores de validaciones en el formulario.
+-
+- Implementar el redireccionamiento hacia la ruta `/dashboard` si la respuesta es exitosa.
 
 ### Sub-tareas: QA
 
