@@ -324,6 +324,10 @@
 
 - Crear **Endpoint PATCH** `(/api/v1/pacients/:pacientId)` con Express.
 
+- Gestionar el envio de códigos semánticos y mensajes de respuesta:
+  - 200, "Estado del paciente actualizado correctamente"
+  - 404, "El valor recibido no es un estado válido"
+
 - Implementar la actualización del campo `estado` del registro correspondiente de la tabla `pacientes` con el valor que recibe el endpoint.
 
 **Frontend**
