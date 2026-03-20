@@ -27,7 +27,12 @@
 
 **Backend**
 
-- Crear **Endpoint POST** `/api/v1/pacients` con Express y gestionar código de estado semántico (201 creado, 409 identificación duplicada, 400 campos obligatorios faltantes).
+- Crear **Endpoint POST** `/api/v1/pacients` con Express.
+
+- Gestionar código de estado semántico y mensajes de respuesta:
+  - 201, "Paciente registrado exitosamente"
+  - 409, "Identificación duplicada"
+  - 400, "campos obligatorios faltantes"
 
 - Implementar validaciones de datos obligatorios y tipos de datos adecuados para los campos `identificación, nombres, apellidos, fecha de nacimiento, genero, hora de registro y estado`.
 
@@ -37,7 +42,7 @@
 
 - Desarrollar el componente `PatientForm.tsx` usando la librería de componentes shadcn e integrarlo en la ruta `/register`.
 
-- Crear el componente `SuccessAlert.tsx` para mostrar el mensaje "Paciente registrado exitosamente" en caso del envio correcto del formulario.
+- Crear el componente `ResponseAlert.tsx` para mostrar el mensaje recibido en la respuesta del endpoint.
 
 - Implementar lógica de envío del formulario para consumir el endpoint POST.
 
