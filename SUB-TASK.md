@@ -362,7 +362,13 @@
 
 ### Sub-tareas: DEV
 
-- Crear un elemento UI **Paciente registrado** en la página (/dashboard) el cual contenga los siguientes datos **Nombre, Apellido y Criticidad** para notificar a **Médico** del registro exitoso de un paciente al sistema
+**Frontend**
+
+- Desarrollar el componente `PatientNotificationToast.tsx` mediante la librería de componentes shadcn que muestre el nombre, apellido y criticidad de un paciente.
+
+- Implementar un efecto mediante `useEffect` para mostrar la notificación si se detecta que hay un nuevo registro de paciente en la lista de datos.
+
+- Configurar un tiempo límite de aparición de la notificación de 5 segundos en pantalla y añadir la opción de cerrarla mediante un botón "X".
 
 ### Sub-tareas: QA
 
