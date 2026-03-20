@@ -256,7 +256,13 @@
 
 ### Sub-tareas: DEV
 
-- Modificar el elemento UI **fila de paciente**, dentro del home (/dashboard) en la columna **Tiempo de espera** en el componente **Lista de pacientes** para dar un indicador visual del nivel de prioridad del paciente de acuerdo a su clasificación definida en la matriz de tiempos límite.
+**Frontend**
+
+- Crear un helper `waitingTimeCalculator.ts` que reciba los campos `hora de registro` y `criticidad` y devuelva el color correspondiente a la matriz "Tiempos Límite".
+
+- Implementar un hook personalizado `useTimer.ts` que recalcule el tiempo transcurrido en intervalos de 15 segundos.
+
+- Modificar el componente `PatientTable.tsx` para aplicar estilos condicionales al texto de la columna "Tiempo en espera" según el resultado del calculator.
 
 ### Sub-tareas: QA
 
