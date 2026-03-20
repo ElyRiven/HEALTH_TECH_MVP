@@ -342,11 +342,13 @@
 
 - Insertar manualmente 3 registros de pacientes y constantes vitales en PostgreSQL, cada uno con los tres estados posibles en el campo "estado".
 
-- Definición de matriz de estados del paciente y su comportamiento esperado en el sistema.
+**Pruebas Manuales**
 
-- Verificación de UI para comprobar que el Dashboard muestra u oculta los botones correspondientes dependiendo del estado del paciente.
+- Validar mediante Postman que el endpoint PATCH retorne el código 404 al enviar un estado no definido en el sistema.
 
-- Automatización de los escenarios de prueba definidos para validar el comportamiento del sistema según el estado del paciente.
+**Automatización**
+
+- Desarrollar scripts de automatización en SerenityBDD que cubran todos los escenarios de prueba definidos.
 
 ## HU-009 — Notificación visual de nuevo registro de paciente al personal médico disponible
 
