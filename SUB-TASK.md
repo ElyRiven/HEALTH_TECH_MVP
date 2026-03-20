@@ -45,7 +45,11 @@
 
 ### Sub-tareas: QA
 
-- Diseño de matriz de datos de prueba para los escenarios definidos en los criterios de aceptación.
+**Datos**
+
+- Insertar 2 registros de pacientes con identificaciones válidas directamente en la tabla de PostgreSQL.
+
+- Diseñar una matriz de datos que incluya casos borde (campos vacíos, fechas inválidas e identificaciones repetidas) para las pruebas automatizadas.
 
 - Validación del formulario de UI que contenga los campos **identificación, nombres, apellidos, fecha de nacimiento y género**.
 
