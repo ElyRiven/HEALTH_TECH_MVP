@@ -75,6 +75,12 @@ Se implementará una estrategia de pruebas transversal con una combinación de v
   - Automatización de los flujos de usuario completos desde la interfaz web, cubriendo los escenarios Happy Path y flujos alternativos descritos en los criterios de aceptación Gherkin de cada historia de usuario.
   - Los escenarios son trazables directamente desde los criterios de aceptación del backlog.
 
+### Pruebas de Rendimiento
+
+- **Herramienta:** k6
+- **Enfoque:** Pruebas de carga y estrés sobre los endpoints del backend para validar el comportamiento del sistema bajo concurrencia.
+- Se priorizarán los endpoints de mayor carga: registro de paciente (`POST /api/v1/pacients`) y consulta del dashboard (`GET /api/v1/pacients`).
+
 ## Criterios de Entrada y Salida
 
 ## Entorno de Pruebas
