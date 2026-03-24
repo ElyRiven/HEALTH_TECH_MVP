@@ -28,10 +28,10 @@ function validatePacient(pacient) {
     }
 
     if (!pacient.hora_de_registro || typeof pacient.hora_de_registro !== 'string' || !validator.isISO8601(pacient.hora_de_registro)) {
-        errors.hora_de_registro = 'Debe ser un formato de fecha y hora válido';
+        errors.hora_de_registro = 'Debe ser un formato de fecha y hora válido ISO 8601';
     }
 
-    if (!pacient.estado || typeof pacient.estado !== 'string' || !validator.isLength(pacient.estado, { min: 1, max: 50 })) {
+    if (typeof pacient.estado !== 'string' || !validator.isLength(pacient.estado, { min: 1, max: 50 })) {
         errors.estado = 'Debe ser: En espera, Siendo atendido, Finalizado';
     }
 

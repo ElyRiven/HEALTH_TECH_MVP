@@ -1,10 +1,19 @@
 import { pool } from '../db.js';
 import { validatePacient } from '../helpers/validator.js';
-import { parseISO, format } from 'date-fns';
+import { adaptToTimeFormat } from '../helpers/timeAdapter.js';
 
 export const CreatePacient = async (req, res) => {
     try {
-        let { identificacion, nombres, apellidos, fecha_de_nacimiento, genero, criticidad, hora_de_registro, estado } = req.body;
+        if ('hora_de_registro' in req.body) {
+            return res.status(400).json({ 
+                message: "Error de validación", 
+                errors: { hora_de_registro: "Este campo es generado automáticamente por el servidor y no debe enviarse" } 
+            });
+        }
+
+        let { identificacion, nombres, apellidos, fecha_de_nacimiento, genero, criticidad, estado } = req.body;
+
+        const hora_de_registro = adaptToTimeFormat(new Date());
 
         const validationErrors = validatePacient({
             identificacion,
@@ -20,8 +29,6 @@ export const CreatePacient = async (req, res) => {
         if (validationErrors) {
             return res.status(400).json({ message: "Error de validación", errors: validationErrors });
         }
-
-        hora_de_registro = hora_de_registro ? format(parseISO(hora_de_registro), "yyyy-MM-dd'T'HH:mm:ssXXX") : hora_de_registro;
 
         const query = `
             INSERT INTO public.pacientes (
