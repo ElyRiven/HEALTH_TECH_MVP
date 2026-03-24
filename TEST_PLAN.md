@@ -27,6 +27,33 @@ El sistema **HealthTech: Sistema de Triaje de Urgencias** resuelve este problema
 
 ## Alcance de las Pruebas
 
+El alcance de las pruebas cubre el flujo completo: desde el registro del paciente hasta su visualización ordenada en el dashboard y la recepción de notificaciones por parte del personal médico.
+
+### Historias de usuario incluidas
+
+| ID | Título | Story Points |
+|----|--------|--------------|
+| HU-001 | Registro de paciente en el sistema | 13 SP |
+| HU-002 | Registro de constantes vitales de un paciente | 13 SP |
+| HU-003 | Clasificación automatizada de criticidad de un paciente | 13 SP |
+| HU-005 | Visualización de lista de pacientes ordenados por criticidad | 8 SP |
+| HU-009 | Notificación visual de nuevo registro de paciente al personal médico disponible | 2 SP |
+
+**Total en alcance:** 49 Story Points
+
+### Fuera del alcance
+
+Las siguientes historias de usuario **no serán probadas** en esta versión:
+
+- HU-004 — Asignación visual de criticidad (colores)
+- HU-006 — Texto de color por tiempo de espera transcurrido
+- HU-007 — Filtrado del Dashboard por nivel de criticidad
+- HU-008 — Cambio de estado del paciente
+- HU-010 — Alerta sonora para ingresos Nivel 1 y 2
+- HU-011 — Alerta visual por superación de tiempo máximo de espera
+
+Adicionalmente, están fuera del alcance: autenticación y roles, conexión con dispositivos médicos, historial clínico electrónico, facturación, gestión de recursos internos y auditoría de trazabilidad de pacientes.
+
 ## Estrategias de Pruebas
 
 ## Criterios de Entrada y Salida
