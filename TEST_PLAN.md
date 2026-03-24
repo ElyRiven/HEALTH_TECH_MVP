@@ -104,6 +104,20 @@ Se implementará una estrategia de pruebas transversal con una combinación de v
 
 ## Entorno de Pruebas
 
+| Componente | Tecnología / Versión | Descripción |
+|------------|---------------------|-------------|
+| Frontend | React v19 + Vite | Interfaz web ejecutada en `http://localhost:5173` |
+| Backend | Node.js v22.14 + Express | API REST ejecutada en `http://localhost:3000` |
+| Base de datos | PostgreSQL v15 | Instancia local o contenerizada con datos de prueba aislados |
+| Automatización E2E | SerenityBDD v4.2 + Cucumber | Ejecutado desde el proyecto de automatización en Java/Maven |
+| Pruebas de API | Karate DSL | Ejecutado como suite independiente apuntando al backend local |
+| Pruebas de rendimiento | k6 | Ejecutado desde la máquina del QA apuntando al backend local |
+| Navegador | Google Chrome (versión estable) | Navegador objetivo para las pruebas E2E |
+
+**Consideraciones:**
+- La base de datos de pruebas debe ser independiente de producción o staging.
+- Las variables de entorno (URLs, credenciales de BD) se gestionan mediante archivos `.env`.
+
 ## Herramientas
 
 ## Roles y Responsabilidades
