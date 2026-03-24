@@ -156,6 +156,24 @@ Se implementará una estrategia de pruebas transversal con una combinación de v
 
 ## Cronograma y Estimación
 
+El esfuerzo de QA se estima en función de los Story Points de cada historia de usuario bajo un ratio de **0.5 días de QA por Story Point**.
+
+| Historia de Usuario | Story Points | Estimación QA |
+|---------------------|:------------:|:-------------:|
+| HU-001 - Registro de paciente | 13 SP | 6.5 días |
+| HU-002 - Registro de constantes vitales | 13 SP | 6.5 días |
+| HU-003 - Clasificación de criticidad | 13 SP | 6.5 días |
+| HU-005 - Visualización de pacientes | 8 SP | 4 días |
+| HU-009 - Notificación visual | 2 SP | 1 día |
+| **Total** | **49 SP** | **~24.5 días** |
+
+**Fases del ciclo de pruebas por HU:**
+
+1. Diseño de casos de prueba y preparación de datos *(~30% del esfuerzo)*
+2. Ejecución de pruebas manuales (Postman + exploratoria) *(~20% del esfuerzo)*
+3. Desarrollo y ejecución de automatización SerenityBDD / Karate *(~40% del esfuerzo)*
+4. Reporte de defectos, retesting y cierre *(~10% del esfuerzo)*
+
 ## Entregables de Prueba
 
 ## Riesgos y Contingengias
