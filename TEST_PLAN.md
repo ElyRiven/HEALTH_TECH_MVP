@@ -81,6 +81,10 @@ Se implementará una estrategia de pruebas transversal con una combinación de v
 - **Enfoque:** Pruebas de carga y estrés sobre los endpoints del backend para validar el comportamiento del sistema bajo concurrencia.
 - Se priorizarán los endpoints de mayor carga: registro de paciente (`POST /api/v1/pacients`) y consulta del dashboard (`GET /api/v1/pacients`).
 
+### Pruebas Manuales
+
+- Se ejecutarán sobre la interfaz web para validar flujos de negocio y comportamiento visual del dashboard.
+
 ## Criterios de Entrada y Salida
 
 ## Entorno de Pruebas
