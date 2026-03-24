@@ -1,16 +1,28 @@
 import { pool } from '../db.js';
+import { validatePacient } from '../helpers/validator.js';
+import { parseISO, format } from 'date-fns';
 
 export const CreatePacient = async (req, res) => {
     try {
-        // Extraer los datos del cuerpo de la solicitud
-        const { identificacion, nombres, apellidos, fecha_de_nacimiento, genero, criticidad, hora_de_registro, estado } = req.body;
+        let { identificacion, nombres, apellidos, fecha_de_nacimiento, genero, criticidad, hora_de_registro, estado } = req.body;
 
-        // Validar que todos los campos requeridos estén presentes
-        if (!identificacion || !nombres || !apellidos || !fecha_de_nacimiento || !genero || !criticidad || !hora_de_registro || !estado) {
-            return res.status(400).json({ message: "Todos los campos son obligatorios" });
+        const validationErrors = validatePacient({
+            identificacion,
+            nombres,
+            apellidos,
+            fecha_de_nacimiento,
+            genero,
+            criticidad,
+            hora_de_registro,
+            estado
+        });
+
+        if (validationErrors) {
+            return res.status(400).json({ message: "Error de validación", errors: validationErrors });
         }
 
-        // Consulta SQL para insertar un nuevo paciente
+        hora_de_registro = hora_de_registro ? format(parseISO(hora_de_registro), "yyyy-MM-dd'T'HH:mm:ssXXX") : hora_de_registro;
+
         const query = `
             INSERT INTO public.pacientes (
                 identificacion,
@@ -22,18 +34,22 @@ export const CreatePacient = async (req, res) => {
                 hora_de_registro,
                 estado
             ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
-            RETURNING *;
+            RETURNING identificacion;
         `;
 
         const values = [identificacion, nombres, apellidos, fecha_de_nacimiento, genero, criticidad, hora_de_registro, estado];
 
-        // Ejecutar la consulta
-        const { rows } = await pool.query(query, values);
+        try {
+            const { rows } = await pool.query(query, values);
 
-        // Responder con el paciente creado
-        res.status(201).json({ message: "Paciente creado exitosamente", paciente: rows[0] });
+            res.status(201).json({ message: "Paciente registrado exitosamente", id: rows[0].identificacion });
+        } catch (error) {
+            if (error.code === '23505') { 
+                return res.status(409).json({ message: "Identificación duplicada" });
+            }
+            throw error; 
+        }
     } catch (error) {
-        // Manejo de errores
         res.status(500).json({ message: "Error al crear el paciente", error: error.message });
     }
 };
