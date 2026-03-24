@@ -8,10 +8,10 @@
 
 ### TC003 - Registro falla cuando la identificación está duplicada
 
-## HU-001 - Registro de paciente en el sistema
+## HU-002 - Registro de constantes vitales de un paciente
 
-## HU-001 - Registro de paciente en el sistema
+## HU-003 - Clasificación automatizada de criticidad de un paciente
 
-## HU-001 - Registro de paciente en el sistema
+## HU-005 - Visualización de lista de pacientes ordenados por criticidad
 
-## HU-001 - Registro de paciente en el sistema
+## HU-009 - Notificación visual de nuevo registro de paciente al personal médico disponible
