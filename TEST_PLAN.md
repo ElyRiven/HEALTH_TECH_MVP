@@ -120,6 +120,15 @@ Se implementará una estrategia de pruebas transversal con una combinación de v
 
 ## Herramientas
 
+| Herramienta  | Propósito |
+|-------------|-----------|
+| **SerenityBDD v4.2** | Framework de automatización funcional E2E con patrón Screenplay. Genera reportes HTML detallados con trazabilidad a los criterios de aceptación. |
+| **Cucumber (Gherkin)** | Lenguaje de especificación ejecutable (Dado/Cuando/Entonces) que conecta los criterios de aceptación del negocio con los scripts de automatización de SerenityBDD. |
+| **Karate DSL** | Framework de pruebas de API REST. Permite validar contratos de endpoint, códigos de estado, estructura JSON y encadenamiento de llamadas sin código Java adicional. |
+| **k6** | Herramienta de pruebas de carga y rendimiento. Simula usuarios concurrentes sobre los endpoints del backend y genera métricas de tiempo de respuesta, throughput y tasa de errores. |
+| **Postman** | Herramienta de validación manual de APIs. Usada para smoke tests de endpoints y exploración rápida de comportamiento del backend antes de la automatización. |
+| **PostgreSQL Client** | Acceso directo a la base de datos para inserción y validación de datos de prueba. |
+
 ## Roles y Responsabilidades
 
 ## Cronograma y Estimación
