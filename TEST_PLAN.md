@@ -67,6 +67,14 @@ Se implementará una estrategia de pruebas transversal con una combinación de v
   - `POST /api/v1/vitals/:patientId`
   - `GET /api/v1/pacients`
 
+### Pruebas Funcionales E2E (Frontend + Backend)
+
+- **Herramienta:** SerenityBDD v4.2 + Cucumber (Gherkin)
+- **Patrón:** Screenplay
+- **Enfoque:** 
+  - Automatización de los flujos de usuario completos desde la interfaz web, cubriendo los escenarios Happy Path y flujos alternativos descritos en los criterios de aceptación Gherkin de cada historia de usuario.
+  - Los escenarios son trazables directamente desde los criterios de aceptación del backlog.
+
 ## Criterios de Entrada y Salida
 
 ## Entorno de Pruebas
