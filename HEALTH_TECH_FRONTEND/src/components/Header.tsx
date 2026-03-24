@@ -1,4 +1,7 @@
+
+
 import { Link } from 'react-router-dom'
+import { useState } from 'react'
 
 export default function Header() {
   return (
@@ -9,17 +12,29 @@ export default function Header() {
         </Link>
         <div className="flex items-center gap-8">
           <Link className='font-medium' to="/">LISTA DE PACIENTES</Link>
-          <Link
-            to="/register"
-            className="group inline-flex items-center justify-center gap-2 h-10.5 w-57 bg-main-white-back border-2 border-blue-medium-tittle text-black-main-font rounded-lg font-medium transition-colors hover:bg-blue-medium-tittle hover:text-main-white-back hover:border-transparent"
-          >
-            <span>Registrar Paciente</span>
-            <img src="/healthicons_health-worker-form-outline-black.svg" alt="" aria-hidden="true" className="transition-[filter] duration-150 group-hover:invert" />
-          </Link>
+          <RegisterButton />
         </div>
       </nav>
     </header>
   )
 }
 
-//inline-flex items-center justify-center gap-2 h-10.5 w-57 bg-blue-medium-tittle text-main-white-back rounded-lg font-medium
+function RegisterButton() {
+  const [hover, setHover] = useState(false)
+  return (
+    <Link
+      to="/register"
+      className="inline-flex items-center justify-center gap-2 h-10.5 w-57 bg-main-white-back border-2 border-blue-medium-tittle text-black-main-font rounded-lg font-medium transition-colors hover:bg-blue-medium-tittle hover:text-main-white-back hover:border-transparent"
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+    >
+      <span>Registrar Paciente</span>
+      <img
+        src={hover ? "/healthicons_health-worker-form-outline-white.svg" : "/healthicons_health-worker-form-outline-black.svg"}
+        alt=""
+        aria-hidden="true"
+        className="transition-all duration-150"
+      />
+    </Link>
+  )
+}
