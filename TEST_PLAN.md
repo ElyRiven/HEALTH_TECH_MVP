@@ -54,7 +54,18 @@ Las siguientes historias de usuario **no serán probadas** en esta versión:
 
 Adicionalmente, están fuera del alcance: autenticación y roles, conexión con dispositivos médicos, historial clínico electrónico, facturación, gestión de recursos internos y auditoría de trazabilidad de pacientes.
 
-## Estrategias de Pruebas
+## Estrategia de Pruebas
+
+Se implementará una estrategia de pruebas transversal con una combinación de validación de API, automatización funcional y pruebas de rendimiento.
+
+### Pruebas de API (Backend)
+
+- **Herramienta:** Karate DSL
+- **Enfoque:** Pruebas de contrato y funcionales sobre los endpoints REST.
+- Se validarán códigos de estado HTTP semánticos, estructura del cuerpo de respuesta (JSON), validaciones de negocio y manejo de errores para los endpoints:
+  - `POST /api/v1/pacients`
+  - `POST /api/v1/vitals/:patientId`
+  - `GET /api/v1/pacients`
 
 ## Criterios de Entrada y Salida
 
