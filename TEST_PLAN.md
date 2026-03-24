@@ -190,3 +190,16 @@ El esfuerzo de QA se estima en función de los Story Points de cada historia de 
 | **Registro de defectos** | Log de bugs encontrados durante el ciclo de pruebas con severidad, estado y evidencia. | QA |
 
 ## Riesgos y Contingengias
+
+Para cada riesgo identificado de la etapa de testing, se ha establecido una escala de evaluación definida como:
+
+- Probabilidad; Baja (1) a Alta (5)
+- Impacto: Bajo (1) a Alto (5)
+
+| # | Riesgo | Probabilidad | Impacto | Mitigación |
+|---|--------|:------------:|:-------:|------------|
+| R-01 | **Entorno inestable:** El entorno de pruebas no está disponible o se cae durante la ejecución de las pruebas automatizadas | 3 | 5 | Configurar el entorno local con Docker para independencia de infraestructura compartida. Definir un procedimiento de restauración rápida. |
+| R-02 | **Criterios de aceptación ambiguos:** Las HU tienen criterios poco claros que generan distintas interpretaciones entre DEV y QA | 3 | 5 | Realizar sesiones de refinamiento (3 amigos) antes del inicio de cada HU. Documentar los acuerdos en el caso de prueba. |
+| R-03 | **Desfase en la entrega del DEV:** El desarrollo de una HU se retrasa, eliminando tiempo disponible de QA en el cronograma | 3 | 4 | Iniciar el diseño de casos de prueba y la preparación de datos mientras el DEV implementa. Automatizar en paralelo con datos mock. |
+| R-04 | **Notificación visual no disparada (HU-009):** El componente `PatientNotificationToast.tsx` no detecta el nuevo registro correctamente en el polling frontend | 3 | 3 | Validar el comportamiento manual primero. Incluir esperas explícitas (`waitFor`) en los scripts SerenityBDD para manejar la asincronía. |
+| R-05 | **Datos sensibles en pruebas:** Uso accidental de datos reales de pacientes en los scripts de prueba | 1 | 5 | Usar únicamente datos ficticios generados para pruebas. Nunca conectar los scripts al entorno de producción. |
