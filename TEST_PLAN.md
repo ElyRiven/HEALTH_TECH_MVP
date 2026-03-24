@@ -87,6 +87,21 @@ Se implementará una estrategia de pruebas transversal con una combinación de v
 
 ## Criterios de Entrada y Salida
 
+### Criterios de Entrada
+
+- La historia de usuario tiene criterios de aceptación definidos y aprobados.
+- El entorno de pruebas está configurado y accesible (backend, frontend y base de datos).
+- Los endpoints correspondientes están disponibles y retornan respuesta.
+- Los datos de prueba han sido preparados e insertados en la base de datos según la matriz de datos definida.
+
+### Criterios de Salida
+
+- El 100% de los casos de prueba de prioridad **Crítica** y **Alta** han sido ejecutados.
+- El 80% o más de los casos de prueba de prioridad **Media** han sido ejecutados.
+- No existen defectos abiertos de severidad **Crítica** o **Alta** sin resolver.
+- El reporte de SerenityBDD muestra el resultado de ejecución de todos los escenarios automatizados.
+- Los resultados de las pruebas de rendimiento con k6 están documentados y dentro de los umbrales aceptados.
+
 ## Entorno de Pruebas
 
 ## Herramientas
