@@ -6,3 +6,22 @@
 **Fecha:** 2026/24/03  
 **Equipo:** Elizabeth Tamayo y Juan David Franco  
 
+## Contexto del proyecto
+
+## Alcance de las Pruebas
+
+## Estrategias de Pruebas
+
+## Criterios de Entrada y Salida
+
+## Entorno de Pruebas
+
+## Herramientas
+
+## Roles y Responsabilidades
+
+## Cronograma y Estimación
+
+## Entregables de Prueba
+
+## Riesgos y Contingengias
