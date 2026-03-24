@@ -131,6 +131,29 @@ Se implementará una estrategia de pruebas transversal con una combinación de v
 
 ## Roles y Responsabilidades
 
+### QA — Elizabeth Tamayo
+
+| Tarea | Descripción |
+|-------|-------------|
+| Diseño de casos de prueba | Redactar los casos de prueba en formato Gherkin y sus matrices de datos |
+| Preparación de datos | Insertar registros de prueba en PostgreSQL y diseñar matrices de datos borde |
+| Pruebas manuales de API | Validar endpoints con Postman antes de la automatización |
+| Automatización E2E | Desarrollar los scripts SerenityBDD con patrón Screenplay |
+| Automatización de API | Desarrollar los scripts Karate para validación de endpoints |
+| Pruebas de rendimiento | Diseñar y ejecutar los scripts k6 |
+| Reporte de defectos | Registrar, documentar y hacer seguimiento a los bugs encontrados |
+| Entregables de QA | Generar los reportes finales de ejecución y el resumen de métricas |
+
+### DEV — Juan David Franco
+
+| Tarea | Descripción |
+|-------|-------------|
+| Implementación | Desarrollar los endpoints y componentes frontend de cada HU |
+| Revisión de criterios | Confirmar que los criterios de aceptación son técnicamente correctos antes del inicio de pruebas |
+| Corrección de defectos | Corregir los bugs reportados por QA en los ciclos de prueba |
+| Soporte de entorno | Configurar y mantener el entorno de pruebas (backend, BD, variables de entorno) |
+| Code review | Revisar los scripts de automatización generados por QA cuando sea necesario |
+
 ## Cronograma y Estimación
 
 ## Entregables de Prueba
