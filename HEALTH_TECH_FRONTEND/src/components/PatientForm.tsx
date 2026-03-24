@@ -1,4 +1,8 @@
-export default function PatientForm() {
+interface PatientFormProps {
+  onSuccess?: () => void
+}
+
+export default function PatientForm({ onSuccess }: PatientFormProps) {
   return (
     <div className="bg-white-second-back rounded-lg p-6 w-full max-w-sm shadow-[0px_4px_16px_0px_rgba(0,0,0,0.2)]">
       <form className="flex flex-col gap-4">
@@ -57,12 +61,12 @@ export default function PatientForm() {
         </div>
 
         <button
-          type="submit"
+          type="button"
+          onClick={onSuccess}
           className="mt-2 bg-blue-medium-tittle text-main-white-back font-medium py-2 rounded text-sm hover:opacity-90 transition-opacity"
         >
           Registrar Paciente
         </button>
-
       </form>
     </div>
   )
