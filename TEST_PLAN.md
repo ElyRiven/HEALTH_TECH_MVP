@@ -176,4 +176,17 @@ El esfuerzo de QA se estima en función de los Story Points de cada historia de 
 
 ## Entregables de Prueba
 
+
+| Artefacto | Descripción | Responsable |
+|-----------|-------------|-------------|
+| **TEST_PLAN.md** | Este documento. Plan general de pruebas del proyecto. | QA |
+| **TEST_CASES.md** | Catálogo de casos de prueba con escenarios Gherkin, datos de entrada, pasos y resultados esperados. | QA |
+| **Matrices de datos** | Archivos con los conjuntos de datos de prueba para cada HU, incluyendo casos borde. | QA |
+| **Scripts SerenityBDD** | Código fuente de las pruebas E2E automatizadas con patrón Screenplay. | QA |
+| **Scripts Karate** | Código fuente de las pruebas de API automatizadas. | QA |
+| **Scripts k6** | Código fuente de los scripts de carga y rendimiento. | QA |
+| **Reporte SerenityBDD (HTML)** | Reporte generado automáticamente con resultados de ejecución, trazabilidad a HU y evidencias. | QA |
+| **Reporte k6** | Métricas de rendimiento: tiempo de respuesta (p95), throughput (RPS) y tasa de errores. | QA |
+| **Registro de defectos** | Log de bugs encontrados durante el ciclo de pruebas con severidad, estado y evidencia. | QA |
+
 ## Riesgos y Contingengias
