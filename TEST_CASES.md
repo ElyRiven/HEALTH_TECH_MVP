@@ -4,9 +4,125 @@
 
 ### TC-001 - Registro exitoso de nuevo paciente con datos válidos
 
+**Escenario Gherkin:**
+```gherkin
+Dado que el personal médico está en el formulario de registro de paciente (/register)
+Cuando ingresa los datos: "<identificacion>", "<nombres>", "<apellidos>", "<fecha_nacimiento>" y "<genero>"
+Y selecciona el botón "Guardar Registro"
+Entonces el sistema muestra un cuadro de confirmación con el texto "Paciente registrado exitosamente"
+Y redirige al personal médico al formulario de registro de signos vitales (/register/:pacientId)
+```
+
+**Precondiciones:**
+- El sistema está disponible y el formulario `/register` es accesible.
+- No existe ningún paciente con identificación duplicada en la base de datos.
+
+**Datos de entrada:**
+
+```gherkin
+| identificacion | nombres        | apellidos       | fecha_nacimiento | genero    |
+| 1002003001     | Luis Andres    | Caceres Estrada | 1999-05-21       | masculino |
+| 1002003002     | Andrea Cecilia | Tupiza Espinoza | 1983-01-08       | femenino  |
+```
+
+**Pasos de ejecución:**
+1. Navegar a la ruta `/register`.
+2. Ingresar el dato en el campo Identificación.
+3. Ingresar el dato en el campo Nombres.
+4. Ingresar el dato en el campo Apellidos.
+5. Ingresar el dato en el campo Fecha de nacimiento.
+6. Seleccionar la opción en el campo Género.
+7. Hacer clic en el botón "Guardar Registro".
+
+**Resultado esperado:**
+- El sistema muestra un cuadro de confirmación con el mensaje "Paciente registrado exitosamente".
+- El sistema redirige a la ruta `/register/:pacientId` con el ID del paciente recién creado.
+- El backend responde con código HTTP `201`.
+
+**Resultado obtenido:** Sin ejecutar  
+**Estado:** Sin ejecutar  
+**Prioridad:** Crítica
+
 ### TC-002 - Registro falla cuando los campos obligatorios están vacíos
 
+**Escenario Gherkin:**
+```gherkin
+Dado que el personal médico está en el formulario de registro de paciente (/register)
+Cuando ingresa los datos: "<nombres>", "<apellidos>", "<fecha_nacimiento>" y "<genero>"
+Y selecciona el botón "Guardar Registro"
+Entonces el sistema muestra un mensaje de error en el campo identificación
+Y el personal médico se mantiene en el formulario de registro de paciente (/register)
+```
+
+**Precondiciones:**
+- El sistema está disponible y el formulario `/register` es accesible.
+
+**Datos de entrada:**
+
+```gherkin
+| nombres        | apellidos       | fecha_nacimiento | genero    |
+| Luis Andres    | Caceres Estrada | 1999-05-21       | masculino |
+| Andrea Cecilia | Tupiza Espinoza | 1983-01-08       | femenino  |
+```
+
+**Pasos de ejecución:**
+1. Navegar a la ruta `/register`.
+2. Dejar el campo Identificación vacío.
+3. Ingresar el dato en el campo Nombres.
+4. Ingresar el dato en el campo Apellidos.
+5. Ingresar el dato en el campo Fecha de nacimiento.
+6. Seleccionar la opción correspondiente en el campo Género.
+7. Hacer clic en el botón "Guardar Registro".
+
+**Resultado esperado:**
+- El sistema muestra un mensaje de error en el campo Identificación indicando que es obligatorio.
+- El usuario permanece en la ruta `/register`.
+- No se crea ningún registro en la base de datos.
+- El backend responde con código HTTP `400`.
+
+**Resultado obtenido:** Sin ejecutar  
+**Estado:** Sin ejecutar  
+**Prioridad:** Alta
+
 ### TC-003 - Registro falla cuando la identificación está duplicada
+
+**Escenario Gherkin:**
+```gherkin
+Dado que el personal médico está en el formulario de registro de paciente (/register)
+Y ya existe un paciente con identificación "1002003001" en el sistema
+Cuando ingresa la identificación "1002003001" junto con los demás datos válidos del formulario
+Y selecciona el botón "Guardar Registro"
+Entonces el sistema muestra un mensaje de error indicando que la identificación ya está registrada
+Y el personal médico se mantiene en el formulario de registro de paciente (/register)
+```
+
+**Precondiciones:**
+- El sistema está disponible y el formulario `/register` es accesible.
+- Existe un registro previo en la tabla `pacientes` con identificación "1002003001".
+
+**Datos de entrada:**
+
+```gherkin
+| identificacion | nombres        | apellidos       | fecha_nacimiento | genero    |
+| 1002003003     | Sofia Camila   | Paz Chiriboga   | 1989-09-09       | femenino  |
+```
+
+**Pasos de ejecución:**
+1. Insertar en PostgreSQL un paciente con identificación "1002003003" y los datos personales de la tabla.
+2. Navegar a la ruta `/register`.
+3. Ingresar "1002003003" en el campo Identificación.
+4. Completar los demás campos con los datos de la tabla.
+5. Hacer clic en el botón "Guardar Registro".
+
+**Resultado esperado:**
+- El sistema muestra un mensaje de error indicando que la identificación ya existe en el sistema.
+- El usuario permanece en la ruta `/register`.
+- No se crea un registro duplicado en la base de datos.
+- El backend responde con código HTTP `409`.
+
+**Resultado obtenido:** Sin ejecutar  
+**Estado:** Sin ejecutar  
+**Prioridad:** Alta
 
 ## HU-002 - Registro de constantes vitales de un paciente
 
