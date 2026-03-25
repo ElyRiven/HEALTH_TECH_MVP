@@ -6,16 +6,52 @@ import { API_URL, initialForm } from './data'
 export function useFormRegisterPacient(onSuccess?: (e: React.FormEvent<HTMLFormElement>) => void): UseFormRegisterPacient {
   const [form, setForm] = useState<PacientForm>(initialForm)
   const [loading, setLoading] = useState(false)
-  const [formError, setFormError] = useState<string | null>(null)
+  const [formError, setFormError] = useState<string | string[] | null>(null)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value })
   }
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    const allowed = ['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab', 'Enter']
+    if (!allowed.includes(e.key) && !/^\d$/.test(e.key)) {
+      e.preventDefault()
+      setFormError('La identificacion debe ser un valor numérico')
+    } else {
+      setFormError(null)
+    }
+  }
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    setLoading(true)
     setFormError(null)
+
+    const clientErrors: string[] = []
+
+    if (!form.identificacion || form.identificacion === '0') {
+      clientErrors.push('Lo siento, debes escribir la identificación del paciente')
+    } else if (!/^\d+$/.test(form.identificacion)) {
+      clientErrors.push('La identificación debe ser un valor numérico')
+    }
+    if (!form.nombres.trim()) {
+      clientErrors.push('Lo siento, debes escribir los nombres del paciente')
+    }
+    if (!form.apellidos.trim()) {
+      clientErrors.push('Lo siento, debes escribir los apellidos del paciente')
+    }
+    if (!form.fecha_de_nacimiento) {
+      clientErrors.push('Lo siento, debes escribir la fecha de nacimiento del paciente')
+    }
+    if (!form.genero) {
+      clientErrors.push('Lo siento, debes seleccionar el género del paciente')
+    }
+
+    if (clientErrors.length > 0) {
+      setFormError(clientErrors)
+      return
+    }
+
+    setLoading(true)
 
     try {
       const body = {
@@ -37,7 +73,11 @@ export function useFormRegisterPacient(onSuccess?: (e: React.FormEvent<HTMLFormE
       const data = await res.json()
 
       if (!res.ok) {
-        setFormError(data.message || 'Error al registrar paciente')
+        if (data.errors) {
+          setFormError(Object.values(data.errors) as string[])
+        } else {
+          setFormError(data.message || 'Error al registrar paciente')
+        }
         return
       }
 
@@ -52,5 +92,5 @@ export function useFormRegisterPacient(onSuccess?: (e: React.FormEvent<HTMLFormE
     }
   }
 
-  return { form, loading, formError, handleChange, handleSubmit }
+  return { form, loading, formError, handleChange, handleKeyDown, handleSubmit }
 }

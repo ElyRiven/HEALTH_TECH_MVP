@@ -2,7 +2,7 @@ import { useFormRegisterPacient } from '../../hooks/useFormRegisterPacient/useFo
 import type { PatientFormProps } from './types'
 
 export default function PatientForm({ onSuccess }: PatientFormProps) {
-  const { form, loading, handleChange, handleSubmit, formError } = useFormRegisterPacient(onSuccess)
+  const { form, loading, handleChange, handleKeyDown, handleSubmit, formError } = useFormRegisterPacient(onSuccess)
   
   return (
     <div className="bg-white-second-back rounded-lg p-6 w-full max-w-sm shadow-[0px_4px_16px_0px_rgba(0,0,0,0.2)]">
@@ -18,7 +18,8 @@ export default function PatientForm({ onSuccess }: PatientFormProps) {
             onChange={handleChange}
             min="1"
             step="1"
-            className="bg-main-white-back rounded px-3 py-2 text-black-main-font text-sm focus:outline-none"
+            onKeyDown={handleKeyDown}
+            className="bg-main-white-back rounded px-3 py-2 text-black-main-font text-sm focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
           />
         </div>
 
@@ -87,7 +88,15 @@ export default function PatientForm({ onSuccess }: PatientFormProps) {
         </button>
       </form>
       {formError && (
-        <p className="mt-2 text-red-600 text-sm font-light">{formError}</p>
+        Array.isArray(formError) ? (
+          <ul className="mt-2 text-red-600 text-sm font-light list-none space-y-0.5">
+            {formError.map((err, i) => (
+              <li key={i}>{err}</li>
+            ))}
+          </ul>
+        ) : (
+          <p className="mt-2 text-red-600 text-sm font-light">{formError}</p>
+        )
       )}
     </div>
   )
