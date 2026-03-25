@@ -1,12 +1,26 @@
+import { useEffect } from 'react'
 import { useFormRegisterVitals } from '../../hooks/useFormRegisterVitals/useFormRegisterVitals'
 import { NIVEL_CONCIENCIA_OPTIONS } from '../../hooks/useFormRegisterVitals/data'
 
 interface VitalSignsFormProps {
   patientId: string
+  onSuccess?: (message: string) => void
+  onError?: (message: string) => void
 }
 
-export default function VitalSignsForm({ patientId }: VitalSignsFormProps) {
-  const { form, loading, formError, handleChange, handleSubmit } = useFormRegisterVitals(patientId)
+export default function VitalSignsForm({ patientId, onSuccess, onError }: VitalSignsFormProps) {
+  const { form, loading, formError, formSuccess, handleChange, handleSubmit } = useFormRegisterVitals(patientId)
+
+  useEffect(() => {
+    if (formSuccess) onSuccess?.(formSuccess)
+  }, [formSuccess, onSuccess])
+
+  useEffect(() => {
+    if (formError) {
+      const msg = Array.isArray(formError) ? formError.join(' · ') : formError
+      onError?.(msg)
+    }
+  }, [formError, onError])
 
   return (
     <div className="bg-white-second-back rounded-lg p-6 w-full max-w-sm shadow-[0px_4px_16px_0px_rgba(0,0,0,0.2)]">
@@ -131,17 +145,7 @@ export default function VitalSignsForm({ patientId }: VitalSignsFormProps) {
         </button>
       </form>
 
-      {formError && (
-        Array.isArray(formError) ? (
-          <ul className="mt-2 text-red-600 text-sm font-light list-none space-y-0.5">
-            {formError.map((err, i) => (
-              <li key={i}>{err}</li>
-            ))}
-          </ul>
-        ) : (
-          <p className="mt-2 text-red-600 text-sm font-light">{formError}</p>
-        )
-      )}
+
     </div>
   )
 }

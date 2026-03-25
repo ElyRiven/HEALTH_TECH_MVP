@@ -14,6 +14,7 @@ export interface UseFormRegisterVitals {
   form: VitalsForm
   loading: boolean
   formError: string | string[] | null
+  formSuccess: string | null
   handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => Promise<void>
 }
