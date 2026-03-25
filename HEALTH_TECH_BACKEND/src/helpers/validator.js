@@ -28,7 +28,7 @@ function validatePacient(pacient) {
     }
 
     if (!pacient.hora_de_registro || typeof pacient.hora_de_registro !== 'string' || !validator.isISO8601(pacient.hora_de_registro)) {
-        errors.hora_de_registro = 'Debe ser un formato de fecha y hora válido ISO 8601';
+        errors.hora_de_registro = 'Debe ser un formato de fecha y hora válido';
     }
 
     if (typeof pacient.estado !== 'string' || !validator.isLength(pacient.estado, { min: 1, max: 50 })) {
