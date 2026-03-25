@@ -1,9 +1,9 @@
-import PatientForm from '../components/PatientForm'
+import PatientForm from '../components/PatientForm/PatientForm'
 import ResponseAlert from '../components/ResponseAlert'
-import { useRegisterPacient } from '../hooks/useRegisterPacient'
+import { useRegisterPacient } from '../hooks/useRegisterPacient/useRegisterPacient'
 
 export default function Register() {
-  const { submitted, visible, handleSuccess } = useRegisterPacient()
+  const { submitted, visible, handleSubmit } = useRegisterPacient()
 
   return (
     <section className="relative flex flex-col items-center gap-4 py-10 min-h-screen">
@@ -16,7 +16,7 @@ export default function Register() {
           <ResponseAlert message="Usuario Creado exitosamente" variant="success" />
         </div>
       )}
-      <PatientForm onSuccess={handleSuccess} />
+      <PatientForm onSuccess={(e: React.FormEvent<HTMLFormElement>) => handleSubmit(e)} />
     </section>
   )
 }
