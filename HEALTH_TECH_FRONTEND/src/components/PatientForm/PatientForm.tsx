@@ -1,16 +1,12 @@
-import { useFormRegisterPacient } from '../hooks/useFormRegisterPacient/useFormRegisterPacient'
-
-interface PatientFormProps {
-  onSuccess?: () => void
-}
+import { useFormRegisterPacient } from '../../hooks/useFormRegisterPacient/useFormRegisterPacient'
+import type { PatientFormProps } from './types'
 
 export default function PatientForm({ onSuccess }: PatientFormProps) {
-  const { form, loading, handleChange, handleSubmit } = useFormRegisterPacient(onSuccess)
-
+  const { form, loading, handleChange, handleSubmit, formError } = useFormRegisterPacient(onSuccess)
+  
   return (
     <div className="bg-white-second-back rounded-lg p-6 w-full max-w-sm shadow-[0px_4px_16px_0px_rgba(0,0,0,0.2)]">
-      <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
-
+      <form className="flex flex-col gap-4" onSubmit={(e) => handleSubmit(e)}>
         <div className="flex flex-col gap-1">
           <label className="text-blue-medium-tittle text-sm font-medium">
             Identificación
@@ -84,11 +80,15 @@ export default function PatientForm({ onSuccess }: PatientFormProps) {
         <button
           type="submit"
           disabled={loading}
-          className="mt-2 bg-blue-medium-tittle text-main-white-back font-medium py-2 rounded text-sm hover:opacity-90 transition-opacity disabled:opacity-50"
+          className="mt-2 bg-blue-medium-tittle text-main-white-back font-medium py-2 rounded 
+          text-sm hover:opacity-90 transition-opacity disabled:opacity-50"
         >
           {loading ? 'Registrando...' : 'Registrar Paciente'}
         </button>
       </form>
+      {formError && (
+        <p className="mt-2 text-red-600 text-sm font-light">{formError}</p>
+      )}
     </div>
   )
 }
