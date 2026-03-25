@@ -1,9 +1,11 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import type { PacientForm, UseFormRegisterPacient } from './types'
 import type React from 'react'
 import { API_URL, initialForm } from './data'
 
 export function useFormRegisterPacient(onSuccess?: (e: React.FormEvent<HTMLFormElement>) => void): UseFormRegisterPacient {
+  const navigate = useNavigate()
   const [form, setForm] = useState<PacientForm>(initialForm)
   const [loading, setLoading] = useState(false)
   const [formError, setFormError] = useState<string | string[] | null>(null)
@@ -85,6 +87,7 @@ export function useFormRegisterPacient(onSuccess?: (e: React.FormEvent<HTMLFormE
       if (typeof onSuccess === 'function') {
         onSuccess(e)
       }
+      navigate(`/register/${form.identificacion}`)
     } catch {
       setFormError('No se pudo conectar con el servidor')
     } finally {
