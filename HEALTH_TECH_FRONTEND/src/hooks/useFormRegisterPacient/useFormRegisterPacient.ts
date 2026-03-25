@@ -1,44 +1,21 @@
 import { useState } from 'react'
+import type { PacientForm, UseFormRegisterPacient } from './types'
+import type React from 'react'
+import { API_URL, initialForm } from './data'
 
-interface PacientForm {
-  identificacion: string
-  nombres: string
-  apellidos: string
-  fecha_de_nacimiento: string
-  genero: string
-}
-
-interface UseFormRegisterPacient {
-  form: PacientForm
-  loading: boolean
-  error: string | null
-  handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void
-  handleSubmit: (e: React.FormEvent) => Promise<void>
-}
-
-const API_URL = 'http://localhost:3000/api/v1/pacients'
-
-const initialForm: PacientForm = {
-  identificacion: '',
-  nombres: '',
-  apellidos: '',
-  fecha_de_nacimiento: '',
-  genero: 'hombre',
-}
-
-export function useFormRegisterPacient(onSuccess?: () => void): UseFormRegisterPacient {
+export function useFormRegisterPacient(onSuccess?: (e: React.FormEvent<HTMLFormElement>) => void): UseFormRegisterPacient {
   const [form, setForm] = useState<PacientForm>(initialForm)
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
+  const [formError, setFormError] = useState<string | null>(null)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value })
   }
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setLoading(true)
-    setError(null)
+    setFormError(null)
 
     try {
       const body = {
@@ -60,18 +37,20 @@ export function useFormRegisterPacient(onSuccess?: () => void): UseFormRegisterP
       const data = await res.json()
 
       if (!res.ok) {
-        setError(data.message || 'Error al registrar paciente')
+        setFormError(data.message || 'Error al registrar paciente')
         return
       }
 
       setForm(initialForm)
-      onSuccess?.()
+      if (typeof onSuccess === 'function') {
+        onSuccess(e)
+      }
     } catch {
-      setError('No se pudo conectar con el servidor')
+      setFormError('No se pudo conectar con el servidor')
     } finally {
       setLoading(false)
     }
   }
 
-  return { form, loading, error, handleChange, handleSubmit }
+  return { form, loading, formError, handleChange, handleSubmit }
 }
