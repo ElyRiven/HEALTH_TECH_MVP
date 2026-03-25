@@ -368,7 +368,7 @@ Entonces la tabla de pacientes muestra los registros ordenados por criticidad de
 **Precondiciones:**
 
 - El sistema está disponible y la ruta `/dashboard` es accesible.
-- Existen al menos 5 pacientes con signos vitales registrados, cada uno con un nivel de criticidad diferente.
+- Existen al menos 5 pacientes con signos vitales registrados, cada uno con un nivel de criticidad asignada.
 
 **Datos de entrada:**
 
@@ -393,14 +393,6 @@ Signos Vitales
 | 82      | 18  | 98     | 32.3       | 126/85  | Alerta   | 3 |
 | 85      | 17  | 97     | 37.2       | 118/81  | Alerta   | 3 |
 ```
-
-| Paciente   | Criticidad esperada     |
-| ---------- | ----------------------- |
-| Paciente A | Emergencia (Nivel 1)    |
-| Paciente B | Muy Urgente (Nivel 2)   |
-| Paciente C | Urgente (Nivel 3)       |
-| Paciente D | Menos Urgente (Nivel 4) |
-| Paciente E | No Urgente (Nivel 5)    |
 
 **Pasos de ejecución:**
 
