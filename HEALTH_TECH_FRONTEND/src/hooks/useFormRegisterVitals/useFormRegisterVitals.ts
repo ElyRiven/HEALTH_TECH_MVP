@@ -9,6 +9,7 @@ export function useFormRegisterVitals(patientId: string): UseFormRegisterVitals 
   const [form, setForm] = useState<VitalsForm>(initialForm)
   const [loading, setLoading] = useState(false)
   const [formError, setFormError] = useState<string | string[] | null>(null)
+  const [formSuccess, setFormSuccess] = useState<string | null>(null)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value })
@@ -17,6 +18,7 @@ export function useFormRegisterVitals(patientId: string): UseFormRegisterVitals 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setFormError(null)
+    setFormSuccess(null)
 
     const clientErrors: string[] = []
 
@@ -79,8 +81,9 @@ export function useFormRegisterVitals(patientId: string): UseFormRegisterVitals 
         return
       }
 
+      setFormSuccess(data.message || 'Signos vitales registrados exitosamente')
       setForm(initialForm)
-      navigate('/')
+      setTimeout(() => navigate('/'), 2600)
     } catch {
       setFormError('No se pudo conectar con el servidor')
     } finally {
@@ -88,5 +91,5 @@ export function useFormRegisterVitals(patientId: string): UseFormRegisterVitals 
     }
   }
 
-  return { form, loading, formError, handleChange, handleSubmit }
+  return { form, loading, formError, formSuccess, handleChange, handleSubmit }
 }

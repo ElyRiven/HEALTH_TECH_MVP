@@ -1,8 +1,16 @@
+import { useEffect } from 'react'
 import { useFormRegisterPacient } from '../../hooks/useFormRegisterPacient/useFormRegisterPacient'
 import type { PatientFormProps } from './types'
 
-export default function PatientForm({ onSuccess }: PatientFormProps) {
+export default function PatientForm({ onSuccess, onError }: PatientFormProps) {
   const { form, loading, handleChange, handleKeyDown, handleSubmit, formError } = useFormRegisterPacient(onSuccess)
+
+  useEffect(() => {
+    if (formError && onError) {
+      const msg = Array.isArray(formError) ? formError.join(' · ') : formError
+      onError(msg)
+    }
+  }, [formError, onError])
   
   return (
     <div className="bg-white-second-back rounded-lg p-6 w-full max-w-sm shadow-[0px_4px_16px_0px_rgba(0,0,0,0.2)]">
@@ -87,17 +95,6 @@ export default function PatientForm({ onSuccess }: PatientFormProps) {
           {loading ? 'Registrando...' : 'Registrar Paciente'}
         </button>
       </form>
-      {formError && (
-        Array.isArray(formError) ? (
-          <ul className="mt-2 text-red-600 text-sm font-light list-none space-y-0.5">
-            {formError.map((err, i) => (
-              <li key={i}>{err}</li>
-            ))}
-          </ul>
-        ) : (
-          <p className="mt-2 text-red-600 text-sm font-light">{formError}</p>
-        )
-      )}
     </div>
   )
 }
