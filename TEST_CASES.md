@@ -455,3 +455,49 @@ No aplica (estado vacío de la base de datos).
 **Prioridad:** Media
 
 ## HU-009 - Notificación visual de nuevo registro de paciente al personal médico disponible
+
+### TC-011 - Notificación visual aparece al registrar un nuevo paciente con signos vitales
+
+**Escenario Gherkin:**
+
+```gherkin
+Dado que el médico se encuentra en el Dashboard (/dashboard)
+Cuando un nuevo paciente con signos vitales es registrado en el sistema
+Entonces el sistema muestra un cuadro de notificación en pantalla con el nombre, apellido y criticidad asignada del paciente
+```
+
+**Precondiciones:**
+
+- El sistema está disponible y el médico tiene el Dashboard (`/dashboard`) abierto en el navegador.
+- El componente `PatientNotificationToast.tsx` está implementado y activo.
+
+**Datos de entrada:**
+
+Paciente
+
+```gherkin
+| identificacion | nombres        | apellidos       | fecha_nacimiento | genero    |
+| 1002003001     | Erika María | González Espinoza | 1988-02-28       | femenino  |
+```
+
+Signos Vitales
+
+```gherkin
+| frecuencia_cardiaca | frecuencia_respiratoria | saturación_O2 | temperatura | presión | nivel_conciencia | nivel_dolor |
+| 31      | 19  | 96     | 36.5       | 112/89  | Confuso  | 5 |
+```
+
+**Pasos de ejecución:**
+
+1. Registrar un nuevo paciente con los datos de la tabla mediante el formulario del sistema.
+2. Registrar los signos vitales del paciente con los valores de la tabla mediante el formulario del sistema.
+3. Esperar la redirección al Dashboard y observar la pantalla.
+
+**Resultado esperado:**
+
+- Aparece en pantalla un cuadro de notificación que contiene el nombre del paciente y la criticidad asignada.
+- El nuevo paciente aparece en la tabla del Dashboard.
+
+**Resultado obtenido:** Sin ejecutar  
+**Estado:** Sin ejecutar  
+**Prioridad:** Alta
