@@ -231,6 +231,127 @@ Y el personal médico se mantiene en el formulario de signos vitales del pacient
 
 ## HU-003 - Clasificación automatizada de criticidad de un paciente
 
+### TC-006 - Clasificación automática asigna criticidad "Emergencia" (Nivel 1)
+
+**Escenario Gherkin:**
+
+```gherkin
+Dado que el personal médico está en el Dashboard (/dashboard)
+Y existe un paciente con signos vitales que corresponden a criticidad "Emergencia" según el Protocolo Manchester
+Cuando el sistema procesa sus signos vitales
+Entonces el registro del paciente muestra la criticidad "Emergencia" en la tabla del Dashboard
+```
+
+**Precondiciones:**
+
+- Existe al menos un paciente registrado en la tabla `pacientes`.
+- El paciente tiene un registro en `constantes-vitales` con valores que según la matriz "MANCHESTER_PROTOCOL" corresponden al Nivel 1 (Emergencia).
+
+**Datos de entrada:**
+
+```gherkin
+| frecuencia_cardiaca | frecuencia_respiratoria | saturación_O2 | temperatura | presión | nivel_conciencia | nivel_dolor |
+| 130      | 28  | 82     | 39.5       | 90/60  | Confuso  | 9 |
+```
+
+**Pasos de ejecución:**
+
+1. Insertar un paciente en PostgreSQL.
+2. Enviar una solicitud `POST /api/v1/vitals/:patientId` con los datos de la tabla.
+3. Navegar a `/dashboard`.
+4. Localizar el registro del paciente en la tabla.
+
+**Resultado esperado:**
+
+- El campo `criticidad` del paciente en la tabla `pacientes` es actualizado a 1.
+- El Dashboard muestra el texto "Emergencia" en la columna Criticidad del paciente.
+
+**Resultado obtenido:** Sin ejecutar  
+**Estado:** Sin ejecutar  
+**Prioridad:** Crítica
+
+---
+
+### TC-007 - Clasificación automática asigna criticidad "Muy Urgente" (Nivel 2)
+
+**Escenario Gherkin:**
+
+```gherkin
+Dado que el personal médico está en el Dashboard (/dashboard)
+Y existe un paciente con signos vitales que corresponden a criticidad "Muy Urgente" según el Protocolo Manchester
+Cuando el sistema procesa sus signos vitales
+Entonces el registro del paciente muestra la criticidad "Muy Urgente" en la tabla del Dashboard
+```
+
+**Precondiciones:**
+
+- Existe al menos un paciente registrado en la tabla `pacientes`.
+- El paciente tiene constantes vitales que corresponden al Nivel 2 según la matriz "MANCHESTER_PROTOCOL".
+
+**Datos de entrada:**
+
+```gherkin
+| frecuencia_cardiaca | frecuencia_respiratoria | saturación_O2 | temperatura | presión | nivel_conciencia | nivel_dolor |
+| 110      | 29  | 91     | 38.8       | 95/65  | Confuso  | 7 |
+```
+
+**Pasos de ejecución:**
+
+1. Insertar un paciente en PostgreSQL.
+2. Enviar una solicitud `POST /api/v1/vitals/:patientId` con los datos de la tabla.
+3. Navegar a `/dashboard`.
+4. Localizar el registro del paciente en la tabla.
+
+**Resultado esperado:**
+
+- El campo `criticidad` del paciente en la tabla `pacientes` es actualizado a 2.
+- El Dashboard muestra el texto "Muy Urgente" en la columna Criticidad del paciente.
+
+**Resultado obtenido:** Sin ejecutar  
+**Estado:** Sin ejecutar  
+**Prioridad:** Crítica
+
+---
+
+### TC-008 - Clasificación automática asigna criticidad "Urgente" (Nivel 3)
+
+**Escenario Gherkin:**
+
+```gherkin
+Dado que el personal médico está en el Dashboard (/dashboard)
+Y existe un paciente con signos vitales que corresponden a criticidad "Urgente" según el Protocolo Manchester
+Cuando el sistema procesa sus signos vitales
+Entonces el registro del paciente muestra la criticidad "Urgente" en la tabla del Dashboard
+```
+
+**Precondiciones:**
+
+- Existe al menos un paciente registrado en la tabla `pacientes`.
+- El paciente tiene constantes vitales que corresponden al Nivel 3 según la matriz "MANCHESTER_PROTOCOL" .
+
+**Datos de entrada:**
+
+```gherkin
+| frecuencia_cardiaca | frecuencia_respiratoria | saturación_O2 | temperatura | presión | nivel_conciencia | nivel_dolor |
+| 95      | 19  | 95     | 38.8       | 110/75  | Alerta  | 5 |
+```
+
+**Pasos de ejecución:**
+
+1. Insertar un paciente en PostgreSQL.
+2. Enviar una solicitud `POST /api/v1/vitals/:patientId` con los datos de la tabla.
+3. Navegar a `/dashboard`.
+4. Localizar el registro del paciente en la tabla.
+
+**Resultado esperado:**
+
+- El campo `criticidad` del paciente es actualizado a 3.
+- El Dashboard muestra el texto "Urgente" en la columna Criticidad del paciente.
+
+**Resultado obtenido:** Sin ejecutar  
+**Estado:** Sin ejecutar  
+**Prioridad:** Alta
+
 ## HU-005 - Visualización de lista de pacientes ordenados por criticidad
 
 ## HU-009 - Notificación visual de nuevo registro de paciente al personal médico disponible
