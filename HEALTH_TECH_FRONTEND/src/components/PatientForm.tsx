@@ -1,18 +1,27 @@
+import { useFormRegisterPacient } from '../hooks/useFormRegisterPacient/useFormRegisterPacient'
+
 interface PatientFormProps {
   onSuccess?: () => void
 }
 
 export default function PatientForm({ onSuccess }: PatientFormProps) {
+  const { form, loading, handleChange, handleSubmit } = useFormRegisterPacient(onSuccess)
+
   return (
     <div className="bg-white-second-back rounded-lg p-6 w-full max-w-sm shadow-[0px_4px_16px_0px_rgba(0,0,0,0.2)]">
-      <form className="flex flex-col gap-4">
+      <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
 
         <div className="flex flex-col gap-1">
           <label className="text-blue-medium-tittle text-sm font-medium">
             Identificación
           </label>
           <input
-            type="text"
+            type="number"
+            name="identificacion"
+            value={form.identificacion}
+            onChange={handleChange}
+            min="1"
+            step="1"
             className="bg-main-white-back rounded px-3 py-2 text-black-main-font text-sm focus:outline-none"
           />
         </div>
@@ -23,6 +32,9 @@ export default function PatientForm({ onSuccess }: PatientFormProps) {
           </label>
           <input
             type="text"
+            name="nombres"
+            value={form.nombres}
+            onChange={handleChange}
             className="bg-main-white-back rounded px-3 py-2 text-black-main-font text-sm focus:outline-none"
           />
         </div>
@@ -33,6 +45,9 @@ export default function PatientForm({ onSuccess }: PatientFormProps) {
           </label>
           <input
             type="text"
+            name="apellidos"
+            value={form.apellidos}
+            onChange={handleChange}
             className="bg-main-white-back rounded px-3 py-2 text-black-main-font text-sm focus:outline-none"
           />
         </div>
@@ -43,6 +58,9 @@ export default function PatientForm({ onSuccess }: PatientFormProps) {
           </label>
           <input
             type="date"
+            name="fecha_de_nacimiento"
+            value={form.fecha_de_nacimiento}
+            onChange={handleChange}
             className="bg-main-white-back rounded px-3 py-2 text-black-main-font text-sm focus:outline-none"
           />
         </div>
@@ -52,6 +70,9 @@ export default function PatientForm({ onSuccess }: PatientFormProps) {
             Genero
           </label>
           <select
+            name="genero"
+            value={form.genero}
+            onChange={handleChange}
             className="bg-main-white-back rounded px-3 py-2 text-black-main-font text-sm focus:outline-none"
           >
             <option value="hombre">Hombre</option>
@@ -61,11 +82,11 @@ export default function PatientForm({ onSuccess }: PatientFormProps) {
         </div>
 
         <button
-          type="button"
-          onClick={onSuccess}
-          className="mt-2 bg-blue-medium-tittle text-main-white-back font-medium py-2 rounded text-sm hover:opacity-90 transition-opacity"
+          type="submit"
+          disabled={loading}
+          className="mt-2 bg-blue-medium-tittle text-main-white-back font-medium py-2 rounded text-sm hover:opacity-90 transition-opacity disabled:opacity-50"
         >
-          Registrar Paciente
+          {loading ? 'Registrando...' : 'Registrar Paciente'}
         </button>
       </form>
     </div>

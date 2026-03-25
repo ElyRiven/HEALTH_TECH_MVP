@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 
+
 export function useRegisterPacient() {
   const [submitted, setSubmitted] = useState(false)
   const [visible, setVisible] = useState(false)
