@@ -161,7 +161,7 @@ export const CreateVitalsPacient = async (req, res) => {
             parseFloat(saturacion_o2),
             parseFloat(temperatura),
             presion,
-            parseInt(nivel_de_conciencia),
+            nivel_de_conciencia,
             parseInt(nivel_de_dolor)
         ];
 
