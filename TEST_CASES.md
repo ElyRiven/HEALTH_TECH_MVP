@@ -354,7 +354,7 @@ Entonces el registro del paciente muestra la criticidad "Urgente" en la tabla de
 
 ## HU-005 - Visualización de lista de pacientes ordenados por criticidad
 
-### TC-012 - El Dashboard muestra los pacientes ordenados por criticidad descendente
+### TC-009 - El Dashboard muestra los pacientes ordenados por criticidad descendente
 
 **Escenario Gherkin:**
 
@@ -419,7 +419,7 @@ Signos Vitales
 
 ---
 
-### TC-013 - El Dashboard muestra el mensaje "No hay pacientes en espera" cuando no hay registros
+### TC-010 - El Dashboard muestra el mensaje "No hay pacientes en espera" cuando no hay registros
 
 **Escenario Gherkin:**
 
