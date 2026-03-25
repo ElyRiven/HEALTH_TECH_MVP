@@ -354,4 +354,104 @@ Entonces el registro del paciente muestra la criticidad "Urgente" en la tabla de
 
 ## HU-005 - Visualización de lista de pacientes ordenados por criticidad
 
+### TC-012 - El Dashboard muestra los pacientes ordenados por criticidad descendente
+
+**Escenario Gherkin:**
+
+```gherkin
+Dado que el personal médico está en la pantalla principal (/dashboard)
+Y existen 5 pacientes registrados con niveles de criticidad distintos
+Cuando el sistema carga el Dashboard
+Entonces la tabla de pacientes muestra los registros ordenados por criticidad de mayor a menor
+```
+
+**Precondiciones:**
+
+- El sistema está disponible y la ruta `/dashboard` es accesible.
+- Existen al menos 5 pacientes con signos vitales registrados, cada uno con un nivel de criticidad diferente.
+
+**Datos de entrada:**
+
+Pacientes
+
+```gherkin
+| identificacion | nombres        | apellidos       | fecha_nacimiento | genero    |
+| 1002003001     | Luis Andres    | Caceres Estrada | 1999-05-21       | masculino |
+| 1002003002     | Andrea Cecilia | Tupiza Espinoza | 1983-01-08       | femenino  |
+| 1002003003     | Carlos Esteban | Lozada Pérez    | 1997-02-12       | masculino |
+| 1002003004     | Diana Maria    | Alcazar Ortiz   | 1995-10-29       | femenino  |
+| 1002003005     | Ariana Isabel  | Mendoza Matiz   | 1996-06-04       | femenino  |
+```
+
+Signos Vitales
+
+```gherkin
+| frecuencia_cardiaca | frecuencia_respiratoria | saturación_O2 | temperatura | presión | nivel_conciencia | nivel_dolor |
+| 31      | 19  | 96     | 36.5       | 112/89  | Confuso  | 5 |
+| 72      | 33  | 95     | 36.8       | 125/82  | Alerta   | 3 |
+| 77      | 18  | 87     | 36.9       | 124/86  | Confuso  | 5 |
+| 82      | 18  | 98     | 32.3       | 126/85  | Alerta   | 3 |
+| 85      | 17  | 97     | 37.2       | 118/81  | Alerta   | 3 |
+```
+
+| Paciente   | Criticidad esperada     |
+| ---------- | ----------------------- |
+| Paciente A | Emergencia (Nivel 1)    |
+| Paciente B | Muy Urgente (Nivel 2)   |
+| Paciente C | Urgente (Nivel 3)       |
+| Paciente D | Menos Urgente (Nivel 4) |
+| Paciente E | No Urgente (Nivel 5)    |
+
+**Pasos de ejecución:**
+
+1. Insertar mediante el sistema los 5 pacientes con sus respectivos signos vitales que generen diferentes nivel de criticidad.
+2. Navegar a la ruta `/dashboard`.
+3. Observar el orden de los registros en la tabla de pacientes.
+
+**Resultado esperado:**
+
+- La tabla muestra los 5 pacientes ordenados de mayor a menor criticidad: Emergencia → Muy Urgente → Urgente → Menos Urgente → No Urgente.
+- El endpoint `GET /api/v1/pacients` retorna los pacientes ordenados por criticidad descendente con código HTTP `200`.
+
+**Resultado obtenido:** Sin ejecutar  
+**Estado:** Sin ejecutar  
+**Prioridad:** Crítica
+
+---
+
+### TC-013 - El Dashboard muestra el mensaje "No hay pacientes en espera" cuando no hay registros
+
+**Escenario Gherkin:**
+
+```gherkin
+Dado que el personal médico está en la pantalla principal (/dashboard)
+Cuando no existen registros de pacientes en el sistema
+Entonces el sistema muestra el texto "No hay pacientes en espera" en pantalla
+```
+
+**Precondiciones:**
+
+- El sistema está disponible y la ruta `/dashboard` es accesible.
+- La tabla `pacientes` en la base de datos está vacía.
+
+**Datos de entrada:**
+
+No aplica (estado vacío de la base de datos).
+
+**Pasos de ejecución:**
+
+1. Asegurar que la tabla `pacientes` no tenga registros en la base de datos.
+2. Navegar a la ruta `/dashboard`.
+3. Observar el contenido de la pantalla.
+
+**Resultado esperado:**
+
+- La pantalla muestra el texto "No hay pacientes en espera".
+- No se renderiza la tabla de pacientes.
+- El endpoint `GET /api/v1/pacients` retorna un array vacío `[]` con código HTTP `200`.
+
+**Resultado obtenido:** Sin ejecutar  
+**Estado:** Sin ejecutar  
+**Prioridad:** Media
+
 ## HU-009 - Notificación visual de nuevo registro de paciente al personal médico disponible
