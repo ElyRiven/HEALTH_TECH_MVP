@@ -1,7 +1,8 @@
 import { useParams } from 'react-router-dom'
 import ResponseAlert from '../components/ResponseAlert'
+import VitalSignsForm from '../components/VitalSignsForm/VitalSignsForm'
 
-export default function RegisterSuccess() {
+export default function RegisterVitals() {
   const { id } = useParams()
 
   return (
@@ -10,6 +11,7 @@ export default function RegisterSuccess() {
         message={`Paciente con identificación ${id} registrado exitosamente`}
         variant="success"
       />
+      {id && <VitalSignsForm patientId={id} />}
     </section>
   )
 }

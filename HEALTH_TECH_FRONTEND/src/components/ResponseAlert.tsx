@@ -3,18 +3,28 @@ interface ResponseAlertProps {
   variant?: 'success' | 'error'
 }
 
+import React, { useEffect, useState } from 'react'
+
 export default function ResponseAlert({
   message = 'Usuario Creado exitosamente',
   variant = 'success',
 }: ResponseAlertProps) {
   const isSuccess = variant === 'success'
+  const [visible, setVisible] = useState(true)
+
+  useEffect(() => {
+    const timer = setTimeout(() => setVisible(false), 2500)
+    return () => clearTimeout(timer)
+  }, [])
+
+  if (!visible) return null
 
   return (
     <div
       role="alert"
       className={`flex items-start gap-3 rounded-lg border px-4 py-3 text-sm shadow-sm transition-all ${
         isSuccess
-          ? 'border-[#217FCA]/30 bg-[#217FCA]/10 text-[#217FCA]'
+          ? 'border-blue-medium-tittle/30 bg-blue-medium-tittle/10 text-blue-medium-tittle'
           : 'border-red-300/50 bg-red-50 text-red-700'
       }`}
     >
