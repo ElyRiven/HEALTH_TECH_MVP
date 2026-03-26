@@ -4,6 +4,11 @@ import type React from 'react'
 import type { UseFormRegisterVitals, VitalsForm } from './types'
 import { API_URL, initialForm, NIVEL_CONCIENCIA_OPTIONS } from './data'
 
+type NavigationAlertState = {
+  alertMsg: string
+  alertVariant: 'success' | 'error'
+}
+
 export function useFormRegisterVitals(patientId: string): UseFormRegisterVitals {
   const navigate = useNavigate()
   const [form, setForm] = useState<VitalsForm>(initialForm)
@@ -149,9 +154,20 @@ export function useFormRegisterVitals(patientId: string): UseFormRegisterVitals 
         return
       }
 
-      setFormSuccess(data.message || 'Signos vitales registrados exitosamente')
+      const successMessage = data.message || 'Signos vitales registrados exitosamente'
+
+      setFormSuccess(successMessage)
       setForm(initialForm)
-      setTimeout(() => navigate('/'), 2600)
+      navigate('/', {
+        state: {
+          alertMsg: successMessage,
+          alertVariant: 'success',
+        } satisfies NavigationAlertState,
+      })
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      })
     } catch {
       setFormError('No se pudo conectar con el servidor')
     } finally {

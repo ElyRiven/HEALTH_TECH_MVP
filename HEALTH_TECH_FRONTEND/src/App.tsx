@@ -1,6 +1,5 @@
-
 import { createBrowserRouter, RouterProvider, Outlet, redirect } from 'react-router-dom'
-import Home from './pages/Home'
+import Dashboard from './pages/Dashboard'
 import Register from './pages/Register'
 import RegisterVitals from './pages/RegisterVitals'
 import Header from './components/Header'
@@ -30,9 +29,9 @@ const router = createBrowserRouter([
     path: '/',
     element: <Layout />,
     children: [
-      { path: '/', element: <Home /> },
-      { path: '/register', element: <Register /> },
-      { path: '/register/:id', element: <RegisterVitals />, loader: patientLoader },
+      { path: '/', element: <Dashboard /> },
+      { path: 'register', element: <Register /> },
+      { path: 'register/:id', element: <RegisterVitals />, loader: patientLoader },
     ],
   },
 ])
