@@ -3,7 +3,7 @@
 **Nombre del proyecto:** HealthTech  
 **Sistema bajo prueba:** Sistema de Triaje de Urgencias  
 **Versión:** v0.0.1  
-**Fecha:** 2026/24/03
+**Fecha:** 2026/26/03  
 **Autor:** Elizabeth Tamayo
 
 ## Contexto del proyecto
@@ -156,7 +156,7 @@ Se implementará una estrategia de pruebas transversal con una combinación de v
 | Microsprint | Historias de Usuario                                         | Story Points |
 | :---------- | ------------------------------------------------------------ | :----------: |
 | Día 1 y 2   | HU-001, HU-002 y redacción del plan de pruebas               |    26 SP     |
-| Día 3 y 4   | HU-003, HU-006, HU-009 y redacción de los casos de prueba    |    13 SP     |
+| Día 3 y 4   | HU-003, HU-006, HU-009 y redacción de los casos de prueba    |    23 SP     |
 | **Total**   | **Cobertura de las principales funcionalidades del sistema** |  **49 SP**   |
 
 ## Entregables de Prueba
