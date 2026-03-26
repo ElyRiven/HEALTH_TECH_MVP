@@ -1,5 +1,5 @@
 interface ResponseAlertProps {
-  message?: string
+  message?: string | string[]
   variant?: 'success' | 'error'
 }
 
@@ -45,7 +45,15 @@ export default function ResponseAlert({
         <p className="font-semibold leading-snug">
           {isSuccess ? '¡Éxito!' : 'Error'}
         </p>
-        <p className="text-black-main-font/80 font-normal">{message}</p>
+        {Array.isArray(message) ? (
+          <ul className="flex flex-col gap-0.5 list-none">
+            {message.map((msg, i) => (
+              <li key={i} className="text-black-main-font/80 font-normal">{msg}</li>
+            ))}
+          </ul>
+        ) : (
+          <p className="text-black-main-font/80 font-normal">{message}</p>
+        )}
       </div>
     </div>
   )

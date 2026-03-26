@@ -5,7 +5,7 @@ import { NIVEL_CONCIENCIA_OPTIONS } from '../../hooks/useFormRegisterVitals/data
 interface VitalSignsFormProps {
   patientId: string
   onSuccess?: (message: string) => void
-  onError?: (message: string) => void
+  onError?: (message: string | string[]) => void
 }
 
 export default function VitalSignsForm({ patientId, onSuccess, onError }: VitalSignsFormProps) {
@@ -16,15 +16,12 @@ export default function VitalSignsForm({ patientId, onSuccess, onError }: VitalS
   }, [formSuccess, onSuccess])
 
   useEffect(() => {
-    if (formError) {
-      const msg = Array.isArray(formError) ? formError.join(' · ') : formError
-      onError?.(msg)
-    }
+    if (formError) onError?.(formError)
   }, [formError, onError])
 
   return (
     <div className="bg-white-second-back rounded-lg p-6 w-full max-w-sm shadow-[0px_4px_16px_0px_rgba(0,0,0,0.2)]">
-      <form className="flex flex-col gap-4" onSubmit={(e) => handleSubmit(e)}>
+      <form className="flex flex-col gap-4" noValidate onSubmit={(e) => handleSubmit(e)}>
         <div className="flex flex-col gap-1">
           <label className="text-blue-medium-tittle text-sm font-medium">
             Frecuencia Cardiaca
@@ -144,8 +141,6 @@ export default function VitalSignsForm({ patientId, onSuccess, onError }: VitalS
           {loading ? 'Guardando...' : 'Guardar'}
         </button>
       </form>
-
-
     </div>
   )
 }
