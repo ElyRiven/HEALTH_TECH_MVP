@@ -44,6 +44,14 @@ export function useFormRegisterVitals(patientId: string): UseFormRegisterVitals 
       clientErrors.push('Debes ingresar el nivel de dolor')
     }
 
+    if (
+      form.nivel_de_conciencia === 'Sin respuesta' &&
+      form.nivel_de_dolor !== '' &&
+      parseInt(form.nivel_de_dolor, 10) !== 0
+    ) {
+      clientErrors.push("El nivel de dolor debe ser 0 cuando el nivel de conciencia es 'Sin respuesta'")
+    }
+
     if (clientErrors.length > 0) {
       setFormError(clientErrors)
       return
@@ -53,13 +61,13 @@ export function useFormRegisterVitals(patientId: string): UseFormRegisterVitals 
 
     try {
       const body = {
-        frecuencia_cardiaca: Number(form.frecuencia_cardiaca),
-        frecuencia_respiratoria: Number(form.frecuencia_respiratoria),
-        saturacion_o2: Number(form.saturacion_o2),
-        temperatura: Number(form.temperatura),
+        frecuencia_cardiaca: parseInt(form.frecuencia_cardiaca, 10),
+        frecuencia_respiratoria: parseInt(form.frecuencia_respiratoria, 10),
+        saturacion_o2: parseFloat(form.saturacion_o2),
+        temperatura: parseFloat(form.temperatura),
         presion: form.presion,
         nivel_de_conciencia: form.nivel_de_conciencia,
-        nivel_de_dolor: Number(form.nivel_de_dolor),
+        nivel_de_dolor: parseInt(form.nivel_de_dolor, 10),
       }
 
       const res = await fetch(API_URL(patientId), {
@@ -73,6 +81,8 @@ export function useFormRegisterVitals(patientId: string): UseFormRegisterVitals 
       if (!res.ok) {
         if (data.errores) {
           setFormError(Object.values(data.errores) as string[])
+        } else if (data.campos_faltantes) {
+          setFormError(data.campos_faltantes as string[])
         } else if (data.errors) {
           setFormError(Object.values(data.errors) as string[])
         } else {
