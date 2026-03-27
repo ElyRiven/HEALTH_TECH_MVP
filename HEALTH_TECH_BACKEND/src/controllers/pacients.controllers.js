@@ -248,11 +248,22 @@ export const CreateVitalsPacient = async (req, res) => {
     }
 };
 
-export const GetAllPacients = async (req,res) => {
+export const GetAllPacients = async (req, res) => {
     try {
-        const { rows } = await pool.query('SELECT * FROM public.pacientes');
+        const order = req.query.order?.toUpperCase() === 'DESC' ? 'DESC' : 'ASC';
+        //const order = req.query.order?.toUpperCase() === 'ASC' ? 'ASC' : 'DESC';
+        console.log(`[BACKEND] GetAllPacients called with order: ${order}`);     
+
+        const queryText = `SELECT * FROM public.pacientes ORDER BY criticidad ${order}`;
+        const { rows } = await pool.query(queryText);
+
         res.status(200).json(rows);
     } catch (error) {
-        res.status(500).json({ message: "Error al obtener los pacientes", error: error.message });
+        res.status(500).json({ 
+            message: "Error al obtener los pacientes", 
+            error: error.message 
+        });
     }
-}
+};
+
+
