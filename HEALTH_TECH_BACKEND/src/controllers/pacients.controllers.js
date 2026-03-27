@@ -247,3 +247,12 @@ export const CreateVitalsPacient = async (req, res) => {
         });
     }
 };
+
+export const GetAllPacients = async (req,res) => {
+    try {
+        const { rows } = await pool.query('SELECT * FROM public.pacientes');
+        res.status(200).json(rows);
+    } catch (error) {
+        res.status(500).json({ message: "Error al obtener los pacientes", error: error.message });
+    }
+}
