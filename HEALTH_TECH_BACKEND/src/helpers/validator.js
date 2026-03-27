@@ -23,10 +23,6 @@ function validatePacient(pacient) {
         errors.genero = 'Debes poner genero: masculino, femenino u otro';
     }
 
-    if (typeof pacient.criticidad !== 'number' || pacient.criticidad > 5) {
-        errors.criticidad = 'Debe ser un valor numérico y como máximo 5 de acuerdo al triage';
-    }
-
     if (!pacient.hora_de_registro || typeof pacient.hora_de_registro !== 'string' || !validator.isISO8601(pacient.hora_de_registro)) {
         errors.hora_de_registro = 'Debe ser un formato de fecha y hora válido';
     }
