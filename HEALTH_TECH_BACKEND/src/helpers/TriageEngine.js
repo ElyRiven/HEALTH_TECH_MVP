@@ -1,4 +1,3 @@
-// ── data ──────────────────────────────────────────────────────
 const criticityLevel = {
   INMEDIATO:     1,
   MUY_URGENTE:   2,
@@ -23,7 +22,6 @@ const serviceHoursLevel = {
   [criticityLevel.NO_URGENTE]:    { color: "🔵 Azul",     denomination: "No Urgente",    maxAttentionTime: "240 minutos" },
 };
 
-// ── classifiers ───────────────────────────────────────────────
 function classifyHeartRate(hr) {
   if (hr < 40 || hr >= 150)                                 return criticityLevel.INMEDIATO;
   if ((hr >= 40 && hr <= 49) || (hr >= 130 && hr <= 149))  return criticityLevel.MUY_URGENTE;
@@ -78,7 +76,7 @@ function classifyConsciousnessLevel(consciousness) {
     case consciousnessLevel.RESPONDE_VOZ:   return criticityLevel.URGENTE;
     case consciousnessLevel.CONFUSO:        return criticityLevel.MENOS_URGENTE;
     case consciousnessLevel.ALERTA:         return criticityLevel.NO_URGENTE;
-    default: throw new Error(`Invalid consciousness level: "${consciousness}"`);
+    default: throw new Error(`Nivel de conciencia inválido: "${consciousness}"`);
   }
 }
 
@@ -89,58 +87,54 @@ function classifyPainLevel(pain) {
   return criticityLevel.NO_URGENTE;
 }
 
-// ── validation ────────────────────────────────────────────────
 function validateVitalSigns(signs) {
   const errors = [];
   const rules = [
     {
       valid: signs.frecuencia_cardiaca >= 20 && signs.frecuencia_cardiaca <= 300,
-      msg: `Heart rate out of range (20-300): ${signs.frecuencia_cardiaca}`,
+      msg: `Frecuencia cardíaca fuera de rango (20-300): ${signs.frecuencia_cardiaca}`,
     },
     {
       valid: signs.frecuencia_respiratoria >= 1 && signs.frecuencia_respiratoria <= 60,
-      msg: `Respiratory rate out of range (1-60): ${signs.frecuencia_respiratoria}`,
+      msg: `Frecuencia respiratoria fuera de rango (1-60): ${signs.frecuencia_respiratoria}`,
     },
     {
       valid: signs.saturacion_o2 >= 50 && signs.saturacion_o2 <= 100,
-      msg: `O₂ saturation out of range (50-100): ${signs.saturacion_o2}`,
+      msg: `Saturación de O₂ fuera de rango (50-100): ${signs.saturacion_o2}`,
     },
     {
       valid: signs.temperatura >= 25.0 && signs.temperatura <= 45.0,
-      msg: `Temperature out of range (25.0-45.0): ${signs.temperatura}`,
+      msg: `Temperatura fuera de rango (25.0-45.0): ${signs.temperatura}`,
     },
     {
       valid: /^\d{2,3}\/\d{2,3}$/.test(signs.presion),
-      msg: `Blood pressure format invalid (expected NN/NN): ${signs.presion}`,
+      msg: `Formato de presión arterial inválido (esperado NN/NN): ${signs.presion}`,
     },
     {
       valid: (() => {
         const [sys, dia] = signs.presion.split("/").map(Number);
         return sys >= 50 && sys <= 300 && dia >= 20 && dia <= 200 && dia < sys;
       })(),
-      msg: `Blood pressure values out of range or diastolic >= systolic: ${signs.presion}`,
+      msg: `Valores de presión arterial fuera de rango o diastólica >= sistólica: ${signs.presion}`,
     },
     {
       valid: signs.nivel_de_dolor >= 0 && signs.nivel_de_dolor <= 10,
-      msg: `Pain level out of range (0-10): ${signs.nivel_de_dolor}`,
+      msg: `Nivel de dolor fuera de rango (0-10): ${signs.nivel_de_dolor}`,
     },
     {
       valid: !(signs.nivel_de_conciencia === consciousnessLevel.SIN_RESPUESTA && signs.nivel_de_dolor !== 0),
-      msg: `If patient is unresponsive, pain level must be 0 (actual: ${signs.nivel_de_dolor})`,
+      msg: `Si el paciente está inconsciente, el nivel de dolor debe ser 0 (actual: ${signs.nivel_de_dolor})`,
     },
   ];
   for (const rule of rules) {
     if (!rule.valid) errors.push(rule.msg);
   }
   if (errors.length > 0) {
-    throw new Error(`Validation errors:\n${errors.join("\n")}`);
+    throw new Error(`Errores de validación:\n${errors.join("\n")}`);
   }
 }
 
-// ── public API ────────────────────────────────────────────────
-export function processTriage(signs) {
-  validateVitalSigns(signs);
-
+export function classifyTriage(signs) {
   const heartRateLevel       = classifyHeartRate(signs.frecuencia_cardiaca);
   const respiratoryRateLevel = classifyRespiratoryRate(signs.frecuencia_respiratoria);
   const spo2Level            = classifyOxygenSaturation(signs.saturacion_o2);
@@ -161,13 +155,13 @@ export function processTriage(signs) {
   );
 
   const criticalSigns = [];
-  if (heartRateLevel        === level) criticalSigns.push("Heart Rate");
-  if (respiratoryRateLevel  === level) criticalSigns.push("Respiratory Rate");
-  if (spo2Level             === level) criticalSigns.push("O₂ Saturation");
-  if (temperatureLevel      === level) criticalSigns.push("Temperature");
-  if (bloodPressureLevel    === level) criticalSigns.push("Blood Pressure");
-  if (consciousnessLevelVal === level) criticalSigns.push("Consciousness Level");
-  if (painLevel             === level) criticalSigns.push("Pain Level");
+  if (heartRateLevel        === level) criticalSigns.push("Frecuencia Cardíaca");
+  if (respiratoryRateLevel  === level) criticalSigns.push("Frecuencia Respiratoria");
+  if (spo2Level             === level) criticalSigns.push("Saturación de O₂");
+  if (temperatureLevel      === level) criticalSigns.push("Temperatura");
+  if (bloodPressureLevel    === level) criticalSigns.push("Presión Arterial");
+  if (consciousnessLevelVal === level) criticalSigns.push("Nivel de Conciencia");
+  if (painLevel             === level) criticalSigns.push("Nivel de Dolor");
 
   const meta = serviceHoursLevel[level];
   return {

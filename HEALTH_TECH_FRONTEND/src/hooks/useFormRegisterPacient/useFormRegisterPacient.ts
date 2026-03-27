@@ -62,7 +62,6 @@ export function useFormRegisterPacient(onSuccess?: (e: React.FormEvent<HTMLFormE
         apellidos: form.apellidos,
         fecha_de_nacimiento: form.fecha_de_nacimiento,
         genero: form.genero,
-        criticidad: 1,
         estado: 'En espera',
       }
 

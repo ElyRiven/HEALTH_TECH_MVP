@@ -2,6 +2,7 @@ import { pool } from '../db.js';
 import { validatePacient } from '../helpers/validator.js';
 import { validateVitals } from '../helpers/validatorVitals.js';
 import { adaptToTimeFormat } from '../helpers/timeAdapter.js';
+import { classifyTriage } from '../helpers/TriageEngine.js';
 
 export const GetPacient = async (req, res) => {
     try {
@@ -31,7 +32,14 @@ export const CreatePacient = async (req,res) => {
             });
         }
 
-        let { identificacion, nombres, apellidos, fecha_de_nacimiento, genero, criticidad, estado } = req.body;
+        if ('criticidad' in req.body) {
+            return res.status(400).json({
+                message: "Error de validación",
+                errors: { criticidad: "Este campo es calculado automáticamente por el sistema al registrar los signos vitales y no debe enviarse" }
+            });
+        }
+
+        let { identificacion, nombres, apellidos, fecha_de_nacimiento, genero, estado } = req.body;
 
         const hora_de_registro = adaptToTimeFormat(new Date());
 
@@ -41,7 +49,6 @@ export const CreatePacient = async (req,res) => {
             apellidos,
             fecha_de_nacimiento,
             genero,
-            criticidad,
             hora_de_registro,
             estado
         });
@@ -64,20 +71,24 @@ export const CreatePacient = async (req,res) => {
             RETURNING identificacion;
         `;
 
-        const values = [identificacion, nombres, apellidos, fecha_de_nacimiento, genero, criticidad, hora_de_registro, estado];
+        // Criticidad inicial: 5 (No urgente) para cumplir NOT NULL, se actualizará tras registrar signos vitales
+        const values = [identificacion, nombres, apellidos, fecha_de_nacimiento, genero, 5, hora_de_registro, estado];
 
         try {
             const { rows } = await pool.query(query, values);
-
+            console.log('[BACKEND] Insert exitoso, respuesta:', rows);
             res.status(201).json({ message: "Paciente registrado exitosamente", id: rows[0].identificacion });
         } catch (error) {
+            console.error('[BACKEND] Error en pool.query:', error);
             if (error.code === '23505') { 
                 return res.status(409).json({ message: "Identificación duplicada" });
             }
+            // Lanzar el error para que lo capture el catch externo
             throw error; 
         }
     } catch (error) {
-        res.status(500).json({ message: "Error al crear el paciente", error: error.message });
+        console.error('[BACKEND] Error en CreatePacient:', error);
+        res.status(500).json({ message: "Error al crear el paciente", error: error.message, stack: error.stack });
     }
 };
 
@@ -184,11 +195,48 @@ export const CreateVitalsPacient = async (req, res) => {
             parseInt(nivel_de_dolor)
         ];
 
-        const { rows } = await pool.query(insertQuery, values);
-        
+        const triageResult = classifyTriage({
+            frecuencia_cardiaca:     parseFloat(frecuencia_cardiaca),
+            frecuencia_respiratoria: parseFloat(frecuencia_respiratoria),
+            saturacion_o2:           parseFloat(saturacion_o2),
+            temperatura:             parseFloat(temperatura),
+            presion,
+            nivel_de_conciencia,
+            nivel_de_dolor:          parseInt(nivel_de_dolor),
+        });
+
+        const client = await pool.connect();
+        let rows;
+        try {
+            await client.query('BEGIN');
+
+            const insertResult = await client.query(insertQuery, values);
+            rows = insertResult.rows;
+
+            const updateResult = await client.query(
+                'UPDATE public.pacientes SET criticidad = $1 WHERE identificacion = $2',
+                [triageResult.criticalityLevel, patientId]
+            );
+
+            if (updateResult.rowCount === 0) {
+                await client.query('ROLLBACK');
+                return res.status(404).json({
+                    message: "Paciente no encontrado al actualizar criticidad"
+                });
+            }
+
+            await client.query('COMMIT');
+        } catch (txError) {
+            await client.query('ROLLBACK');
+            throw txError;
+        } finally {
+            client.release();
+        }
+
         return res.status(201).json({
-            message: "Signos vitales registrados exitosamente",
-            data: rows[0]
+            message:    "Signos vitales registrados exitosamente",
+            criticidad: triageResult,
+            data:       rows[0],
         });
 
     } catch (error) {
