@@ -3,6 +3,25 @@ import { validatePacient } from '../helpers/validator.js';
 import { validateVitals } from '../helpers/validatorVitals.js';
 import { adaptToTimeFormat } from '../helpers/timeAdapter.js';
 
+export const GetPacient = async (req, res) => {
+    try {
+        const id = parseInt(req.params.id, 10);
+        if (isNaN(id)) {
+            return res.status(400).json({ message: "El id debe ser un número entero válido" });
+        }
+        const { rows } = await pool.query(
+            'SELECT identificacion FROM public.pacientes WHERE identificacion = $1',
+            [id]
+        );
+        if (rows.length === 0) {
+            return res.status(404).json({ message: "Paciente no encontrado" });
+        }
+        res.status(200).json({ id: rows[0].identificacion });
+    } catch (error) {
+        res.status(500).json({ message: "Error al buscar el paciente", error: error.message });
+    }
+};
+
 export const CreatePacient = async (req,res) => {
     try {
         if ('hora_de_registro' in req.body) {

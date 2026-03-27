@@ -14,7 +14,7 @@ export default function Register() {
   }, [])
 
   return (
-    <section className="relative flex flex-col items-center gap-4 py-10 min-h-screen">
+    <main className="relative flex flex-col items-center gap-4 py-10 min-h-screen">
       {submitted && (
         <div
           className={`absolute top-4 right-4 w-80 z-10 transition-opacity duration-500 ${
@@ -30,6 +30,6 @@ export default function Register() {
         </div>
       )}
       <PatientForm onSuccess={notifySuccess} onError={notifyError} />
-    </section>
+    </main>
   )
 }

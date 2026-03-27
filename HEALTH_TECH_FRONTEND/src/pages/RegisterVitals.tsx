@@ -5,7 +5,7 @@ import VitalSignsForm from '../components/VitalSignsForm/VitalSignsForm'
 
 export default function RegisterVitals() {
   const { id } = useParams()
-  const [alertMsg, setAlertMsg] = useState<string | null>(
+  const [alertMsg, setAlertMsg] = useState<string | string[] | null>(
     id ? `Paciente con identificación ${id} registrado exitosamente` : null
   )
   const [alertVariant, setAlertVariant] = useState<'success' | 'error'>('success')
@@ -17,7 +17,7 @@ export default function RegisterVitals() {
     setAlertKey(k => k + 1)
   }, [])
 
-  const notifyError = useCallback((message: string) => {
+  const notifyError = useCallback((message: string | string[]) => {
     setAlertMsg(message)
     setAlertVariant('error')
     setAlertKey(k => k + 1)
