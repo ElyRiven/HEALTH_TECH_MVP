@@ -254,7 +254,19 @@ export const GetAllPacients = async (req, res) => {
         //const order = req.query.order?.toUpperCase() === 'ASC' ? 'ASC' : 'DESC';
         console.log(`[BACKEND] GetAllPacients called with order: ${order}`);     
 
-        const queryText = `SELECT * FROM public.pacientes ORDER BY criticidad ${order}`;
+        const queryText = `
+            SELECT
+                identificacion,
+                nombres,
+                apellidos,
+                TO_CHAR(fecha_de_nacimiento, 'YYYY-MM-DD') AS fecha_de_nacimiento,
+                genero,
+                criticidad,
+                TO_CHAR(hora_de_registro::timestamptz, 'HH12:MI:SS AM') AS hora_de_registro,
+                estado
+            FROM public.pacientes
+            ORDER BY criticidad ${order}
+        `;
         const { rows } = await pool.query(queryText);
 
         res.status(200).json(rows);
