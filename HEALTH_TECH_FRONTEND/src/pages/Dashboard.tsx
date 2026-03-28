@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import ResponseAlert from '../components/ResponseAlert'
+import PatientTable from '../components/PatientTable'
 
 type DashboardLocationState = {
   alertMsg?: string | string[]
@@ -31,7 +32,8 @@ export default function Dashboard() {
           <ResponseAlert key={alertKey} message={alertMsg} variant={alertVariant} />
         </div>
       )}
-      <h1>Dashboard</h1>
+      <h1>Lista de pacientes</h1>
+      <PatientTable />
     </main>
   )
 }
