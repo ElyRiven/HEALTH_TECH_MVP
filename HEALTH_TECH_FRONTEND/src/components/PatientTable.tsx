@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useGetListPacients } from '../hooks/useGetListPacients/useGetListPacients';
 import {
   Table,
@@ -21,10 +22,20 @@ export default function PatientTable() {
 
   if (loading) return <p className="text-sm text-muted-foreground py-6 text-center">Cargando pacientes...</p>;
   if (error) return <p className="text-sm text-destructive py-6 text-center">{error}</p>;
-  if (!pacients.length) return <p className="text-sm text-muted-foreground py-6 text-center">No hay pacientes registrados.</p>;
+  if (!pacients.length) return (
+    <>
+      <p className="text-sm text-muted-foreground py-6 text-center">No hay pacientes en espera.</p>
+      <Link
+        to="/register"
+        className="mt-2 mx-auto block rounded bg-blue-medium-tittle px-4 py-2 text-sm font-medium text-main-white-back transition-opacity hover:opacity-90 text-center w-fit"
+      >
+        Registra tu primer paciente
+      </Link>
+    </>
+  );
 
   return (
-    <div className="w-full max-w-150 mx-auto rounded-lg border bg-card shadow-sm">
+    <div className="w-full max-w-150 mx-auto rounded-lg border bg-card shadow-sm  mt-4">
       <Table>
         <TableHeader className="bg-light-blue">
           <TableRow>

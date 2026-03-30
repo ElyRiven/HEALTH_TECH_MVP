@@ -32,7 +32,7 @@ export default function Dashboard() {
           <ResponseAlert key={alertKey} message={alertMsg} variant={alertVariant} />
         </div>
       )}
-      <h1>Lista de pacientes</h1>
+      <h1 className='text-center text-2xl font-semibold text-blue-medium-tittle'>Lista de pacientes</h1>
       <PatientTable />
     </main>
   )
