@@ -26,6 +26,8 @@ export default function ResponseAlert({
 
   if (!visible) return null
 
+  
+
   return (
     <div
       role="alert"
@@ -62,7 +64,6 @@ export default function ResponseAlert({
           <p className="text-black-main-font/80 font-normal">{message}</p>
         )}
       </div>
-      {/* Close button (shadcn style) */}
       <button
         type="button"
         onClick={() => setVisible(false)}

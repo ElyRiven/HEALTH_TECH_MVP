@@ -1,10 +1,13 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import type { PacientForm, UseFormRegisterPacient } from './types'
 import type React from 'react'
 import { API_URL, initialForm } from './data'
 
-export function useFormRegisterPacient(onSuccess?: (e: React.FormEvent<HTMLFormElement>) => void): UseFormRegisterPacient {
+export function useFormRegisterPacient(
+  onSuccess?: (e: React.FormEvent<HTMLFormElement>) => void,
+  onError?: (msg: string | string[]) => void,
+): UseFormRegisterPacient {
   const navigate = useNavigate()
   const [form, setForm] = useState<PacientForm>(initialForm)
   const [loading, setLoading] = useState(false)
@@ -18,7 +21,9 @@ export function useFormRegisterPacient(onSuccess?: (e: React.FormEvent<HTMLFormE
     const allowed = ['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab', 'Enter']
     if (!allowed.includes(e.key) && !/^\d$/.test(e.key)) {
       e.preventDefault()
-      setFormError('La identificacion debe ser un valor numérico')
+      const msg = 'La identificacion debe ser un valor numérico'
+      setFormError(msg)
+      onError?.(msg)
     } else {
       setFormError(null)
     }
@@ -50,6 +55,7 @@ export function useFormRegisterPacient(onSuccess?: (e: React.FormEvent<HTMLFormE
 
     if (clientErrors.length > 0) {
       setFormError(clientErrors)
+      onError?.(clientErrors)
       return
     }
 
@@ -75,9 +81,13 @@ export function useFormRegisterPacient(onSuccess?: (e: React.FormEvent<HTMLFormE
 
       if (!res.ok) {
         if (data.errors) {
-          setFormError(Object.values(data.errors) as string[])
+          const msgs = Object.values(data.errors) as string[]
+          setFormError(msgs)
+          onError?.(msgs)
         } else {
-          setFormError(data.message || 'Error al registrar paciente')
+          const msg = data.message || 'Error al registrar paciente'
+          setFormError(msg)
+          onError?.(msg)
         }
         return
       }
@@ -88,18 +98,13 @@ export function useFormRegisterPacient(onSuccess?: (e: React.FormEvent<HTMLFormE
       }
       navigate(`/register/${form.identificacion}`)
     } catch {
-      setFormError('No se pudo conectar con el servidor')
+      const msg = 'No se pudo conectar con el servidor'
+      setFormError(msg)
+      onError?.(msg)
     } finally {
       setLoading(false)
     }
   }
-
-  useEffect(() => {
-    if (formError && onerror) {
-      const msg = Array.isArray(formError) ? formError.join(' · ') : formError
-      onerror(msg)
-    }
-  }, [formError, onerror])
 
   return { form, loading, formError, handleChange, handleKeyDown, handleSubmit }
 }

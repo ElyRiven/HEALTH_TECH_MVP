@@ -1,8 +1,8 @@
 import { useFormRegisterPacient } from '../../hooks/useFormRegisterPacient/useFormRegisterPacient'
 import type { PatientFormProps } from './types'
 
-export default function PatientForm({ onSuccess }: PatientFormProps) {
-  const { form, loading, handleChange, handleKeyDown, handleSubmit } = useFormRegisterPacient(onSuccess)
+export default function PatientForm({ onSuccess, onError }: PatientFormProps) {
+  const { form, loading, handleChange, handleKeyDown, handleSubmit } = useFormRegisterPacient(onSuccess, onError)
 
   return (
     <div className="bg-white-second-back rounded-lg p-6 w-full max-w-sm shadow-[0px_4px_16px_0px_rgba(0,0,0,0.2)]">
