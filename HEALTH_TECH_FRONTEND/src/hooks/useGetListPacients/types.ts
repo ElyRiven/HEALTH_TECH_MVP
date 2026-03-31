@@ -7,6 +7,8 @@ export interface Pacient {
   criticidad: number;
   hora_de_registro: string;
   estado: string;
+  criticidadColor?: string;
+  criticidadDenominacion?: string;
 }
 
 export interface UseGetListPacients {

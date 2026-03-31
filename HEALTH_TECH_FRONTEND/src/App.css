@@ -15,6 +15,30 @@
 	--color-white-second-back: #F0F0F0;
 	--color-second-gray: #565656;
 	--color-gray-not-checked: rgba(106, 106, 106, 0.5);
+
+  /* Manchester Triage Level Colors */
+  --color-manchester-1: #E53935; 
+  --color-manchester-2: #FB8C00; 
+  --color-manchester-3: #FDD835; 
+  --color-manchester-4: #43A047; 
+  --color-manchester-5: #1E88E5; 
+}
+
+/* Utilidades para colores de criticidad Manchester */
+.manchester-criticidad-1 {
+  color: var(--color-manchester-1) !important;
+}
+.manchester-criticidad-2 {
+  color: var(--color-manchester-2) !important;
+}
+.manchester-criticidad-3 {
+  color: var(--color-manchester-3) !important;
+}
+.manchester-criticidad-4 {
+  color: var(--color-manchester-4) !important;
+}
+.manchester-criticidad-5 {
+  color: var(--color-manchester-5) !important;
 }
 
 body {
