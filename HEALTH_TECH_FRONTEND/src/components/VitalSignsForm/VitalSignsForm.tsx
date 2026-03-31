@@ -21,6 +21,7 @@ export default function VitalSignsForm({ patientId, onSuccess, onError }: VitalS
             max="300"
             step="1"
             className="bg-main-white-back rounded px-3 py-2 text-black-main-font text-sm focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+            placeholder="Ej: 75 (20-300 bpm)"
           />
         </div>
 
@@ -37,6 +38,7 @@ export default function VitalSignsForm({ patientId, onSuccess, onError }: VitalS
             max="60"
             step="1"
             className="bg-main-white-back rounded px-3 py-2 text-black-main-font text-sm focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+            placeholder="Ej: 18 (1-60 rpm)"
           />
         </div>
 
@@ -53,6 +55,7 @@ export default function VitalSignsForm({ patientId, onSuccess, onError }: VitalS
             max="100"
             step="0.1"
             className="bg-main-white-back rounded px-3 py-2 text-black-main-font text-sm focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+            placeholder="Ej: 98.5, máximo un decimal (50.0-100.0 %)"
           />
         </div>
 
@@ -69,6 +72,7 @@ export default function VitalSignsForm({ patientId, onSuccess, onError }: VitalS
             max="45"
             step="0.1"
             className="bg-main-white-back rounded px-3 py-2 text-black-main-font text-sm focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+            placeholder="Ej: 36.5 (°C)"
           />
         </div>
 
@@ -81,8 +85,8 @@ export default function VitalSignsForm({ patientId, onSuccess, onError }: VitalS
             name="presion"
             value={form.presion}
             onChange={handleChange}
-            placeholder="120/80"
             className="bg-main-white-back rounded px-3 py-2 text-black-main-font text-sm focus:outline-none"
+            placeholder="Ej: 120/80 (mmHg)"
           />
         </div>
 
@@ -115,6 +119,7 @@ export default function VitalSignsForm({ patientId, onSuccess, onError }: VitalS
             max="10"
             step="1"
             className="bg-main-white-back rounded px-3 py-2 text-black-main-font text-sm focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+            placeholder="Ej: 5 (0-10 EVA)"
           />
         </div>
 

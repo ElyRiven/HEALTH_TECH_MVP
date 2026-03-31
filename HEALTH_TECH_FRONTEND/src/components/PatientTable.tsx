@@ -61,7 +61,7 @@ export default function PatientTable() {
             <TableRow key={p.identificacion}>
               <TableCell>{p.nombres}</TableCell>
               <TableCell>{p.apellidos}</TableCell>
-              <TableCell className="text-center">{p.criticidad}</TableCell>
+              <TableCell className={`text-center ${p.criticidadColor ?? ''}`}>{p.criticidadDenominacion}</TableCell>
             </TableRow>
           ))}
         </TableBody>

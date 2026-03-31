@@ -47,7 +47,7 @@ function classifyTemperature(temp) {
   if (temp < 32.0 || temp > 40.0)                                        return criticityLevel.INMEDIATO;
   if ((temp >= 32.0 && temp <= 34.9) || (temp >= 39.1 && temp <= 40.0)) return criticityLevel.MUY_URGENTE;
   if ((temp >= 35.0 && temp <= 35.9) || (temp >= 38.5 && temp <= 39.0)) return criticityLevel.URGENTE;
-  if ((temp >= 36.0 && temp <= 38.4))                                    return criticityLevel.MENOS_URGENTE;
+  if (temp >= 37.5 && temp <= 38.4)                                      return criticityLevel.MENOS_URGENTE;
   return criticityLevel.NO_URGENTE;
 }
 
@@ -57,13 +57,15 @@ function classifyBloodPressure(systolic, diastolic) {
   if (systolic < 70 || systolic > 200)                                             sl = criticityLevel.INMEDIATO;
   else if ((systolic >= 70 && systolic <= 89) || (systolic >= 181 && systolic <= 200)) sl = criticityLevel.MUY_URGENTE;
   else if ((systolic >= 90 && systolic <= 99) || (systolic >= 161 && systolic <= 180)) sl = criticityLevel.URGENTE;
-  else if (systolic >= 100 && systolic <= 160)                                     sl = criticityLevel.MENOS_URGENTE;
+  else if (systolic >= 140 && systolic <= 160)                                      sl = criticityLevel.MENOS_URGENTE;
+  else if (systolic >= 100 && systolic <= 139)                                     sl = criticityLevel.NO_URGENTE;
   else                                                                             sl = criticityLevel.NO_URGENTE;
 
   if (diastolic > 130)                         dl = criticityLevel.INMEDIATO;
   else if (diastolic >= 111 && diastolic <= 130) dl = criticityLevel.MUY_URGENTE;
   else if (diastolic >= 101 && diastolic <= 110) dl = criticityLevel.URGENTE;
-  else if (diastolic >= 60  && diastolic <= 100) dl = criticityLevel.MENOS_URGENTE;
+  else if (diastolic >= 90  && diastolic <= 100) dl = criticityLevel.MENOS_URGENTE;
+  else if (diastolic >= 60  && diastolic <= 89)  dl = criticityLevel.NO_URGENTE;
   else                                           dl = criticityLevel.NO_URGENTE;
 
   return Math.min(sl, dl);
