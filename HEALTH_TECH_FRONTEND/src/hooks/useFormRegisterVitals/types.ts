@@ -17,4 +17,11 @@ export interface UseFormRegisterVitals {
   formSuccess: string | null
   handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => Promise<void>
+  onSuccess?: (message: string) => void
+  onError?: (message: string | string[]) => void
+}
+
+export type NavigationAlertState = {
+  alertMsg: string
+  alertVariant: 'success' | 'error'
 }

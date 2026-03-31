@@ -1,23 +1,9 @@
-import { useEffect } from 'react'
 import { useFormRegisterVitals } from '../../hooks/useFormRegisterVitals/useFormRegisterVitals'
 import { NIVEL_CONCIENCIA_OPTIONS } from '../../hooks/useFormRegisterVitals/data'
+import type { VitalSignsFormProps } from './types'
 
-interface VitalSignsFormProps {
-  patientId: string
-  onSuccess?: (message: string) => void
-  onError?: (message: string | string[]) => void
-}
-
-export default function VitalSignsForm({ patientId, onSuccess, onError }: VitalSignsFormProps) {
-  const { form, loading, formError, formSuccess, handleChange, handleSubmit } = useFormRegisterVitals(patientId)
-
-  useEffect(() => {
-    if (formSuccess) onSuccess?.(formSuccess)
-  }, [formSuccess, onSuccess])
-
-  useEffect(() => {
-    if (formError) onError?.(formError)
-  }, [formError, onError])
+export default function VitalSignsForm({ patientId }: VitalSignsFormProps) {
+  const { form, loading, handleChange, handleSubmit } = useFormRegisterVitals(patientId)
 
   return (
     <div className="bg-white-second-back rounded-lg p-6 w-full max-w-sm shadow-[0px_4px_16px_0px_rgba(0,0,0,0.2)]">
