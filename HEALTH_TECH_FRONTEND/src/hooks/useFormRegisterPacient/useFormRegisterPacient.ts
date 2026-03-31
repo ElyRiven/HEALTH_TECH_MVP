@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import type { PacientForm, UseFormRegisterPacient } from './types'
 import type React from 'react'
@@ -93,6 +93,13 @@ export function useFormRegisterPacient(onSuccess?: (e: React.FormEvent<HTMLFormE
       setLoading(false)
     }
   }
+
+  useEffect(() => {
+    if (formError && onerror) {
+      const msg = Array.isArray(formError) ? formError.join(' · ') : formError
+      onerror(msg)
+    }
+  }, [formError, onerror])
 
   return { form, loading, formError, handleChange, handleKeyDown, handleSubmit }
 }

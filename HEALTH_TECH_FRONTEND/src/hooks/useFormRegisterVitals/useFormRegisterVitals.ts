@@ -1,15 +1,14 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import type React from 'react'
-import type { UseFormRegisterVitals, VitalsForm } from './types'
+import type { UseFormRegisterVitals, VitalsForm, NavigationAlertState } from './types'
 import { API_URL, initialForm, NIVEL_CONCIENCIA_OPTIONS } from './data'
 
-type NavigationAlertState = {
-  alertMsg: string
-  alertVariant: 'success' | 'error'
-}
-
-export function useFormRegisterVitals(patientId: string): UseFormRegisterVitals {
+export function useFormRegisterVitals(
+  patientId: string,
+  onSuccess?: (message: string) => void,
+  onerror?: (error: string | string[]) => void
+): UseFormRegisterVitals {
   const navigate = useNavigate()
   const [form, setForm] = useState<VitalsForm>(initialForm)
   const [loading, setLoading] = useState(false)
@@ -164,6 +163,8 @@ export function useFormRegisterVitals(patientId: string): UseFormRegisterVitals 
           alertVariant: 'success',
         } satisfies NavigationAlertState,
       })
+
+      
       window.scrollTo({
         top: 0,
         behavior: 'smooth'
@@ -175,5 +176,14 @@ export function useFormRegisterVitals(patientId: string): UseFormRegisterVitals 
     }
   }
 
+  useEffect(() => {
+    if (formSuccess) onSuccess?.(formSuccess)
+  }, [formSuccess, onSuccess])
+
+  useEffect(() => {
+    if (formError) onerror?.(formError)
+  }, [formError, onerror])
+
   return { form, loading, formError, formSuccess, handleChange, handleSubmit }
 }
+

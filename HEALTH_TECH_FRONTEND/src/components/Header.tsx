@@ -2,7 +2,8 @@ import { Link } from 'react-router-dom'
 import { useState } from 'react'
 
 export default function Header() {
-  const [hover, setHover] = useState(false)
+  const [hover, setHover] = useState(false);
+  
   return (
     <header className="h-22.5 shadow-[0px_4px_4px_0px_rgba(0,0,0,0.50)]">
       <nav className="max-w-286 flex items-center justify-between mx-auto h-full">
