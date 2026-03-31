@@ -5,10 +5,10 @@ import { useRegisterPacient } from '../hooks/useRegisterPacient/useRegisterPacie
 
 export default function Register() {
   const { submitted, visible, notifySuccess } = useRegisterPacient()
-  const [errorMsg, setErrorMsg] = useState<string | null>(null)
+  const [errorMsg, setErrorMsg] = useState<string | string[] | null>(null)
   const [errorKey, setErrorKey] = useState(0)
 
-  const notifyError = useCallback((message: string) => {
+  const notifyError = useCallback((message: string | string[]) => {
     setErrorMsg(message)
     setErrorKey(k => k + 1)
   }, [])
