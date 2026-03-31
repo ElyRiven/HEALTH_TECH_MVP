@@ -55,7 +55,7 @@ export default function VitalSignsForm({ patientId, onSuccess, onError }: VitalS
             max="100"
             step="0.1"
             className="bg-main-white-back rounded px-3 py-2 text-black-main-font text-sm focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-            placeholder="Ej: 98.5, 50-100, máximo un decimal (50.0-100.0 %)"
+            placeholder="Ej: 98.5, máximo un decimal (50.0-100.0 %)"
           />
         </div>
 
