@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS public.pacientes (
     apellidos       VARCHAR(100)    NOT NULL,
     fecha_de_nacimiento DATE        NOT NULL,
     genero          VARCHAR(50)     NOT NULL,
-    criticidad      INTEGER         NOT NULL DEFAULT 5,
+    criticidad      INTEGER         NOT NULL,
     hora_de_registro TIMESTAMPTZ    NOT NULL,
     estado          VARCHAR(50)     NOT NULL
 );
