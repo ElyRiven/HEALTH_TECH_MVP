@@ -71,7 +71,6 @@ export const CreatePacient = async (req,res) => {
             RETURNING identificacion;
         `;
 
-        // Criticidad inicial: 5 (No urgente) para cumplir NOT NULL, se actualizará tras registrar signos vitales
         const values = [identificacion, nombres, apellidos, fecha_de_nacimiento, genero, 5, hora_de_registro, estado];
 
         try {
@@ -251,21 +250,23 @@ export const CreateVitalsPacient = async (req, res) => {
 export const GetAllPacients = async (req, res) => {
     try {
         const order = req.query.order?.toUpperCase() === 'DESC' ? 'DESC' : 'ASC';
-        //const order = req.query.order?.toUpperCase() === 'ASC' ? 'ASC' : 'DESC';
-        console.log(`[BACKEND] GetAllPacients called with order: ${order}`);     
+        console.log(`[BACKEND] GetAllPacients called with order: ${order}`);
 
         const queryText = `
             SELECT
-                identificacion,
-                nombres,
-                apellidos,
-                TO_CHAR(fecha_de_nacimiento, 'YYYY-MM-DD') AS fecha_de_nacimiento,
-                genero,
-                criticidad,
-                TO_CHAR(hora_de_registro::timestamptz, 'HH12:MI:SS AM') AS hora_de_registro,
-                estado
-            FROM public.pacientes
-            ORDER BY criticidad ${order}
+                p.identificacion,
+                p.nombres,
+                p.apellidos,
+                TO_CHAR(p.fecha_de_nacimiento, 'YYYY-MM-DD') AS fecha_de_nacimiento,
+                p.genero,
+                p.criticidad,
+                TO_CHAR(p.hora_de_registro::timestamptz, 'HH12:MI:SS AM') AS hora_de_registro,
+                p.estado
+            FROM public.pacientes p
+            WHERE EXISTS (
+                SELECT 1 FROM constantes_vitales cv WHERE cv.id_paciente = p.identificacion
+            )
+            ORDER BY p.criticidad ${order}
         `;
         const { rows } = await pool.query(queryText);
 

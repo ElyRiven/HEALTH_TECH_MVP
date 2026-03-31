@@ -106,5 +106,6 @@ export function useFormRegisterPacient(
     }
   }
 
+
   return { form, loading, formError, handleChange, handleKeyDown, handleSubmit }
 }
