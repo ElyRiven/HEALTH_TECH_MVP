@@ -2,8 +2,8 @@ import { useFormRegisterVitals } from '../../hooks/useFormRegisterVitals/useForm
 import { NIVEL_CONCIENCIA_OPTIONS } from '../../hooks/useFormRegisterVitals/data'
 import type { VitalSignsFormProps } from './types'
 
-export default function VitalSignsForm({ patientId }: VitalSignsFormProps) {
-  const { form, loading, handleChange, handleSubmit } = useFormRegisterVitals(patientId)
+export default function VitalSignsForm({ patientId, onSuccess, onError }: VitalSignsFormProps) {
+  const { form, loading, formError, handleChange, handleSubmit } = useFormRegisterVitals(patientId, onSuccess, onError)
 
   return (
     <div className="bg-white-second-back rounded-lg p-6 w-full max-w-sm shadow-[0px_4px_16px_0px_rgba(0,0,0,0.2)]">
@@ -117,6 +117,14 @@ export default function VitalSignsForm({ patientId }: VitalSignsFormProps) {
             className="bg-main-white-back rounded px-3 py-2 text-black-main-font text-sm focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
           />
         </div>
+
+        {formError && (
+          <div className="text-red-600 text-xs flex flex-col gap-1">
+            {Array.isArray(formError)
+              ? formError.map((err, i) => <span key={i}>{err}</span>)
+              : <span>{formError}</span>}
+          </div>
+        )}
 
         <button
           type="submit"

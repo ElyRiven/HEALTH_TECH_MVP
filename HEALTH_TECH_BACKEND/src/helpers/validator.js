@@ -16,7 +16,9 @@ function validatePacient(pacient) {
     }
 
     if (!pacient.fecha_de_nacimiento || !/^\d{4}-\d{2}-\d{2}$/.test(pacient.fecha_de_nacimiento)) {
-        errors.fecha_de_nacimiento = 'Debe tener un formato de yyyy-MM-dd';
+            errors.fecha_de_nacimiento = 'Debe tener un formato de yyyy-MM-dd';
+    } else if (parseInt(pacient.fecha_de_nacimiento.substring(0, 4), 10) < 1900) {
+            errors.fecha_de_nacimiento = 'El año de nacimiento no puede ser menor a 1900';
     }
 
     if (typeof pacient.genero !== 'string' || !validator.isLength(pacient.genero, { min: 1, max: 50 })) {
