@@ -4,9 +4,9 @@ Endpoint: `POST /api/v1/vitals/:patientId`
 
 ---
 
-## 🔴 Nivel 1 — Inmediato
+## 🔴 Nivel 1 — Emergencia
 
-**Justificación:** Frecuencia cardíaca de 35 bpm (< 40) indica paro cardíaco inminente. Un solo signo en nivel 1 clasifica al paciente como inmediato.
+**Justificación:** Frecuencia cardíaca de 35 bpm (< 40) indica paro cardíaco inminente. Un solo signo en nivel 1 clasifica al paciente como Emergencia.
 
 ```json
 {
