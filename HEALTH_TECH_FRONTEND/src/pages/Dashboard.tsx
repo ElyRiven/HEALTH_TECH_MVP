@@ -28,7 +28,7 @@ export default function Dashboard() {
   return (
     <main className="relative min-h-screen py-10">
       {alertMsg && (
-        <div className="absolute top-4 right-4 w-80 z-10">
+        <div className="absolute top-4 right-4 w-64 z-10">
           <ResponseAlert key={alertKey} message={alertMsg} variant={alertVariant} />
         </div>
       )}
