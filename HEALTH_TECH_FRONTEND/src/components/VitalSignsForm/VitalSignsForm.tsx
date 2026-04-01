@@ -9,10 +9,11 @@ export default function VitalSignsForm({ patientId, onSuccess, onError }: VitalS
     <div className="bg-white-second-back rounded-lg p-6 w-full max-w-sm shadow-[0px_4px_16px_0px_rgba(0,0,0,0.2)]">
       <form className="flex flex-col gap-4" noValidate onSubmit={(e) => handleSubmit(e)}>
         <div className="flex flex-col gap-1">
-          <label className="text-blue-medium-tittle text-sm font-medium">
+          <label htmlFor="frecuencia_cardiaca" className="text-blue-medium-tittle text-sm font-medium">
             Frecuencia Cardiaca
           </label>
           <input
+            id="frecuencia_cardiaca"
             type="number"
             name="frecuencia_cardiaca"
             value={form.frecuencia_cardiaca}
@@ -26,10 +27,11 @@ export default function VitalSignsForm({ patientId, onSuccess, onError }: VitalS
         </div>
 
         <div className="flex flex-col gap-1">
-          <label className="text-blue-medium-tittle text-sm font-medium">
+          <label htmlFor="frecuencia_respiratoria" className="text-blue-medium-tittle text-sm font-medium">
             Frecuencia Respiratoria
           </label>
           <input
+            id="frecuencia_respiratoria"
             type="number"
             name="frecuencia_respiratoria"
             value={form.frecuencia_respiratoria}
@@ -43,10 +45,11 @@ export default function VitalSignsForm({ patientId, onSuccess, onError }: VitalS
         </div>
 
         <div className="flex flex-col gap-1">
-          <label className="text-blue-medium-tittle text-sm font-medium">
+          <label htmlFor="saturacion_o2" className="text-blue-medium-tittle text-sm font-medium">
             Saturación o2
           </label>
           <input
+            id="saturacion_o2"
             type="number"
             name="saturacion_o2"
             value={form.saturacion_o2}
@@ -60,10 +63,11 @@ export default function VitalSignsForm({ patientId, onSuccess, onError }: VitalS
         </div>
 
         <div className="flex flex-col gap-1">
-          <label className="text-blue-medium-tittle text-sm font-medium">
+          <label htmlFor="temperatura" className="text-blue-medium-tittle text-sm font-medium">
             Temperatura
           </label>
           <input
+            id="temperatura"
             type="number"
             name="temperatura"
             value={form.temperatura}
@@ -77,10 +81,11 @@ export default function VitalSignsForm({ patientId, onSuccess, onError }: VitalS
         </div>
 
         <div className="flex flex-col gap-1">
-          <label className="text-blue-medium-tittle text-sm font-medium">
+          <label htmlFor="presion" className="text-blue-medium-tittle text-sm font-medium">
             Presión
           </label>
           <input
+            id="presion"
             type="text"
             name="presion"
             value={form.presion}
@@ -91,10 +96,11 @@ export default function VitalSignsForm({ patientId, onSuccess, onError }: VitalS
         </div>
 
         <div className="flex flex-col gap-1">
-          <label className="text-blue-medium-tittle text-sm font-medium">
+          <label htmlFor="nivel_de_conciencia" className="text-blue-medium-tittle text-sm font-medium">
             Nivel de conciencia
           </label>
           <select
+            id="nivel_de_conciencia"
             name="nivel_de_conciencia"
             value={form.nivel_de_conciencia}
             onChange={handleChange}
@@ -107,10 +113,11 @@ export default function VitalSignsForm({ patientId, onSuccess, onError }: VitalS
         </div>
 
         <div className="flex flex-col gap-1">
-          <label className="text-blue-medium-tittle text-sm font-medium">
+          <label htmlFor="nivel_de_dolor" className="text-blue-medium-tittle text-sm font-medium">
             Nivel de dolor
           </label>
           <input
+            id="nivel_de_dolor"
             type="number"
             name="nivel_de_dolor"
             value={form.nivel_de_dolor}

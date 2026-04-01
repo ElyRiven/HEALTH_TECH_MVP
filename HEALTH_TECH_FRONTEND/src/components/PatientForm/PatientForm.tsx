@@ -8,10 +8,11 @@ export default function PatientForm({ onSuccess, onError }: PatientFormProps) {
     <div className="bg-white-second-back rounded-lg p-6 w-full max-w-sm shadow-[0px_4px_16px_0px_rgba(0,0,0,0.2)]">
       <form className="flex flex-col gap-4" onSubmit={(e) => handleSubmit(e)}>
         <div className="flex flex-col gap-1">
-          <label className="text-blue-medium-tittle text-sm font-medium">
+          <label htmlFor="identificacion" className="text-blue-medium-tittle text-sm font-medium">
             Identificación
           </label>
           <input
+            id="identificacion"
             type="number"
             name="identificacion"
             value={form.identificacion}
@@ -24,10 +25,11 @@ export default function PatientForm({ onSuccess, onError }: PatientFormProps) {
         </div>
 
         <div className="flex flex-col gap-1">
-          <label className="text-blue-medium-tittle text-sm font-medium">
+          <label htmlFor="nombres" className="text-blue-medium-tittle text-sm font-medium">
             Nombres
           </label>
           <input
+            id="nombres"
             type="text"
             name="nombres"
             value={form.nombres}
@@ -37,10 +39,11 @@ export default function PatientForm({ onSuccess, onError }: PatientFormProps) {
         </div>
 
         <div className="flex flex-col gap-1">
-          <label className="text-blue-medium-tittle text-sm font-medium">
+          <label htmlFor="apellidos" className="text-blue-medium-tittle text-sm font-medium">
             Apellidos
           </label>
           <input
+            id="apellidos"
             type="text"
             name="apellidos"
             value={form.apellidos}
@@ -50,10 +53,11 @@ export default function PatientForm({ onSuccess, onError }: PatientFormProps) {
         </div>
 
         <div className="flex flex-col gap-1">
-          <label className="text-blue-medium-tittle text-sm font-medium">
+          <label htmlFor="fecha_de_nacimiento" className="text-blue-medium-tittle text-sm font-medium">
             Fecha de Nacimiento
           </label>
           <input
+            id="fecha_de_nacimiento"
             type="date"
             name="fecha_de_nacimiento"
             value={form.fecha_de_nacimiento}
@@ -63,10 +67,11 @@ export default function PatientForm({ onSuccess, onError }: PatientFormProps) {
         </div>
 
         <div className="flex flex-col gap-1">
-          <label className="text-blue-medium-tittle text-sm font-medium">
+          <label htmlFor="genero" className="text-blue-medium-tittle text-sm font-medium">
             Genero
           </label>
           <select
+            id="genero"
             name="genero"
             value={form.genero}
             onChange={handleChange}
