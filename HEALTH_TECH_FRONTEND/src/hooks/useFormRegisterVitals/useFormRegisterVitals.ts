@@ -154,12 +154,20 @@ export function useFormRegisterVitals(
       }
 
       const successMessage = data.message || 'Signos vitales registrados exitosamente'
+      const patientData = data.data
+      const alertMsg: string | string[] = patientData
+        ? [
+            successMessage,
+            `Paciente: ${patientData.nombres} ${patientData.apellidos}`,
+            `Criticidad: ${patientData.criticidad_texto}`,
+          ]
+        : successMessage
 
       setFormSuccess(successMessage)
       setForm(initialForm)
       navigate('/', {
         state: {
-          alertMsg: successMessage,
+          alertMsg,
           alertVariant: 'success',
         } satisfies NavigationAlertState,
       })

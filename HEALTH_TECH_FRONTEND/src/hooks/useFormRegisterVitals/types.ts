@@ -22,6 +22,6 @@ export interface UseFormRegisterVitals {
 }
 
 export type NavigationAlertState = {
-  alertMsg: string
+  alertMsg: string | string[]
   alertVariant: 'success' | 'error'
 }
