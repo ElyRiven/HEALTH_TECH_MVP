@@ -159,7 +159,7 @@ export const CreateVitalsPacient = async (req, res) => {
             });
         }
 
-        const checkPatientQuery = 'SELECT 1 FROM public.pacientes WHERE identificacion = $1';
+        const checkPatientQuery = 'SELECT nombres, apellidos FROM public.pacientes WHERE identificacion = $1';
         const patientResult = await pool.query(checkPatientQuery, [patientId]);
         
         if (patientResult.rowCount === 0) {
@@ -232,10 +232,17 @@ export const CreateVitalsPacient = async (req, res) => {
             client.release();
         }
 
+        const { nombres, apellidos } = patientResult.rows[0];
+
         return res.status(201).json({
             message:    "Signos vitales registrados exitosamente",
             criticidad: triageResult,
-            data:       rows[0],
+            data: {
+                ...rows[0],
+                nombres,
+                apellidos,
+                criticidad_texto: triageResult.denomination,
+            },
         });
 
     } catch (error) {
