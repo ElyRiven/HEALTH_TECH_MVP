@@ -96,7 +96,7 @@ jobs:
 
     permissions:
       contents: read # Read repository source code
-      pull-requests: read # Read PR metadata
+      pull-requests: read # # Read PR metadata
       security-events: write
 
     # ── PostgreSQL service container for integration and API tests ────────────
