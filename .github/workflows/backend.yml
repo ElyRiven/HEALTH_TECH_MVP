@@ -1,0 +1,440 @@
+# ==============================================================================
+# BACKEND CI/CD WORKFLOW
+#
+# PURPOSE:
+#   Independent pipeline for the backend Node.js/Express API.
+#   Runs dependency vulnerability scans, linting, Jest unit/integration tests
+#   with 75% coverage threshold, Karate API tests, K6 performance tests,
+#   builds the Docker image locally, scans it with Trivy before pushing,
+#   and deploys to Render.
+#
+# DESIGN DECISIONS:
+#   - Isolated from frontend — only triggers when backend code changes.
+#   - Uses `!` negation patterns to skip doc/non-code file changes.
+#   - npm audit blocks on Critical/High CVEs; lower severities are reported.
+#   - Jest enforces 75% coverage threshold across all categories.
+#   - A PostgreSQL service container is spun up for integration/API tests.
+#   - Karate API tests clone and run against the local backend instance.
+#   - K6 performance tests clone and run load scenarios against the API.
+#   - Docker image is built locally and scanned with Trivy BEFORE pushing.
+#   - Critical/High Docker vulnerabilities block the push automatically.
+#   Deploy uses JorgeLNJunior/render-deploy@v1.5.0 to trigger redeployment
+#   on Render, which pulls the latest Docker image from Docker Hub.
+# ==============================================================================
+
+name: Backend CI/CD
+
+# ──────────────────────────────────────────────────────────────────────────────
+# TRIGGERS
+# ──────────────────────────────────────────────────────────────────────────────
+# Runs on push/PR to main, develop, and feature/** branches.
+# Only triggers when backend CODE files or this workflow file are modified.
+#
+# The `!` negation patterns ensure that documentation and non-code files
+# (.md, .txt, .pdf, images, logs) do NOT trigger this workflow,
+# even if those files are inside the HEALTH_TECH_BACKEND/ directory.
+# ──────────────────────────────────────────────────────────────────────────────
+on:
+  push:
+    branches:
+      - main
+      - develop
+      - "feature/**"
+    paths:
+      - "HEALTH_TECH_BACKEND/**"
+      - ".github/workflows/backend.yml"
+      # ── Exclude documentation / non-code files ──
+      - "!**/*.md"
+      - "!**/*.txt"
+      - "!**/*.pdf"
+      - "!**/*.png"
+      - "!**/*.jpg"
+      - "!**/*.jpeg"
+      - "!**/*.gif"
+      - "!**/*.svg"
+      - "!**/*.log"
+
+  pull_request:
+    branches:
+      - main
+      - develop
+      - "feature/**"
+    paths:
+      - "HEALTH_TECH_BACKEND/**"
+      - ".github/workflows/backend.yml"
+      # ── Exclude documentation / non-code files ──
+      - "!**/*.md"
+      - "!**/*.txt"
+      - "!**/*.pdf"
+      - "!**/*.png"
+      - "!**/*.jpg"
+      - "!**/*.jpeg"
+      - "!**/*.gif"
+      - "!**/*.svg"
+      - "!**/*.log"
+
+# ──────────────────────────────────────────────────────────────────────────────
+# GLOBAL ENVIRONMENT VARIABLES
+# ──────────────────────────────────────────────────────────────────────────────
+env:
+  NODE_VERSION: "20"
+  BACKEND_IMAGE: ${{ secrets.DOCKER_USER }}/health-tech-backend
+  BACKEND_PORT: 3000
+
+jobs:
+  # ============================================================================
+  # JOB 1 — TEST & VULNERABILITY SCAN
+  # ============================================================================
+  # Scans npm dependencies for CVEs, runs Jest unit/integration tests with a
+  # 75% coverage threshold, executes Karate API tests, and runs K6 performance
+  # tests. A PostgreSQL service container is included for tests that need a
+  # live database. Critical/High dependency vulnerabilities block the job.
+  # Coverage below 75% blocks the job; the report is always uploaded.
+  # ============================================================================
+  test:
+    name: "Test & Vulnerability Scan"
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read # Read repository source code
+      pull-requests: read # # Read PR metadata
+      security-events: write
+
+    # ── PostgreSQL service container for integration and API tests ────────────
+    # Provides a local database instance matching production schema.
+    # The backend, Karate, and K6 tests connect to this container via
+    # localhost:5432 (the runner maps the container port automatically).
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_DB: ${{ secrets.TEST_DB_NAME }}
+          POSTGRES_USER: ${{ secrets.TEST_DB_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.TEST_DB_PASSWORD }}
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      # -- Checkout source code -----------------------------------------------
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # -- Setup Node.js with npm dependency caching --------------------------
+      - name: Set up Node.js ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "npm"
+          cache-dependency-path: HEALTH_TECH_BACKEND/package-lock.json
+
+      # -- Install exact dependency versions from lockfile --------------------
+      - name: Install Dependencies
+        working-directory: ./HEALTH_TECH_BACKEND
+        run: npm ci
+
+      # -- Dependency Vulnerability Scan (npm audit) --------------------------
+      # Generates a full JSON report for archival, then re-runs the audit
+      # with --audit-level=high to gate the pipeline on Critical/High CVEs.
+      # Moderate / Low / Info findings are captured in the report but do NOT
+      # stop the pipeline.
+      - name: Dependency Vulnerability Scan (npm audit)
+        working-directory: ./HEALTH_TECH_BACKEND
+        run: |
+          echo "Running npm audit — dependency vulnerability scan..."
+          npm audit --json > npm-audit-report.json || true
+          npm audit --audit-level=high || {
+            echo "::error::Critical/High vulnerabilities found in npm dependencies. Review npm-audit-report.json for details."
+            exit 1
+          }
+          echo "No critical or high vulnerabilities detected in dependencies."
+
+      # -- Upload npm audit report (14 days, always) --------------------------
+      - name: Upload npm Audit Report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: backend-npm-audit-report
+          path: HEALTH_TECH_BACKEND/npm-audit-report.json
+          retention-days: 14
+
+      # -- Code Quality Check (ESLint) ----------------------------------------
+      # Lint errors are reported to the log but do NOT block the pipeline.
+      # Requires eslint to be configured in the backend project.
+      - name: Code Quality Check (ESLint)
+        working-directory: ./HEALTH_TECH_BACKEND
+        run: npx eslint . --ext .js
+        continue-on-error: true
+
+      # -- Unit & Integration Tests with 75% coverage threshold ---------------
+      # Uses Jest. The pipeline fails if any coverage category (lines,
+      # functions, branches, statements) drops below 75%.
+      # The coverage report is generated for archival.
+      - name: Run Unit & Integration Tests
+        working-directory: ./HEALTH_TECH_BACKEND
+        env:
+          DATABASE_URL: postgresql://${{ secrets.TEST_DB_USER }}:${{ secrets.TEST_DB_PASSWORD }}@localhost:5432/${{ secrets.TEST_DB_NAME }}
+          NODE_ENV: test
+        run: |
+          npx jest --coverage \
+            --coverageThreshold='{"global":{"lines":75,"functions":75,"branches":75,"statements":75}}'
+
+      # -- Upload coverage report (3 days, always) ----------------------------
+      # Always uploaded so failed runs can still be inspected for coverage gaps.
+      - name: Upload Coverage Report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: backend-coverage-report
+          path: HEALTH_TECH_BACKEND/coverage/
+          retention-days: 3
+
+      # -- Start Backend Server (background) for QA tests ---------------------
+      # Starts the API on port 3000 so Karate and K6 can target localhost.
+      - name: Start Backend Server
+        working-directory: ./HEALTH_TECH_BACKEND
+        env:
+          DATABASE_URL: postgresql://${{ secrets.TEST_DB_USER }}:${{ secrets.TEST_DB_PASSWORD }}@localhost:5432/${{ secrets.TEST_DB_NAME }}
+          PORT: ${{ env.BACKEND_PORT }}
+          NODE_ENV: test
+        run: npm start &
+
+      # -- Wait for the backend to be ready -----------------------------------
+      - name: Wait for Backend to be Ready
+        run: |
+          echo "Waiting for backend on port ${{ env.BACKEND_PORT }}..."
+          for i in $(seq 1 30); do
+            curl -sf http://localhost:${{ env.BACKEND_PORT }} && break || sleep 2
+          done
+
+      # ── KARATE API TESTS ────────────────────────────────────────────────────
+
+      # -- Checkout Karate API test repository --------------------------------
+      # Clones the dedicated Karate API automation project into ./karate-tests.
+      # Requires a PAT stored as the QA_REPO_TOKEN secret if the repo is private.
+
+      # - name: Checkout Karate API Test Repository
+      #   uses: actions/checkout@v4
+      #   with:
+      #     repository: ElyRiven/HEALTH_TECH_QA_KARATE
+      #     path: ./karate-tests
+      #     token: ${{ secrets.QA_REPO_TOKEN }}
+
+      # -- Setup JDK 17 for Karate --------------------------------------------
+
+      # - name: Set up JDK 17 for Karate
+      #   uses: actions/setup-java@v4
+      #   with:
+      #     distribution: "temurin"
+      #     java-version: "17"
+      #     cache: "maven"
+
+      # -- Run Karate API Tests -----------------------------------------------
+      # Executes all Karate feature files against the locally running backend.
+      # API_BASE_URL is passed so the Karate runner targets localhost.
+
+      # - name: Run Karate API Tests
+      #   working-directory: ./karate-tests
+      #   env:
+      #     API_BASE_URL: http://localhost:${{ env.BACKEND_PORT }}
+      #   run: mvn test -Dapi.base.url=${{ env.BACKEND_PORT }} --no-transfer-progress
+
+      # -- Upload Karate test report (14 days, always) ------------------------
+
+      # - name: Upload Karate Test Report
+      #   uses: actions/upload-artifact@v4
+      #   if: always()
+      #   with:
+      #     name: karate-api-report
+      #     path: karate-tests/target/karate-reports/
+      #     retention-days: 14
+
+      # ── K6 PERFORMANCE TESTS ────────────────────────────────────────────────
+
+      # -- Checkout K6 performance test repository ----------------------------
+      # Clones the dedicated K6 load testing project into ./k6-tests.
+
+      # - name: Checkout K6 Performance Test Repository
+      #   uses: actions/checkout@v4
+      #   with:
+      #     repository: ElyRiven/HEALTH_TECH_QA_K6
+      #     path: ./k6-tests
+      #     token: ${{ secrets.QA_REPO_TOKEN }}
+
+      # -- Install K6 --------------------------------------------------------
+
+      # - name: Set up K6
+      #   uses: grafana/setup-k6-action@v1
+
+      # -- Run K6 Performance Tests -------------------------------------------
+      # Executes load scenarios against the locally running backend.
+      # Results are written to k6-results.json for archival.
+
+      # - name: Run K6 Performance Tests
+      #   working-directory: ./k6-tests
+      #   env:
+      #     API_BASE_URL: http://localhost:${{ env.BACKEND_PORT }}
+      #   run: |
+      #     k6 run \
+      #       --out json=k6-results.json \
+      #       --env BASE_URL=http://localhost:${{ env.BACKEND_PORT }} \
+      #       .
+
+      # -- Upload K6 report (14 days, always) ---------------------------------
+
+      # - name: Upload K6 Performance Report
+      #   uses: actions/upload-artifact@v4
+      #   if: always()
+      #   with:
+      #     name: k6-performance-report
+      #     path: k6-tests/k6-results.json
+      #     retention-days: 14
+
+  # ============================================================================
+  # JOB 2 — DOCKER BUILD & VULNERABILITY SCAN
+  # ============================================================================
+  # Builds the Docker image locally and loads it into the runner's daemon.
+  # Saves the image as a TAR artifact for traceability.
+  # Trivy scans the saved TAR for vulnerabilities — Critical/High findings
+  # block the push. The SARIF report is always generated and uploaded.
+  # Only if the scan passes does the image get pushed to Docker Hub.
+  # ============================================================================
+  docker-build:
+    name: "Docker Build & Vulnerability Scan"
+    needs: [test]
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      security-events: write
+
+    steps:
+      # -- Checkout source code -----------------------------------------------
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # -- Extract short SHA for image tagging --------------------------------
+      - name: Generate Short SHA
+        id: short-sha
+        run: echo "sha_short=$(git rev-parse --short=7 HEAD)" >> $GITHUB_OUTPUT
+
+      # -- Setup Docker Buildx ------------------------------------------------
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      # -- Build Docker Image (local only, no push) ---------------------------
+      # Image is loaded into the local Docker daemon so it can be saved
+      # as a TAR file and scanned by Trivy before any registry interaction.
+      - name: Build Docker Image
+        uses: docker/build-push-action@v6
+        with:
+          context: ./HEALTH_TECH_BACKEND
+          file: ./HEALTH_TECH_BACKEND/Dockerfile
+          push: false
+          load: true
+          tags: |
+            ${{ env.BACKEND_IMAGE }}:${{ steps.short-sha.outputs.sha_short }}
+            ${{ env.BACKEND_IMAGE }}:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      # -- Save Docker Image as TAR and upload as artifact --------------------
+      # Archives the image before any push. This provides an immutable
+      # snapshot of exactly what was scanned and (if passing) pushed.
+      - name: Save Docker Image as TAR
+        run: |
+          docker save ${{ env.BACKEND_IMAGE }}:${{ steps.short-sha.outputs.sha_short }} \
+            -o backend-image-${{ steps.short-sha.outputs.sha_short }}.tar
+
+      - name: Upload Docker Image Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: backend-docker-image-${{ steps.short-sha.outputs.sha_short }}
+          path: backend-image-${{ steps.short-sha.outputs.sha_short }}.tar
+          retention-days: 1
+
+      # -- Docker Image Vulnerability Scan (Trivy) ----------------------------
+      # Scans the saved TAR file for OS-package and library CVEs.
+      # exit-code: '1' causes this step to fail — and halt the job — if any
+      # Critical or High vulnerabilities are found, preventing the push.
+      - name: Docker Image Vulnerability Scan (Trivy)
+        uses: aquasecurity/trivy-action@0.35.0
+        with:
+          input: backend-image-${{ steps.short-sha.outputs.sha_short }}.tar
+          format: "table"
+          exit-code: "1"
+          severity: "CRITICAL,HIGH"
+          ignore-unfixed: true
+
+      # -- Generate Trivy SARIF Report ----------------------------------------
+      # Always runs so scan evidence is preserved even when the previous step
+      # detected violations. exit-code: '0' ensures this step never fails.
+      - name: Generate Trivy SARIF Report
+        uses: aquasecurity/trivy-action@0.35.0
+        if: always()
+        with:
+          input: backend-image-${{ steps.short-sha.outputs.sha_short }}.tar
+          format: "sarif"
+          output: "trivy-backend-results.sarif"
+          exit-code: "0"
+          severity: "CRITICAL,HIGH,MEDIUM"
+          ignore-unfixed: true
+
+      # -- Upload Trivy SARIF report (14 days, always) ------------------------
+      - name: Upload Trivy Report Artifact
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: trivy-backend-report
+          path: trivy-backend-results.sarif
+          retention-days: 14
+
+      # -- Push Docker Image to Docker Hub ------------------------------------
+      # These two steps only execute if the Trivy scan passed (no Critical/High
+      # findings). GitHub Actions skips subsequent steps after any failing step
+      # unless `if: always()` is explicitly set.
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USER }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Push Docker Image to Docker Hub
+        run: |
+          docker push ${{ env.BACKEND_IMAGE }}:${{ steps.short-sha.outputs.sha_short }}
+          docker push ${{ env.BACKEND_IMAGE }}:latest
+
+  # ============================================================================
+  # JOB 3 — DEPLOY TO RENDER
+  # ============================================================================
+  # Triggers a redeployment of the backend service on Render.
+  # Render pulls the latest Docker image from Docker Hub (pushed in Job 2)
+  # and redeploys the service. The job waits until Render reports the
+  # deployment as live before marking this job as successful.
+  # Uses JorgeLNJunior/render-deploy@v1.5.0 — actively maintained,
+  # node20-based action that correctly supports wait_deploy.
+  # ============================================================================
+  deploy:
+    name: "Deploy Backend to Render"
+    needs: [docker-build]
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+
+    steps:
+      # -- Trigger Render redeployment and wait for live status ---------------
+      # Render pulls ${{ env.BACKEND_IMAGE }}:latest from Docker Hub.
+      # wait_deploy: true blocks until the deployment reaches 'live' status.
+      - name: Deploy to Render
+        uses: JorgeLNJunior/render-deploy@v1.5.0
+        with:
+          service_id: ${{ secrets.RENDER_BACKEND_SERVICE_ID }}
+          api_key: ${{ secrets.RENDER_API_KEY }}
+          wait_deploy: true

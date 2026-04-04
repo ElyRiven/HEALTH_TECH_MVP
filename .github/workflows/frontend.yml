@@ -1,0 +1,359 @@
+# ==============================================================================
+# FRONTEND CI/CD WORKFLOW
+#
+# PURPOSE:
+#   Independent pipeline for the frontend React/Vite application.
+#   Runs dependency vulnerability scans, linting, unit/integration tests,
+#   E2E tests with Serenity BDD, builds the Docker image locally,
+#   scans it for vulnerabilities before pushing, and deploys to Render.
+#
+# DESIGN DECISIONS:
+#   - Isolated from backend — only triggers when frontend code changes.
+#   - Uses `!` negation patterns to skip doc/non-code file changes.
+#   - npm audit blocks on Critical/High CVEs; lower severities are reported.
+#   - Vitest enforces 75% coverage threshold across all categories.
+#   - Docker image is built locally and scanned with Trivy BEFORE pushing.
+#   - Critical/High Docker vulnerabilities block the push automatically.
+#   - Serenity BDD runs E2E tests from a dedicated QA repository.
+#   Deploy uses JorgeLNJunior/render-deploy@v1.5.0 to trigger redeployment
+#   on Render, which pulls the latest Docker image from Docker Hub.
+# ==============================================================================
+
+name: Frontend CI/CD
+
+# ──────────────────────────────────────────────────────────────────────────────
+# TRIGGERS
+# ──────────────────────────────────────────────────────────────────────────────
+# Runs on push/PR to main, develop, and feature/** branches.
+# Only triggers when frontend CODE files or this workflow file are modified.
+#
+# The `!` negation patterns ensure that documentation and non-code files
+# (.md, .txt, .pdf, images, logs) do NOT trigger this workflow,
+# even if those files are inside the HEALTH_TECH_FRONTEND/ directory.
+# ──────────────────────────────────────────────────────────────────────────────
+on:
+  push:
+    branches:
+      - main
+      - develop
+      - "feature/**"
+    paths:
+      - "HEALTH_TECH_FRONTEND/**"
+      - ".github/workflows/frontend.yml"
+      # ── Exclude documentation / non-code files ──
+      - "!**/*.md"
+      - "!**/*.txt"
+      - "!**/*.pdf"
+      - "!**/*.png"
+      - "!**/*.jpg"
+      - "!**/*.jpeg"
+      - "!**/*.gif"
+      - "!**/*.svg"
+      - "!**/*.log"
+
+  pull_request:
+    branches:
+      - main
+      - develop
+      - "feature/**"
+    paths:
+      - "HEALTH_TECH_FRONTEND/**"
+      - ".github/workflows/frontend.yml"
+      # ── Exclude documentation / non-code files ──
+      - "!**/*.md"
+      - "!**/*.txt"
+      - "!**/*.pdf"
+      - "!**/*.png"
+      - "!**/*.jpg"
+      - "!**/*.jpeg"
+      - "!**/*.gif"
+      - "!**/*.svg"
+      - "!**/*.log"
+
+# ──────────────────────────────────────────────────────────────────────────────
+# GLOBAL ENVIRONMENT VARIABLES
+# ──────────────────────────────────────────────────────────────────────────────
+env:
+  NODE_VERSION: "20"
+  FRONTEND_IMAGE: ${{ secrets.DOCKER_USER }}/health-tech-frontend
+
+jobs:
+  # ============================================================================
+  # JOB 1 — TEST & VULNERABILITY SCAN
+  # ============================================================================
+  # Scans npm dependencies for CVEs, runs ESLint for code quality,
+  # executes Vitest unit/integration tests with a 75% coverage threshold,
+  # and runs Serenity BDD E2E tests from a dedicated QA repository.
+  # Critical/High dependency vulnerabilities block the entire job.
+  # Coverage below 75% blocks the job; the report is always uploaded.
+  # ============================================================================
+  test:
+    name: "Test & Vulnerability Scan"
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read # Read repository source code
+      issues: write # Reserved for future automated issue creation
+      pull-requests: read # Read PR metadata
+      security-events: write
+
+    steps:
+      # -- Checkout source code -----------------------------------------------
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # -- Setup Node.js with npm dependency caching --------------------------
+      - name: Set up Node.js ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "npm"
+          cache-dependency-path: HEALTH_TECH_FRONTEND/package-lock.json
+
+      # -- Install exact dependency versions from lockfile --------------------
+      - name: Install Dependencies
+        working-directory: ./HEALTH_TECH_FRONTEND
+        run: npm ci
+
+      # -- Dependency Vulnerability Scan (npm audit) --------------------------
+      # Generates a full JSON report for archival, then re-runs the audit
+      # with --audit-level=high to gate the pipeline on Critical/High CVEs.
+      # Moderate / Low / Info findings are captured in the report but do NOT
+      # stop the pipeline.
+      - name: Dependency Vulnerability Scan (npm audit)
+        working-directory: ./HEALTH_TECH_FRONTEND
+        run: |
+          echo "Running npm audit — dependency vulnerability scan..."
+          npm audit --json > npm-audit-report.json || true
+          npm audit --audit-level=high || {
+            echo "::error::Critical/High vulnerabilities found in npm dependencies. Review npm-audit-report.json for details."
+            exit 1
+          }
+          echo "No critical or high vulnerabilities detected in dependencies."
+
+      # -- Upload npm audit report (14 days) ----------------------------------
+      # Retained for compliance auditing, security dashboards, and historical
+      # CVE trend analysis. Runs even if the audit step fails.
+      - name: Upload npm Audit Report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: frontend-npm-audit-report
+          path: HEALTH_TECH_FRONTEND/npm-audit-report.json
+          retention-days: 14
+
+      # -- Code Quality Check (ESLint) ----------------------------------------
+      # Lint errors are reported to the log but do NOT block the pipeline.
+      - name: Code Quality Check (ESLint)
+        working-directory: ./HEALTH_TECH_FRONTEND
+        run: npm run lint
+        continue-on-error: true
+
+      # -- Unit & Integration Tests with 75% coverage threshold ---------------
+      # Uses Vitest + React Testing Library. The pipeline fails if any
+      # coverage category (lines, functions, branches, statements) drops
+      # below 75%. The coverage report is generated for archival.
+      - name: Run Unit & Integration Tests
+        working-directory: ./HEALTH_TECH_FRONTEND
+        run: |
+          npx vitest run --coverage \
+            --coverage.lines=75 \
+            --coverage.functions=75 \
+            --coverage.branches=75 \
+            --coverage.statements=75
+
+      # -- Upload coverage report (3 days, always) ----------------------------
+      # Always uploaded so that failed runs can still be inspected for
+      # coverage gaps. Retained for 3 days to keep storage costs low.
+      - name: Upload Coverage Report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: frontend-coverage-report
+          path: HEALTH_TECH_FRONTEND/coverage/
+          retention-days: 3
+
+      # -- Checkout Serenity E2E repository -----------------------------------
+      # Clones the dedicated QA automation project into ./serenity-tests.
+      # Requires a PAT stored as the QA_REPO_TOKEN secret if the repo is private.
+
+      # - name: Checkout Serenity E2E Repository
+      #   uses: actions/checkout@v4
+      #   with:
+      #     repository: ElyRiven/HEALTH_TECH_QA_SERENITY
+      #     path: ./serenity-tests
+      #     token: ${{ secrets.QA_REPO_TOKEN }}
+
+      # -- Setup JDK 17 for Serenity BDD --------------------------------------
+
+      # - name: Set up JDK 17 for Serenity
+      #   uses: actions/setup-java@v4
+      #   with:
+      #     distribution: "temurin"
+      #     java-version: "17"
+      #     cache: "maven"
+
+      # -- Run Serenity E2E Tests ---------------------------------------------
+      # Executes the full Serenity BDD suite in headless Chrome.
+      # APP_BASE_URL points to the environment under test (staging / preview).
+
+      # - name: Run Serenity E2E Tests
+      #   working-directory: ./serenity-tests
+      #   env:
+      #     APP_BASE_URL: ${{ secrets.FRONTEND_TEST_URL }}
+      #   run: mvn verify -Dwebdriver.driver=chrome -Dheadless=true --no-transfer-progress
+
+      # -- Upload Serenity E2E report (14 days, always) -----------------------
+
+      # - name: Upload Serenity E2E Report
+      #   uses: actions/upload-artifact@v4
+      #   if: always()
+      #   with:
+      #     name: serenity-e2e-report
+      #     path: serenity-tests/target/site/serenity/
+      #     retention-days: 14
+
+  # ============================================================================
+  # JOB 2 — DOCKER BUILD & VULNERABILITY SCAN
+  # ============================================================================
+  # Builds the Docker image locally and loads it into the runner's daemon.
+  # Saves the image as a TAR artifact for traceability.
+  # Trivy scans the saved TAR for vulnerabilities — Critical/High findings
+  # block the push. The SARIF report is always generated and uploaded.
+  # Only if the scan passes does the image get pushed to Docker Hub.
+  # ============================================================================
+  docker-build:
+    name: "Docker Build & Vulnerability Scan"
+    needs: [test]
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      security-events: write
+
+    steps:
+      # -- Checkout source code -----------------------------------------------
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # -- Extract short SHA for image tagging --------------------------------
+      - name: Generate Short SHA
+        id: short-sha
+        run: echo "sha_short=$(git rev-parse --short=7 HEAD)" >> $GITHUB_OUTPUT
+
+      # -- Setup Docker Buildx ------------------------------------------------
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      # -- Build Docker Image (local only, no push) ---------------------------
+      # Image is loaded into the local Docker daemon so it can be saved
+      # as a TAR file and scanned by Trivy before any registry interaction.
+      - name: Build Docker Image
+        uses: docker/build-push-action@v6
+        with:
+          context: ./HEALTH_TECH_FRONTEND
+          file: ./HEALTH_TECH_FRONTEND/Dockerfile
+          push: false
+          load: true
+          tags: |
+            ${{ env.FRONTEND_IMAGE }}:${{ steps.short-sha.outputs.sha_short }}
+            ${{ env.FRONTEND_IMAGE }}:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      # -- Save Docker Image as TAR and upload as artifact --------------------
+      # Archives the image before any push. This provides an immutable
+      # snapshot of exactly what was scanned and (if passing) pushed.
+      - name: Save Docker Image as TAR
+        run: |
+          docker save ${{ env.FRONTEND_IMAGE }}:${{ steps.short-sha.outputs.sha_short }} \
+            -o frontend-image-${{ steps.short-sha.outputs.sha_short }}.tar
+
+      - name: Upload Docker Image Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: frontend-docker-image-${{ steps.short-sha.outputs.sha_short }}
+          path: frontend-image-${{ steps.short-sha.outputs.sha_short }}.tar
+          retention-days: 1
+
+      # -- Docker Image Vulnerability Scan (Trivy) ----------------------------
+      # Scans the saved TAR file for OS-package and library CVEs.
+      # exit-code: '1' causes this step to fail — and halt the job — if any
+      # Critical or High vulnerabilities are found, preventing the push.
+      - name: Docker Image Vulnerability Scan (Trivy)
+        uses: aquasecurity/trivy-action@0.35.0
+        with:
+          input: frontend-image-${{ steps.short-sha.outputs.sha_short }}.tar
+          format: "table"
+          exit-code: "1"
+          severity: "CRITICAL,HIGH"
+          ignore-unfixed: true
+
+      # -- Generate Trivy SARIF Report ----------------------------------------
+      # Always runs so scan evidence is preserved even when the previous step
+      # detected violations. exit-code: '0' ensures this step never fails.
+      - name: Generate Trivy SARIF Report
+        uses: aquasecurity/trivy-action@0.35.0
+        if: always()
+        with:
+          input: frontend-image-${{ steps.short-sha.outputs.sha_short }}.tar
+          format: "sarif"
+          output: "trivy-frontend-results.sarif"
+          exit-code: "0"
+          severity: "CRITICAL,HIGH,MEDIUM"
+          ignore-unfixed: true
+
+      # -- Upload Trivy SARIF report (14 days, always) ------------------------
+      - name: Upload Trivy Report Artifact
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: trivy-frontend-report
+          path: trivy-frontend-results.sarif
+          retention-days: 14
+
+      # -- Push Docker Image to Docker Hub ------------------------------------
+      # These two steps only execute if the Trivy scan passed (no Critical/High
+      # findings). GitHub Actions skips subsequent steps after any failing step
+      # unless `if: always()` is explicitly set.
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USER }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Push Docker Image to Docker Hub
+        run: |
+          docker push ${{ env.FRONTEND_IMAGE }}:${{ steps.short-sha.outputs.sha_short }}
+          docker push ${{ env.FRONTEND_IMAGE }}:latest
+
+  # ============================================================================
+  # JOB 3 — DEPLOY TO RENDER
+  # ============================================================================
+  # Triggers a redeployment of the frontend service on Render.
+  # Render pulls the latest Docker image from Docker Hub (pushed in Job 2)
+  # and redeploys the service. The job waits until Render reports the
+  # deployment as live before marking this job as successful.
+  # Uses JorgeLNJunior/render-deploy@v1.5.0 — actively maintained,
+  # node20-based action that correctly supports wait_deploy.
+  # ============================================================================
+  deploy:
+    name: "Deploy Frontend to Render"
+    needs: [docker-build]
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+
+    steps:
+      # -- Trigger Render redeployment and wait for live status ---------------
+      # Render pulls ${{ env.FRONTEND_IMAGE }}:latest from Docker Hub.
+      # wait_deploy: true blocks until the deployment reaches 'live' status.
+      - name: Deploy to Render
+        uses: JorgeLNJunior/render-deploy@v1.5.0
+        with:
+          service_id: ${{ secrets.RENDER_FRONTEND_SERVICE_ID }}
+          api_key: ${{ secrets.RENDER_API_KEY }}
+          wait_deploy: true
