@@ -15,7 +15,8 @@
 #   - Docker image is built locally and scanned with Trivy BEFORE pushing.
 #   - Critical/High Docker vulnerabilities block the push automatically.
 #   - Serenity BDD runs E2E tests from a dedicated QA repository.
-#   - Deploy uses Render's webhook / API for automatic container updates.
+#   Deploy uses JorgeLNJunior/render-deploy@v1.5.0 to trigger redeployment
+#   on Render, which pulls the latest Docker image from Docker Hub.
 # ==============================================================================
 
 name: Frontend CI/CD
@@ -330,19 +331,12 @@ jobs:
   # ============================================================================
   # JOB 3 — DEPLOY TO RENDER
   # ============================================================================
-  # Placeholder for automatic deployment of the frontend to Render using the
-  # Docker Hub image published in Job 2.
-  #
-  # SETUP INSTRUCTIONS:
-  #   1. Create a Web Service on Render (https://render.com).
-  #   2. Choose "Deploy an existing image" and set the Docker Hub image:
-  #        <DOCKER_USER>/health-tech-frontend:latest
-  #   3. Select the region and instance type appropriate for the project.
-  #   4. Generate a Deploy Hook URL (Service > Settings > Deploy Hook) and
-  #      store it as a GitHub secret: RENDER_FRONTEND_DEPLOY_HOOK.
-  #   5. Alternatively, store RENDER_FRONTEND_SERVICE_ID and RENDER_API_KEY
-  #      to use the official Render deploy action.
-  #   6. Uncomment the relevant step below and delete the placeholder step.
+  # Triggers a redeployment of the frontend service on Render.
+  # Render pulls the latest Docker image from Docker Hub (pushed in Job 2)
+  # and redeploys the service. The job waits until Render reports the
+  # deployment as live before marking this job as successful.
+  # Uses JorgeLNJunior/render-deploy@v1.5.0 — actively maintained,
+  # node20-based action that correctly supports wait_deploy.
   # ============================================================================
   deploy:
     name: "Deploy Frontend to Render"
@@ -350,31 +344,16 @@ jobs:
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: read
+
     steps:
-      # -- Option A: Trigger deploy via Render webhook ------------------------
-      # Uncomment when RENDER_FRONTEND_DEPLOY_HOOK secret is configured.
-      #
-      # - name: Trigger Render Deploy Hook
-      #   run: |
-      #     curl -X POST "${{ secrets.RENDER_FRONTEND_DEPLOY_HOOK }}" \
-      #       --fail \
-      #       --silent \
-      #       --show-error
-
-      # -- Option B: Use the official Render deploy action --------------------
-      # Uncomment when RENDER_FRONTEND_SERVICE_ID and RENDER_API_KEY are set.
-      #
-      # - name: Deploy to Render
-      #   uses: johnbeynon/render-deploy-action@v0.0.8
-      #   with:
-      #     service-id: ${{ secrets.RENDER_FRONTEND_SERVICE_ID }}
-      #     api-key: ${{ secrets.RENDER_API_KEY }}
-      #     wait-for-success: true
-
-      # -- Placeholder: remove once a deploy option above is configured -------
-      - name: Deploy Placeholder
-        run: |
-          echo "Render deploy placeholder — frontend pipeline completed successfully."
-          echo "Configure RENDER_FRONTEND_DEPLOY_HOOK (Option A) or"
-          echo "RENDER_FRONTEND_SERVICE_ID + RENDER_API_KEY (Option B)"
-          echo "as repository secrets and uncomment the corresponding step above."
+      # -- Trigger Render redeployment and wait for live status ---------------
+      # Render pulls ${{ env.FRONTEND_IMAGE }}:latest from Docker Hub.
+      # wait_deploy: true blocks until the deployment reaches 'live' status.
+      - name: Deploy to Render
+        uses: JorgeLNJunior/render-deploy@v1.5.0
+        with:
+          service_id: ${{ secrets.RENDER_FRONTEND_SERVICE_ID }}
+          api_key: ${{ secrets.RENDER_API_KEY }}
+          wait_deploy: true
