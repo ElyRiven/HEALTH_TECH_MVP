@@ -15,91 +15,91 @@ El Sistema de Triaje de Manchester (MTS) es un protocolo de clasificación clín
 
 Los 5 niveles del Protocolo Manchester y sus rangos por signo vital son:
 
-| Nivel | Color     | Denominación   | Tiempo máx. de atención |
-|-------|-----------|----------------|--------------------------|
-| 1     | 🔴 Rojo   | Inmediato      | 0 minutos                |
-| 2     | 🟠 Naranja | Muy Urgente   | 10 minutos               |
-| 3     | 🟡 Amarillo | Urgente      | 60 minutos               |
-| 4     | 🟢 Verde  | Menos Urgente  | 120 minutos              |
-| 5     | 🔵 Azul   | No Urgente     | 240 minutos              |
+| Nivel | Color       | Denominación  | Tiempo máx. de atención |
+| ----- | ----------- | ------------- | ----------------------- |
+| 1     | 🔴 Rojo     | Emergencia    | 0 minutos               |
+| 2     | 🟠 Naranja  | Muy Urgente   | 10 minutos              |
+| 3     | 🟡 Amarillo | Urgente       | 60 minutos              |
+| 4     | 🟢 Verde    | Menos Urgente | 120 minutos             |
+| 5     | 🔵 Azul     | No Urgente    | 240 minutos             |
 
 ### Tabla de Clasificación por Signo Vital
 
 #### Frecuencia Cardíaca (bpm)
 
-| Nivel | Denominación   | Rango                      | Interpretación clínica                |
-|-------|----------------|----------------------------|---------------------------------------|
-| 1     | Inmediato      | < 40 o ≥ 150               | Paro inminente / Taquicardia severa   |
-| 2     | Muy Urgente    | 40 – 49 o 130 – 149        | Bradicardia grave / Taquicardia grave |
-| 3     | Urgente        | 50 – 59 o 101 – 129        | Bradicardia moderada / Taquicardia    |
-| 4     | Menos Urgente  | 60 – 100                   | Rango normal                          |
-| 5     | No Urgente     | 60 – 100                   | Normal, sin otros síntomas            |
+| Nivel | Denominación  | Rango               | Interpretación clínica                |
+| ----- | ------------- | ------------------- | ------------------------------------- |
+| 1     | Emergencia    | < 40 o ≥ 150        | Paro inminente / Taquicardia severa   |
+| 2     | Muy Urgente   | 40 – 49 o 130 – 149 | Bradicardia grave / Taquicardia grave |
+| 3     | Urgente       | 50 – 59 o 101 – 129 | Bradicardia moderada / Taquicardia    |
+| 4     | Menos Urgente | 60 – 100            | Rango normal                          |
+| 5     | No Urgente    | 60 – 100            | Normal, sin otros síntomas            |
 
 #### Frecuencia Respiratoria (rpm)
 
-| Nivel | Denominación   | Rango             | Interpretación clínica                    |
-|-------|----------------|-------------------|-------------------------------------------|
-| 1     | Inmediato      | < 8 o > 30        | Apnea inminente / Dificultad respiratoria |
-| 2     | Muy Urgente    | 8 – 10 o 26 – 30  | Bradipnea severa / Taquipnea severa       |
-| 3     | Urgente        | 11 – 12 o 21 – 25 | Bradipnea leve / Taquipnea moderada       |
-| 4     | Menos Urgente  | 13 – 20           | Rango normal                              |
-| 5     | No Urgente     | 13 – 20           | Normal, sin otros síntomas                |
+| Nivel | Denominación  | Rango             | Interpretación clínica                    |
+| ----- | ------------- | ----------------- | ----------------------------------------- |
+| 1     | Emergencia    | < 8 o > 30        | Apnea inminente / Dificultad respiratoria |
+| 2     | Muy Urgente   | 8 – 10 o 26 – 30  | Bradipnea severa / Taquipnea severa       |
+| 3     | Urgente       | 11 – 12 o 21 – 25 | Bradipnea leve / Taquipnea moderada       |
+| 4     | Menos Urgente | 13 – 20           | Rango normal                              |
+| 5     | No Urgente    | 13 – 20           | Normal, sin otros síntomas                |
 
 #### Saturación de Oxígeno — SpO₂ (%)
 
-| Nivel | Denominación   | Rango     | Interpretación clínica                      |
-|-------|----------------|-----------|---------------------------------------------|
-| 1     | Inmediato      | < 85      | Hipoxia severa / Compromiso vital inmediato |
-| 2     | Muy Urgente    | 85 – 89   | Hipoxia moderada                            |
-| 3     | Urgente        | 90 – 93   | Hipoxia leve                                |
-| 4     | Menos Urgente  | 94 – 100  | Saturación normal                           |
-| 5     | No Urgente     | 94 – 100  | Normal, sin otros síntomas                  |
+| Nivel | Denominación  | Rango    | Interpretación clínica                       |
+| ----- | ------------- | -------- | -------------------------------------------- |
+| 1     | Emergencia    | < 85     | Hipoxia severa / Compromiso vital Emergencia |
+| 2     | Muy Urgente   | 85 – 89  | Hipoxia moderada                             |
+| 3     | Urgente       | 90 – 93  | Hipoxia leve                                 |
+| 4     | Menos Urgente | 94 – 100 | Saturación normal                            |
+| 5     | No Urgente    | 94 – 100 | Normal, sin otros síntomas                   |
 
 #### Temperatura (°C)
 
-| Nivel | Denominación   | Rango                    | Interpretación clínica                        |
-|-------|----------------|--------------------------|-----------------------------------------------|
-| 1     | Inmediato      | < 32.0 o > 40.0          | Hipotermia severa / Hipertermia severa        |
-| 2     | Muy Urgente    | 32.0 – 34.9 o 39.1 – 40.0 | Hipotermia moderada / Fiebre muy alta       |
-| 3     | Urgente        | 35.0 – 35.9 o 38.5 – 39.0 | Hipotermia leve / Fiebre alta               |
-| 4     | Menos Urgente  | 36.0 – 37.4 o 37.5 – 38.4 | Afebril normal / Febrícula o fiebre baja    |
-| 5     | No Urgente     | 36.0 – 37.4              | Temperatura normal                            |
+| Nivel | Denominación  | Rango                     | Interpretación clínica                   |
+| ----- | ------------- | ------------------------- | ---------------------------------------- |
+| 1     | Emergencia    | < 32.0 o > 40.0           | Hipotermia severa / Hipertermia severa   |
+| 2     | Muy Urgente   | 32.0 – 34.9 o 39.1 – 40.0 | Hipotermia moderada / Fiebre muy alta    |
+| 3     | Urgente       | 35.0 – 35.9 o 38.5 – 39.0 | Hipotermia leve / Fiebre alta            |
+| 4     | Menos Urgente | 36.0 – 37.4 o 37.5 – 38.4 | Afebril normal / Febrícula o fiebre baja |
+| 5     | No Urgente    | 36.0 – 37.4               | Temperatura normal                       |
 
 > **Nota:** Para la temperatura, los rangos de Nivel 4 se dividen en dos sub-rangos: normal (36.0–37.4) y febrícula (37.5–38.4), ambos clasificados como Menos Urgente.
 
 #### Presión Arterial — Sistólica / Diastólica (mmHg)
 
-| Nivel | Denominación   | Sistólica              | Diastólica       | Interpretación clínica                          |
-|-------|----------------|------------------------|------------------|-------------------------------------------------|
-| 1     | Inmediato      | < 70 o > 200           | > 130            | Shock circulatorio / Crisis hipertensiva severa |
-| 2     | Muy Urgente    | 70 – 89 o 181 – 200    | 111 – 130        | Hipotensión grave / Hipertensión severa         |
-| 3     | Urgente        | 90 – 99 o 161 – 180    | 101 – 110        | Hipotensión leve / Hipertensión moderada         |
-| 4     | Menos Urgente  | 100 – 139 o 140 – 160  | 60 – 100         | Normal / Hipertensión leve                      |
-| 5     | No Urgente     | 100 – 139              | 60 – 89          | Óptimo / Normal                                 |
+| Nivel | Denominación  | Sistólica             | Diastólica | Interpretación clínica                          |
+| ----- | ------------- | --------------------- | ---------- | ----------------------------------------------- |
+| 1     | Emergencia    | < 70 o > 200          | > 130      | Shock circulatorio / Crisis hipertensiva severa |
+| 2     | Muy Urgente   | 70 – 89 o 181 – 200   | 111 – 130  | Hipotensión grave / Hipertensión severa         |
+| 3     | Urgente       | 90 – 99 o 161 – 180   | 101 – 110  | Hipotensión leve / Hipertensión moderada        |
+| 4     | Menos Urgente | 100 – 139 o 140 – 160 | 60 – 100   | Normal / Hipertensión leve                      |
+| 5     | No Urgente    | 100 – 139             | 60 – 89    | Óptimo / Normal                                 |
 
 > **Formato de entrada:** La presión se registra como `sistólica/diastólica` (ej. `120/80`). La clasificación aplica el nivel más crítco entre la sistólica y la diastólica.
 
 #### Nivel de Conciencia — Escala AVPU
 
-| Nivel | Denominación   | Valor AVPU              | Descripción                                          |
-|-------|----------------|-------------------------|------------------------------------------------------|
-| 1     | Inmediato      | `Sin respuesta`         | Sin respuesta a ningún estímulo                      |
-| 2     | Muy Urgente    | `Responde al dolor`     | Responde únicamente a estímulos dolorosos            |
-| 3     | Urgente        | `Responde a la voz`     | Responde a estímulos verbales, sin plena orientación |
-| 4     | Menos Urgente  | `Confuso`               | Alerta pero desorientado                             |
-| 5     | No Urgente     | `Alerta`                | Totalmente alerta y orientado                        |
+| Nivel | Denominación  | Valor AVPU          | Descripción                                          |
+| ----- | ------------- | ------------------- | ---------------------------------------------------- |
+| 1     | Emergencia    | `Sin respuesta`     | Sin respuesta a ningún estímulo                      |
+| 2     | Muy Urgente   | `Responde al dolor` | Responde únicamente a estímulos dolorosos            |
+| 3     | Urgente       | `Responde a la voz` | Responde a estímulos verbales, sin plena orientación |
+| 4     | Menos Urgente | `Confuso`           | Alerta pero desorientado                             |
+| 5     | No Urgente    | `Alerta`            | Totalmente alerta y orientado                        |
 
 > **Escala AVPU:** A = Alert (Alerta), V = Voice (Voz), P = Pain (Dolor), U = Unresponsive (Sin respuesta).
 
 #### Nivel de Dolor — Escala EVA (0 – 10)
 
-| Nivel | Denominación   | Rango   | Interpretación clínica         |
-|-------|----------------|---------|--------------------------------|
-| 1     | Inmediato      | —       | Paciente inconsciente (N/A)    |
-| 2     | Muy Urgente    | 9 – 10  | Dolor insoportable             |
-| 3     | Urgente        | 7 – 8   | Dolor severo                   |
-| 4     | Menos Urgente  | 4 – 6   | Dolor moderado                 |
-| 5     | No Urgente     | 0 – 3   | Sin dolor / Dolor leve         |
+| Nivel | Denominación  | Rango  | Interpretación clínica      |
+| ----- | ------------- | ------ | --------------------------- |
+| 1     | Emergencia    | —      | Paciente inconsciente (N/A) |
+| 2     | Muy Urgente   | 9 – 10 | Dolor insoportable          |
+| 3     | Urgente       | 7 – 8  | Dolor severo                |
+| 4     | Menos Urgente | 4 – 6  | Dolor moderado              |
+| 5     | No Urgente    | 0 – 3  | Sin dolor / Dolor leve      |
 
 > **Nota:** Cuando el nivel de conciencia es `Sin respuesta` (Nivel 1), el nivel de dolor se registra como `0` o se omite, dado que el paciente no puede autoreportar dolor. El nivel de criticidad en ese caso lo determina el nivel de conciencia.
 
@@ -111,26 +111,26 @@ Esta sección define los límites de validación de entrada: el rango fisiológi
 
 Los límites inferiores y superiores se derivan extendiendo los extremos de cada Nivel 1 del Protocolo Manchester para abarcar los valores extremos registrables en humanos.
 
-| Signo Vital               | Tipo    | Unidad        | Mínimo permitido | Máximo permitido | Valores aceptados (si aplica)                                                  |
-|---------------------------|---------|---------------|-----------------|-----------------|--------------------------------------------------------------------------------|
-| Frecuencia Cardíaca       | Entero  | bpm           | 20              | 300             | —                                                                              |
-| Frecuencia Respiratoria   | Entero  | rpm           | 1               | 60              | —                                                                              |
-| Saturación de Oxígeno     | Decimal | %             | 50              | 100             | —                                                                              |
-| Temperatura               | Decimal | °C            | 25.0            | 45.0            | —                                                                              |
-| Presión Arterial Sistólica| Entero  | mmHg          | 50              | 300             | —                                                                              |
-| Presión Arterial Diastólica| Entero | mmHg          | 20              | 200             | —                                                                              |
-| Nivel de Conciencia       | Texto   | —             | —               | —               | `Alerta`, `Confuso`, `Responde a la voz`, `Responde al dolor`, `Sin respuesta` |
-| Nivel de Dolor            | Entero  | Escala 0 – 10 | 0               | 10              | —                                                                              |
+| Signo Vital                 | Tipo    | Unidad        | Mínimo permitido | Máximo permitido | Valores aceptados (si aplica)                                                  |
+| --------------------------- | ------- | ------------- | ---------------- | ---------------- | ------------------------------------------------------------------------------ |
+| Frecuencia Cardíaca         | Entero  | bpm           | 20               | 300              | —                                                                              |
+| Frecuencia Respiratoria     | Entero  | rpm           | 1                | 60               | —                                                                              |
+| Saturación de Oxígeno       | Decimal | %             | 50               | 100              | —                                                                              |
+| Temperatura                 | Decimal | °C            | 25.0             | 45.0             | —                                                                              |
+| Presión Arterial Sistólica  | Entero  | mmHg          | 50               | 300              | —                                                                              |
+| Presión Arterial Diastólica | Entero  | mmHg          | 20               | 200              | —                                                                              |
+| Nivel de Conciencia         | Texto   | —             | —                | —                | `Alerta`, `Confuso`, `Responde a la voz`, `Responde al dolor`, `Sin respuesta` |
+| Nivel de Dolor              | Entero  | Escala 0 – 10 | 0                | 10               | —                                                                              |
 
 ### Reglas de validación adicionales
 
-| Regla | Descripción |
-|-------|-------------|
-| **Presión arterial** | La presión diastólica debe ser siempre menor que la sistólica. Si `diastólica ≥ sistólica`, el valor es inválido. |
-| **Temperatura** | Se acepta un decimal (ej. `36.5`). Más de un decimal se rechaza por imprecisión clínica. |
-| **Saturación de O₂** | Se acepta un decimal (ej. `98.5`). |
-| **Nivel de dolor con inconsciente** | Si `nivel_conciencia = Sin respuesta`, el campo `nivel_dolor` debe ser `0`. |
-| **Campos obligatorios** | Todos los campos de la tabla son obligatorios. La API rechaza con `400` si alguno está ausente. |
+| Regla                               | Descripción                                                                                                       |
+| ----------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| **Presión arterial**                | La presión diastólica debe ser siempre menor que la sistólica. Si `diastólica ≥ sistólica`, el valor es inválido. |
+| **Temperatura**                     | Se acepta un decimal (ej. `36.5`). Más de un decimal se rechaza por imprecisión clínica.                          |
+| **Saturación de O₂**                | Se acepta un decimal (ej. `98.5`).                                                                                |
+| **Nivel de dolor con inconsciente** | Si `nivel_conciencia = Sin respuesta`, el campo `nivel_dolor` debe ser `0`.                                       |
+| **Campos obligatorios**             | Todos los campos de la tabla son obligatorios. La API rechaza con `400` si alguno está ausente.                   |
 
 ### Formato de entrada de presión arterial
 
@@ -178,5 +178,5 @@ Nivel | FC (bpm)        | FR (rpm)      | SpO2 (%)   | Temp (°C)        | PAS (
 
 ---
 
-*Documento de referencia clínica para el equipo de desarrollo — HealthTech MVP*  
-*Basado en: Manchester Triage System (MTS) 3ª edición y rangos fisiológicos estándar de la OMS.*
+_Documento de referencia clínica para el equipo de desarrollo — HealthTech MVP_  
+_Basado en: Manchester Triage System (MTS) 3ª edición y rangos fisiológicos estándar de la OMS._
