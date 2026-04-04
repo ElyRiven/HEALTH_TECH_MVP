@@ -2,9 +2,7 @@ FROM node:22-alpine
 
 WORKDIR /app
 
-RUN apk update && apk upgrade --no-cache
-
-RUN npm install -g npm@latest
+RUN apk update && apk upgrade --no-cache && npm install -g npm@latest
 
 COPY package.json package-lock.json ./
 
