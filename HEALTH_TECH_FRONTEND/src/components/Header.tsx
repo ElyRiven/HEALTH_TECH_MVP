@@ -1,17 +1,21 @@
-import { Link } from 'react-router-dom'
-import { useState } from 'react'
+import { Link } from "react-router-dom";
+import { useState } from "react";
 
 export default function Header() {
   const [hover, setHover] = useState(false);
-  
+
   return (
     <header className="h-22.5 shadow-[0px_4px_4px_0px_rgba(0,0,0,0.50)]">
       <nav className="max-w-286 flex items-center justify-between mx-auto h-full">
-        <Link to="/" className="h-full py-2">
-          <img src="/HealthTech-Logo.png" alt="HealthTech Logo" className="h-full w-auto" />
+        <Link to="/dashboard" className="h-full py-2">
+          <img
+            src="/HealthTech-Logo.png"
+            alt="HealthTech Logo"
+            className="h-full w-auto"
+          />
         </Link>
         <div className="flex items-center gap-8">
-          <Link className="font-medium" to="/">
+          <Link className="font-medium" to="/dashboard">
             LISTA DE PACIENTES
           </Link>
           <Link
@@ -35,5 +39,5 @@ export default function Header() {
         </div>
       </nav>
     </header>
-  )
+  );
 }
