@@ -15,8 +15,8 @@
 #   - Docker image is built locally and scanned with Trivy BEFORE pushing.
 #   - Critical/High Docker vulnerabilities block the push automatically.
 #   - Serenity BDD runs E2E tests from a dedicated QA repository.
-#   Deploy uses JorgeLNJunior/render-deploy@v1.5.0 to trigger redeployment
-#   on Render, which pulls the latest Docker image from Docker Hub.
+#   Deploy calls the Render REST API directly via curl to trigger a
+#   redeployment of the Docker image service and polls until live.
 # ==============================================================================
 
 name: Frontend CI/CD
@@ -331,12 +331,21 @@ jobs:
   # ============================================================================
   # JOB 3 — DEPLOY TO RENDER
   # ============================================================================
-  # Triggers a redeployment of the frontend service on Render.
-  # Render pulls the latest Docker image from Docker Hub (pushed in Job 2)
-  # and redeploys the service. The job waits until Render reports the
-  # deployment as live before marking this job as successful.
-  # Uses JorgeLNJunior/render-deploy@v1.5.0 — actively maintained,
-  # node20-based action that correctly supports wait_deploy.
+  # Triggers a redeployment of the frontend service on Render via the
+  # Render REST API (https://api.render.com/v1).
+  #
+  # WHY DIRECT API INSTEAD OF A THIRD-PARTY ACTION:
+  #   This service is deployed as a Docker image pulled from Docker Hub.
+  #   Third-party actions (e.g. JorgeLNJunior/render-deploy) send the current
+  #   Git commit SHA as commitId when triggering the deploy. Render rejects
+  #   this with HTTP 404 because Docker image services have no Git history
+  #   on Render's side. A plain POST to /deploys (without commitId) is the
+  #   correct call for Docker image services.
+  #
+  # FLOW:
+  #   1. POST /deploys  — triggers Render to pull :latest from Docker Hub.
+  #   2. Poll GET /deploys/{id} every 15 s until status is 'live'.
+  #   3. Fail the job if the deploy reaches a terminal failure state.
   # ============================================================================
   deploy:
     name: "Deploy Frontend to Render"
@@ -344,16 +353,49 @@ jobs:
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
 
-    permissions:
-      contents: read
-
     steps:
-      # -- Trigger Render redeployment and wait for live status ---------------
+      # -- Trigger deploy and poll until live ---------------------------------
       # Render pulls ${{ env.FRONTEND_IMAGE }}:latest from Docker Hub.
-      # wait_deploy: true blocks until the deployment reaches 'live' status.
+      # The loop exits on 'live' (success) or any terminal failure status.
       - name: Deploy to Render
-        uses: JorgeLNJunior/render-deploy@v1.5.0
-        with:
-          service_id: ${{ secrets.RENDER_FRONTEND_SERVICE_ID }}
-          api_key: ${{ secrets.RENDER_API_KEY }}
-          wait_deploy: true
+        env:
+          RENDER_SERVICE_ID: ${{ secrets.RENDER_FRONTEND_SERVICE_ID }}
+          RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
+        run: |
+          echo "Triggering deploy for service: $RENDER_SERVICE_ID"
+
+          DEPLOY=$(curl -sf -X POST \
+            "https://api.render.com/v1/services/$RENDER_SERVICE_ID/deploys" \
+            -H "Authorization: Bearer $RENDER_API_KEY" \
+            -H "Content-Type: application/json" \
+            -d '{"clearCache": "do_not_clear"}')
+
+          DEPLOY_ID=$(echo "$DEPLOY" | jq -r '.id')
+          echo "Deploy triggered — ID: $DEPLOY_ID"
+
+          echo "Waiting for deploy to go live..."
+          for i in $(seq 1 40); do
+            STATUS=$(curl -sf \
+              "https://api.render.com/v1/services/$RENDER_SERVICE_ID/deploys/$DEPLOY_ID" \
+              -H "Authorization: Bearer $RENDER_API_KEY" | jq -r '.status')
+
+            echo "  [attempt $i] status: $STATUS"
+
+            if [ "$STATUS" = "live" ]; then
+              echo "Deploy successful — service is live."
+              exit 0
+            fi
+
+            if [ "$STATUS" = "deactivated" ] || \
+               [ "$STATUS" = "build_failed" ] || \
+               [ "$STATUS" = "update_failed" ] || \
+               [ "$STATUS" = "canceled" ]; then
+              echo "::error::Deploy failed with status: $STATUS"
+              exit 1
+            fi
+
+            sleep 15
+          done
+
+          echo "::error::Deploy timed out after 10 minutes."
+          exit 1
