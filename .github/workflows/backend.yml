@@ -512,6 +512,14 @@ jobs:
         working-directory: ./HEALTH_TECH_QA_K6
         run: npm install
 
+      # -- Create results directory ------------------------------------------
+      # The results/ directory is listed in .gitignore and is not present
+      # after cloning. xk6-dashboard writes HTML reports to this path; if
+      # the directory does not exist the export fails silently.
+      - name: Create results Directory
+        working-directory: ./HEALTH_TECH_QA_K6
+        run: mkdir -p results
+
       # -- Run K6 load tests -------------------------------------------------
       # Runs all three load scripts defined in package.json. Threshold and
       # check failures (K6 exit code 99) are tolerated and do not stop the
