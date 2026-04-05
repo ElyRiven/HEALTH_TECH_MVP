@@ -85,11 +85,11 @@ jobs:
   # ============================================================================
   # JOB 1 — TEST & VULNERABILITY SCAN
   # ============================================================================
-  # Scans npm dependencies for CVEs, runs Jest unit/integration tests with a
-  # 75% coverage threshold, executes Karate API tests, and runs K6 performance
-  # tests. A PostgreSQL service container is included for tests that need a
-  # live database. Critical/High dependency vulnerabilities block the job.
-  # Coverage below 75% blocks the job; the report is always uploaded.
+  # Scans npm dependencies for CVEs and runs Jest unit/integration tests with a
+  # 75% coverage threshold. A PostgreSQL service container is included for
+  # tests that need a live database. Critical/High dependency vulnerabilities
+  # block the job. Coverage below 75% blocks the job; the report is always
+  # uploaded.
   # ============================================================================
   test:
     name: "Test & Vulnerability Scan"
@@ -192,107 +192,6 @@ jobs:
           name: backend-coverage-report
           path: HEALTH_TECH_BACKEND/coverage/
           retention-days: 3
-
-      # -- Start Backend Server (background) for QA tests ---------------------
-      # Starts the API on port 3000 so Karate and K6 can target localhost.
-      - name: Start Backend Server
-        working-directory: ./HEALTH_TECH_BACKEND
-        env:
-          DATABASE_URL: postgresql://${{ secrets.TEST_DB_USER }}:${{ secrets.TEST_DB_PASSWORD }}@localhost:5432/${{ secrets.TEST_DB_NAME }}
-          PORT: ${{ env.BACKEND_PORT }}
-          NODE_ENV: test
-        run: npm start &
-
-      # -- Wait for the backend to be ready -----------------------------------
-      - name: Wait for Backend to be Ready
-        run: |
-          echo "Waiting for backend on port ${{ env.BACKEND_PORT }}..."
-          for i in $(seq 1 30); do
-            curl -sf http://localhost:${{ env.BACKEND_PORT }} && break || sleep 2
-          done
-
-      # ── KARATE API TESTS ────────────────────────────────────────────────────
-
-      # -- Checkout Karate API test repository --------------------------------
-      # Clones the dedicated Karate API automation project into ./karate-tests.
-      # Requires a PAT stored as the QA_REPO_TOKEN secret if the repo is private.
-
-      # - name: Checkout Karate API Test Repository
-      #   uses: actions/checkout@v4
-      #   with:
-      #     repository: ElyRiven/HEALTH_TECH_QA_KARATE
-      #     path: ./karate-tests
-      #     token: ${{ secrets.QA_REPO_TOKEN }}
-
-      # -- Setup JDK 17 for Karate --------------------------------------------
-
-      # - name: Set up JDK 17 for Karate
-      #   uses: actions/setup-java@v4
-      #   with:
-      #     distribution: "temurin"
-      #     java-version: "17"
-      #     cache: "maven"
-
-      # -- Run Karate API Tests -----------------------------------------------
-      # Executes all Karate feature files against the locally running backend.
-      # API_BASE_URL is passed so the Karate runner targets localhost.
-
-      # - name: Run Karate API Tests
-      #   working-directory: ./karate-tests
-      #   env:
-      #     API_BASE_URL: http://localhost:${{ env.BACKEND_PORT }}
-      #   run: mvn test -Dapi.base.url=${{ env.BACKEND_PORT }} --no-transfer-progress
-
-      # -- Upload Karate test report (14 days, always) ------------------------
-
-      # - name: Upload Karate Test Report
-      #   uses: actions/upload-artifact@v4
-      #   if: always()
-      #   with:
-      #     name: karate-api-report
-      #     path: karate-tests/target/karate-reports/
-      #     retention-days: 14
-
-      # ── K6 PERFORMANCE TESTS ────────────────────────────────────────────────
-
-      # -- Checkout K6 performance test repository ----------------------------
-      # Clones the dedicated K6 load testing project into ./k6-tests.
-
-      # - name: Checkout K6 Performance Test Repository
-      #   uses: actions/checkout@v4
-      #   with:
-      #     repository: ElyRiven/HEALTH_TECH_QA_K6
-      #     path: ./k6-tests
-      #     token: ${{ secrets.QA_REPO_TOKEN }}
-
-      # -- Install K6 --------------------------------------------------------
-
-      # - name: Set up K6
-      #   uses: grafana/setup-k6-action@v1
-
-      # -- Run K6 Performance Tests -------------------------------------------
-      # Executes load scenarios against the locally running backend.
-      # Results are written to k6-results.json for archival.
-
-      # - name: Run K6 Performance Tests
-      #   working-directory: ./k6-tests
-      #   env:
-      #     API_BASE_URL: http://localhost:${{ env.BACKEND_PORT }}
-      #   run: |
-      #     k6 run \
-      #       --out json=k6-results.json \
-      #       --env BASE_URL=http://localhost:${{ env.BACKEND_PORT }} \
-      #       .
-
-      # -- Upload K6 report (14 days, always) ---------------------------------
-
-      # - name: Upload K6 Performance Report
-      #   uses: actions/upload-artifact@v4
-      #   if: always()
-      #   with:
-      #     name: k6-performance-report
-      #     path: k6-tests/k6-results.json
-      #     retention-days: 14
 
   # ============================================================================
   # JOB 2 — DOCKER BUILD & VULNERABILITY SCAN
@@ -410,7 +309,251 @@ jobs:
           docker push ${{ env.BACKEND_IMAGE }}:latest
 
   # ============================================================================
-  # JOB 3 — DEPLOY TO RENDER
+  # JOB 3 — KARATE API TESTS
+  # ============================================================================
+  # Clones the Karate DSL QA repository and runs API tests against the backend.
+  # The test environment (PostgreSQL + backend) is spun up via docker-compose
+  # using the Docker image published in the docker-build job. Karate generates
+  # an HTML report in build/karate-reports, which is uploaded as an artifact
+  # retained 14 days. Any test failure stops the pipeline before deployment.
+  # ============================================================================
+  karate-test:
+    name: "Karate API Tests"
+    needs: [docker-build]
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read # Read repository source code
+
+    steps:
+      # -- Checkout main repository (provides docker-compose.yml) ------------
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # -- Create .env file for docker-compose test environment --------------
+      # DB_HOST=db and DB_PORT=5432 target the PostgreSQL container via the
+      # internal Docker network. The backend is reachable from the runner
+      # at localhost:3000 (mapped port) for Karate to target.
+      - name: Create .env File
+        run: |
+          cat > .env << 'EOF'
+          DB_USER=postgres
+          DB_HOST=db
+          DB_PASSWORD=${{ secrets.TEST_DB_PASSWORD }}
+          DB_NAME=Triage
+          DB_PORT=5432
+          STAGE=test
+          CORS_ORIGIN=http://localhost:5173,http://localhost:5174
+          VITE_API_PROTOCOL=http
+          VITE_API_HOST=localhost
+          VITE_API_PORT=3000
+          EOF
+
+      # -- Login to Docker Hub to pull published images ----------------------
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USER }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      # -- Start database and backend via docker compose ---------------------
+      # Only the db and backend services are required for API tests.
+      - name: Start Test Environment (docker compose up)
+        run: docker compose up -d db backend
+
+      # -- Verify database is healthy ----------------------------------------
+      - name: Verify Database is Healthy
+        run: |
+          echo "Waiting for PostgreSQL to be ready..."
+          for i in $(seq 1 30); do
+            docker compose exec -T db pg_isready -U postgres && break || sleep 3
+          done
+
+      # -- Verify backend is accessible --------------------------------------
+      - name: Verify Backend is Accessible
+        run: |
+          echo "Waiting for backend on port 3000..."
+          for i in $(seq 1 30); do
+            curl -sf http://localhost:3000/api/v1/pacients && break || sleep 3
+          done
+
+      # -- Set up Java 17 (matches Karate test stack requirements) ----------
+      - name: Set up Java 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: "17"
+          distribution: "temurin"
+
+      # -- Clone Karate automation repository --------------------------------
+      - name: Clone Karate QA Repository
+        run: git clone https://github.com/ElyRiven/HEALTH_TECH_QA_KARATE.git
+
+      # -- Run Karate API tests ----------------------------------------------
+      # Executes all 12 API scenarios. Any scenario failure exits non-zero
+      # and stops the pipeline.
+      - name: Run Karate API Tests
+        working-directory: ./HEALTH_TECH_QA_KARATE
+        run: |
+          chmod +x ./gradlew
+          ./gradlew clean test
+
+      # -- Upload Karate report as artifact (14 days, always) ---------------
+      # Retained even on failure so API test regressions can be investigated.
+      - name: Upload Karate API Test Report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: karate-api-report
+          path: HEALTH_TECH_QA_KARATE/build/karate-reports/
+          retention-days: 14
+
+  # ============================================================================
+  # JOB 4 — K6 PERFORMANCE TESTS
+  # ============================================================================
+  # Clones the K6 QA repository and runs load tests against the backend API.
+  # The test environment (PostgreSQL + backend) is spun up via docker-compose
+  # using the Docker image published in the docker-build job. The K6 binary
+  # with the xk6-dashboard extension is downloaded from the official release
+  # assets (v0.8.1). Three load scripts are executed; threshold/check failures
+  # are tolerated (only execution errors stop the pipeline). Reports generated
+  # in results/ are uploaded as artifacts retained 14 days.
+  # ============================================================================
+  k6-test:
+    name: "K6 Performance Tests"
+    needs: [docker-build]
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read # Read repository source code
+
+    steps:
+      # -- Checkout main repository (provides docker-compose.yml) ------------
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # -- Create .env file for docker-compose test environment --------------
+      # DB_HOST=db and DB_PORT=5432 target the PostgreSQL container via the
+      # internal Docker network. The backend is reachable from the runner
+      # at localhost:3000 (mapped port) for K6 to target.
+      - name: Create .env File
+        run: |
+          cat > .env << 'EOF'
+          DB_USER=postgres
+          DB_HOST=db
+          DB_PASSWORD=${{ secrets.TEST_DB_PASSWORD }}
+          DB_NAME=Triage
+          DB_PORT=5432
+          STAGE=test
+          CORS_ORIGIN=http://localhost:5173,http://localhost:5174
+          VITE_API_PROTOCOL=http
+          VITE_API_HOST=localhost
+          VITE_API_PORT=3000
+          EOF
+
+      # -- Login to Docker Hub to pull published images ----------------------
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USER }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      # -- Start database and backend via docker compose ---------------------
+      # Only the db and backend services are required for load tests.
+      - name: Start Test Environment (docker compose up)
+        run: docker compose up -d db backend
+
+      # -- Verify database is healthy ----------------------------------------
+      - name: Verify Database is Healthy
+        run: |
+          echo "Waiting for PostgreSQL to be ready..."
+          for i in $(seq 1 30); do
+            docker compose exec -T db pg_isready -U postgres && break || sleep 3
+          done
+
+      # -- Verify backend is accessible --------------------------------------
+      - name: Verify Backend is Accessible
+        run: |
+          echo "Waiting for backend on port 3000..."
+          for i in $(seq 1 30); do
+            curl -sf http://localhost:3000/api/v1/pacients && break || sleep 3
+          done
+
+      # -- Set up Node.js 24 (matches K6 project requirements) --------------
+      - name: Set up Node.js 24
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+
+      # -- Install K6 with xk6-dashboard extension --------------------------
+      # Downloads the pre-built K6 binary (v1.6.1) bundled with the
+      # xk6-dashboard extension (v0.8.1) from the official release assets.
+      # The binary inside the archive is named 'xk6-dashboard'; it is installed
+      # as 'k6' so all subsequent k6 commands work without modification.
+      # This avoids compiling K6 from source.
+      - name: Install K6 with xk6-dashboard Extension
+        run: |
+          wget -q https://github.com/grafana/xk6-dashboard/releases/download/v0.8.1/xk6-dashboard_v0.8.1_linux_amd64.tar.gz
+          tar -xzf xk6-dashboard_v0.8.1_linux_amd64.tar.gz
+          sudo mv xk6-dashboard_v0.8.1_linux_amd64/k6 /usr/local/bin/k6
+
+      # -- Verify K6 installation -------------------------------------------
+      # Must report: k6 v1.6.1 with github.com/grafana/xk6-dashboard v0.8.1
+      - name: Verify K6 Installation
+        run: k6 version
+
+      # -- Clone K6 performance test repository ------------------------------
+      - name: Clone K6 QA Repository
+        run: git clone https://github.com/ElyRiven/HEALTH_TECH_QA_K6.git
+
+      # -- Install K6 project npm dependencies --------------------------------
+      - name: Install K6 Project Dependencies
+        working-directory: ./HEALTH_TECH_QA_K6
+        run: npm install
+
+      # -- Create results directory ------------------------------------------
+      # The results/ directory is listed in .gitignore and is not present
+      # after cloning. xk6-dashboard writes HTML reports to this path; if
+      # the directory does not exist the export fails silently.
+      - name: Create results Directory
+        working-directory: ./HEALTH_TECH_QA_K6
+        run: mkdir -p results
+
+      # -- Run K6 load tests -------------------------------------------------
+      # Runs all three load scripts defined in package.json. Threshold and
+      # check failures (K6 exit code 99) are tolerated and do not stop the
+      # pipeline — they represent measured performance data. Only real
+      # execution errors (exit code != 0 and != 99) fail this step.
+      - name: Run K6 Load Tests
+        working-directory: ./HEALTH_TECH_QA_K6
+        run: |
+          run_k6() {
+            npm run "$1"
+            local EXIT=$?
+            if [ $EXIT -ne 0 ] && [ $EXIT -ne 99 ]; then
+              echo "::error::K6 script '$1' failed with exit code $EXIT"
+              return $EXIT
+            fi
+            return 0
+          }
+          run_k6 test:load:createPatient
+          run_k6 test:load:getPatient
+          run_k6 test:load:getPatients
+
+      # -- Upload K6 performance reports (14 days, always) ------------------
+      # Reports are retained regardless of threshold outcomes so performance
+      # trends can be reviewed over time.
+      - name: Upload K6 Performance Reports
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: k6-performance-reports
+          path: HEALTH_TECH_QA_K6/results/
+          retention-days: 14
+
+  # ============================================================================
+  # JOB 5 — DEPLOY TO RENDER
   # ============================================================================
   # Triggers a redeployment of the backend service on Render via the
   # Render REST API (https://api.render.com/v1).
@@ -430,7 +573,7 @@ jobs:
   # ============================================================================
   deploy:
     name: "Deploy Backend to Render"
-    needs: [docker-build]
+    needs: [karate-test, k6-test]
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
 

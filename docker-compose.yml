@@ -20,10 +20,10 @@ services:
       retries: 5
 
   backend:
-    # image: elyriven/health-tech-backend:latest
-    build:
-      context: ./HEALTH_TECH_BACKEND
-      dockerfile: Dockerfile
+    image: elyriven/health-tech-backend:latest
+    # build:
+    #   context: ./HEALTH_TECH_BACKEND
+    #   dockerfile: Dockerfile
     restart: unless-stopped
     environment:
       PORT: 3000
@@ -43,10 +43,10 @@ services:
       - health_tech_network
 
   frontend:
-    # image: elyriven/health-tech-frontend:latest
-    build:
-      context: ./HEALTH_TECH_FRONTEND
-      dockerfile: Dockerfile
+    image: elyriven/health-tech-frontend:latest
+    # build:
+    #   context: ./HEALTH_TECH_FRONTEND
+    #   dockerfile: Dockerfile
     restart: unless-stopped
     environment:
       VITE_API_PROTOCOL: ${VITE_API_PROTOCOL}
