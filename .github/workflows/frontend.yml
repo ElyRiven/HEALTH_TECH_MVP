@@ -82,8 +82,7 @@ jobs:
   # JOB 1 — TEST & VULNERABILITY SCAN
   # ============================================================================
   # Scans npm dependencies for CVEs, runs ESLint for code quality,
-  # executes Vitest unit/integration tests with a 75% coverage threshold,
-  # and runs Serenity BDD E2E tests from a dedicated QA repository.
+  # and executes Vitest unit/integration tests with a 75% coverage threshold.
   # Critical/High dependency vulnerabilities block the entire job.
   # Coverage below 75% blocks the job; the report is always uploaded.
   # ============================================================================
@@ -172,46 +171,6 @@ jobs:
           name: frontend-coverage-report
           path: HEALTH_TECH_FRONTEND/coverage/
           retention-days: 3
-
-      # -- Checkout Serenity E2E repository -----------------------------------
-      # Clones the dedicated QA automation project into ./serenity-tests.
-      # Requires a PAT stored as the QA_REPO_TOKEN secret if the repo is private.
-
-      # - name: Checkout Serenity E2E Repository
-      #   uses: actions/checkout@v4
-      #   with:
-      #     repository: ElyRiven/HEALTH_TECH_QA_SERENITY
-      #     path: ./serenity-tests
-      #     token: ${{ secrets.QA_REPO_TOKEN }}
-
-      # -- Setup JDK 17 for Serenity BDD --------------------------------------
-
-      # - name: Set up JDK 17 for Serenity
-      #   uses: actions/setup-java@v4
-      #   with:
-      #     distribution: "temurin"
-      #     java-version: "17"
-      #     cache: "maven"
-
-      # -- Run Serenity E2E Tests ---------------------------------------------
-      # Executes the full Serenity BDD suite in headless Chrome.
-      # APP_BASE_URL points to the environment under test (staging / preview).
-
-      # - name: Run Serenity E2E Tests
-      #   working-directory: ./serenity-tests
-      #   env:
-      #     APP_BASE_URL: ${{ secrets.FRONTEND_TEST_URL }}
-      #   run: mvn verify -Dwebdriver.driver=chrome -Dheadless=true --no-transfer-progress
-
-      # -- Upload Serenity E2E report (14 days, always) -----------------------
-
-      # - name: Upload Serenity E2E Report
-      #   uses: actions/upload-artifact@v4
-      #   if: always()
-      #   with:
-      #     name: serenity-e2e-report
-      #     path: serenity-tests/target/site/serenity/
-      #     retention-days: 14
 
   # ============================================================================
   # JOB 2 — DOCKER BUILD & VULNERABILITY SCAN
@@ -329,7 +288,129 @@ jobs:
           docker push ${{ env.FRONTEND_IMAGE }}:latest
 
   # ============================================================================
-  # JOB 3 — DEPLOY TO RENDER
+  # JOB 3 — SERENITY BDD E2E TESTS
+  # ============================================================================
+  # Clones the Serenity BDD QA repository and runs End-to-End tests against
+  # the full application stack (PostgreSQL, backend, and frontend). The test
+  # environment is spun up via docker-compose using the Docker images published
+  # in the previous docker-build job. Serenity generates an HTML report in
+  # target/site/serenity, which is uploaded as an artifact retained 14 days.
+  # Any test execution failure stops the pipeline before deployment.
+  # ============================================================================
+  serenity-test:
+    name: "Serenity BDD E2E Tests"
+    needs: [docker-build]
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read # Read repository source code
+
+    steps:
+      # -- Checkout main repository (provides docker-compose.yml) ------------
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # -- Create .env file for docker-compose test environment --------------
+      # DB_HOST=db and DB_PORT=5432 target the PostgreSQL container via the
+      # internal Docker network. The database is reachable from the runner
+      # at localhost:5433 (mapped port) for the Serenity DB cleaner.
+      - name: Create .env File
+        run: |
+          cat > .env << 'EOF'
+          DB_USER=postgres
+          DB_HOST=db
+          DB_PASSWORD=${{ secrets.TEST_DB_PASSWORD }}
+          DB_NAME=Triage
+          DB_PORT=5432
+          STAGE=test
+          CORS_ORIGIN=http://localhost:5173,http://localhost:5174
+          VITE_API_PROTOCOL=http
+          VITE_API_HOST=localhost
+          VITE_API_PORT=3000
+          EOF
+
+      # -- Login to Docker Hub to pull published images ----------------------
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USER }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      # -- Start full application stack via docker compose -------------------
+      # Pulls the :latest images (frontend + backend + db) published in the
+      # docker-build job and spins up the complete test environment.
+      - name: Start Test Environment (docker compose up)
+        run: docker compose up -d
+
+      # -- Verify database is healthy ----------------------------------------
+      - name: Verify Database is Healthy
+        run: |
+          echo "Waiting for PostgreSQL to be ready..."
+          for i in $(seq 1 30); do
+            docker compose exec -T db pg_isready -U postgres && break || sleep 3
+          done
+
+      # -- Verify backend is accessible --------------------------------------
+      - name: Verify Backend is Accessible
+        run: |
+          echo "Waiting for backend on port 3000..."
+          for i in $(seq 1 30); do
+            curl -sf http://localhost:3000/api/v1/pacients && break || sleep 3
+          done
+
+      # -- Verify frontend is accessible ------------------------------------
+      - name: Verify Frontend is Accessible
+        run: |
+          echo "Waiting for frontend on port 5173..."
+          for i in $(seq 1 30); do
+            curl -sf http://localhost:5173 && break || sleep 3
+          done
+
+      # -- Set up Java 17 (matches Serenity BDD stack requirements) ---------
+      - name: Set up Java 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: "17"
+          distribution: "temurin"
+
+      # -- Install Google Chrome for Selenium WebDriver ----------------------
+      - name: Install Google Chrome
+        run: |
+          sudo apt-get update -q
+          sudo apt-get install -y google-chrome-stable
+
+      # -- Clone Serenity BDD automation repository -------------------------
+      - name: Clone Serenity BDD QA Repository
+        run: git clone https://github.com/ElyRiven/HEALTH_TECH_QA_SERENITY.git
+
+      # -- Run Serenity BDD E2E tests ----------------------------------------
+      # Executes all 16 scenarios in headless Chrome mode.
+      # db.url uses localhost:5433 (runner-visible mapped port) so the
+      # Serenity DatabaseCleaner can truncate tables between scenarios.
+      - name: Run Serenity BDD E2E Tests
+        working-directory: ./HEALTH_TECH_QA_SERENITY
+        run: |
+          chmod +x ./gradlew
+          ./gradlew clean test
+
+      #  \
+      #   -Ddb.url=jdbc:postgresql://localhost:5433/Triage \
+      #   -Ddb.user=postgres \
+      #   -Ddb.password=${{ secrets.TEST_DB_PASSWORD }}
+
+      # -- Upload Serenity report as artifact (14 days, always) -------------
+      # Retained even on failure so E2E regressions can be investigated.
+      - name: Upload Serenity BDD Report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: serenity-e2e-report
+          path: HEALTH_TECH_QA_SERENITY/target/site/serenity/
+          retention-days: 14
+
+  # ============================================================================
+  # JOB 4 — DEPLOY TO RENDER
   # ============================================================================
   # Triggers a redeployment of the frontend service on Render via the
   # Render REST API (https://api.render.com/v1).
@@ -349,7 +430,7 @@ jobs:
   # ============================================================================
   deploy:
     name: "Deploy Frontend to Render"
-    needs: [docker-build]
+    needs: [serenity-test]
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
 
