@@ -496,7 +496,7 @@ jobs:
         run: |
           wget -q https://github.com/grafana/xk6-dashboard/releases/download/v0.8.1/xk6-dashboard_v0.8.1_linux_amd64.tar.gz
           tar -xzf xk6-dashboard_v0.8.1_linux_amd64.tar.gz
-          sudo install -m 0755 xk6-dashboard /usr/local/bin/k6
+          sudo mv xk6-dashboard_v0.8.1_linux_amd64/k6 /usr/local/bin/k6
 
       # -- Verify K6 installation -------------------------------------------
       # Must report: k6 v1.6.1 with github.com/grafana/xk6-dashboard v0.8.1
