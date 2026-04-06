@@ -18,6 +18,7 @@ export function useFormRegisterVitals(
   const [loading, setLoading] = useState(false);
   const [formError, setFormError] = useState<string | string[] | null>(null);
   const [formSuccess, setFormSuccess] = useState<string | null>(null);
+  const [fieldErrors, setFieldErrors] = useState<Partial<Record<keyof VitalsForm, string>>>({});
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -29,6 +30,7 @@ export function useFormRegisterVitals(
     e.preventDefault();
     setFormError(null);
     setFormSuccess(null);
+    setFieldErrors({});
 
     const fieldErrors: Partial<Record<keyof VitalsForm, string>> = {};
 
@@ -136,6 +138,7 @@ export function useFormRegisterVitals(
 
     const clientErrors = Object.values(fieldErrors);
     if (clientErrors.length > 0) {
+      setFieldErrors(fieldErrors);
       setFormError(clientErrors);
       return;
     }
@@ -213,5 +216,5 @@ export function useFormRegisterVitals(
     if (formError) onerror?.(formError);
   }, [formError, onerror]);
 
-  return { form, loading, formError, formSuccess, handleChange, handleSubmit };
+  return { form, loading, formError, fieldErrors, formSuccess, handleChange, handleSubmit };
 }

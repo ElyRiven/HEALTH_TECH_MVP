@@ -3,7 +3,7 @@ import { NIVEL_CONCIENCIA_OPTIONS } from '../../hooks/useFormRegisterVitals/data
 import type { VitalSignsFormProps } from './types'
 
 export default function VitalSignsForm({ patientId, onSuccess, onError }: VitalSignsFormProps) {
-  const { form, loading, formError, handleChange, handleSubmit } = useFormRegisterVitals(patientId, onSuccess, onError)
+  const { form, loading, fieldErrors, handleChange, handleSubmit } = useFormRegisterVitals(patientId, onSuccess, onError)
 
   return (
     <div className="bg-white-second-back rounded-lg p-6 w-full max-w-sm shadow-[0px_4px_16px_0px_rgba(0,0,0,0.2)]">
@@ -24,6 +24,9 @@ export default function VitalSignsForm({ patientId, onSuccess, onError }: VitalS
             className="bg-main-white-back rounded px-3 py-2 text-black-main-font text-sm focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
             placeholder="Ej: 75 (20-300 bpm)"
           />
+          {fieldErrors.frecuencia_cardiaca && (
+            <span className="text-red-600 text-xs">{fieldErrors.frecuencia_cardiaca}</span>
+          )}
         </div>
 
         <div className="flex flex-col gap-1">
@@ -42,6 +45,9 @@ export default function VitalSignsForm({ patientId, onSuccess, onError }: VitalS
             className="bg-main-white-back rounded px-3 py-2 text-black-main-font text-sm focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
             placeholder="Ej: 18 (1-60 rpm)"
           />
+          {fieldErrors.frecuencia_respiratoria && (
+            <span className="text-red-600 text-xs">{fieldErrors.frecuencia_respiratoria}</span>
+          )}
         </div>
 
         <div className="flex flex-col gap-1">
@@ -60,6 +66,9 @@ export default function VitalSignsForm({ patientId, onSuccess, onError }: VitalS
             className="bg-main-white-back rounded px-3 py-2 text-black-main-font text-sm focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
             placeholder="Ej: 98.5, máximo un decimal (50.0-100.0 %)"
           />
+          {fieldErrors.saturacion_o2 && (
+            <span className="text-red-600 text-xs">{fieldErrors.saturacion_o2}</span>
+          )}
         </div>
 
         <div className="flex flex-col gap-1">
@@ -78,6 +87,9 @@ export default function VitalSignsForm({ patientId, onSuccess, onError }: VitalS
             className="bg-main-white-back rounded px-3 py-2 text-black-main-font text-sm focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
             placeholder="Ej: 36.5 (°C)"
           />
+          {fieldErrors.temperatura && (
+            <span className="text-red-600 text-xs">{fieldErrors.temperatura}</span>
+          )}
         </div>
 
         <div className="flex flex-col gap-1">
@@ -93,6 +105,9 @@ export default function VitalSignsForm({ patientId, onSuccess, onError }: VitalS
             className="bg-main-white-back rounded px-3 py-2 text-black-main-font text-sm focus:outline-none"
             placeholder="Ej: 120/80 (mmHg)"
           />
+          {fieldErrors.presion && (
+            <span className="text-red-600 text-xs">{fieldErrors.presion}</span>
+          )}
         </div>
 
         <div className="flex flex-col gap-1">
@@ -110,6 +125,9 @@ export default function VitalSignsForm({ patientId, onSuccess, onError }: VitalS
               <option key={op} value={op}>{op}</option>
             ))}
           </select>
+          {fieldErrors.nivel_de_conciencia && (
+            <span className="text-red-600 text-xs">{fieldErrors.nivel_de_conciencia}</span>
+          )}
         </div>
 
         <div className="flex flex-col gap-1">
@@ -128,15 +146,10 @@ export default function VitalSignsForm({ patientId, onSuccess, onError }: VitalS
             className="bg-main-white-back rounded px-3 py-2 text-black-main-font text-sm focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
             placeholder="Ej: 5 (0-10 EVA)"
           />
+          {fieldErrors.nivel_de_dolor && (
+            <span className="text-red-600 text-xs">{fieldErrors.nivel_de_dolor}</span>
+          )}
         </div>
-
-        {formError && (
-          <div className="text-red-600 text-xs flex flex-col gap-1">
-            {Array.isArray(formError)
-              ? formError.map((err, i) => <span key={i}>{err}</span>)
-              : <span>{formError}</span>}
-          </div>
-        )}
 
         <button
           type="submit"
