@@ -63,21 +63,21 @@ describe('Register page (integration)', () => {
   it('calls fetch and navigates to vitals on valid submission', async () => {
     global.fetch = vi.fn().mockResolvedValue({
       ok: true,
-      json: () => Promise.resolve({ id: 1 }),
+      json: () => Promise.resolve({ id: 'PED0099001' }),
     })
     render(
       <MemoryRouter>
         <Register />
       </MemoryRouter>,
     )
-    fireEvent.change(screen.getByLabelText(/identificación/i), { target: { name: 'identificacion', value: '99001' } })
+    fireEvent.change(screen.getByLabelText(/identificación/i), { target: { name: 'identificacion', value: 'PED0099001' } })
     fireEvent.change(screen.getByLabelText(/nombres/i), { target: { name: 'nombres', value: 'Pedro' } })
     fireEvent.change(screen.getByLabelText(/apellidos/i), { target: { name: 'apellidos', value: 'Soto' } })
     fireEvent.change(screen.getByLabelText(/fecha de nacimiento/i), { target: { name: 'fecha_de_nacimiento', value: '1988-07-22' } })
     fireEvent.click(screen.getByRole('button', { name: /registrar paciente/i }))
     await waitFor(() => {
       expect(global.fetch).toHaveBeenCalled()
-      expect(mockNavigate).toHaveBeenCalledWith('/register/99001')
+      expect(mockNavigate).toHaveBeenCalledWith('/register/PED0099001', { state: { fromRegistration: true } })
     })
   })
 
@@ -91,7 +91,7 @@ describe('Register page (integration)', () => {
         <Register />
       </MemoryRouter>,
     )
-    fireEvent.change(screen.getByLabelText(/identificación/i), { target: { name: 'identificacion', value: '11111' } })
+    fireEvent.change(screen.getByLabelText(/identificación/i), { target: { name: 'identificacion', value: 'ANA1111111' } })
     fireEvent.change(screen.getByLabelText(/nombres/i), { target: { name: 'nombres', value: 'Ana' } })
     fireEvent.change(screen.getByLabelText(/apellidos/i), { target: { name: 'apellidos', value: 'Ruiz' } })
     fireEvent.change(screen.getByLabelText(/fecha de nacimiento/i), { target: { name: 'fecha_de_nacimiento', value: '1992-01-01' } })
@@ -108,7 +108,7 @@ describe('Register page (integration)', () => {
         <Register />
       </MemoryRouter>,
     )
-    fireEvent.change(screen.getByLabelText(/identificación/i), { target: { name: 'identificacion', value: '22222' } })
+    fireEvent.change(screen.getByLabelText(/identificación/i), { target: { name: 'identificacion', value: 'TOM2222222' } })
     fireEvent.change(screen.getByLabelText(/nombres/i), { target: { name: 'nombres', value: 'Tom' } })
     fireEvent.change(screen.getByLabelText(/apellidos/i), { target: { name: 'apellidos', value: 'Smith' } })
     fireEvent.change(screen.getByLabelText(/fecha de nacimiento/i), { target: { name: 'fecha_de_nacimiento', value: '1990-01-01' } })
