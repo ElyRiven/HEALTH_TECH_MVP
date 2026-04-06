@@ -29,7 +29,7 @@ async function patientLoader({
   params: Record<string, string | undefined>;
 }) {
   const { id } = params;
-  if (!id || !/^\d+$/.test(id)) return redirect("/dashboard");
+  if (!id || !/^[A-Z0-9]{10}$/.test(id)) return redirect("/dashboard");
   const res = await fetch(`${API_BASE_URL}/api/v1/pacients/${id}`);
   if (!res.ok) return redirect("/dashboard");
   return null;
@@ -48,6 +48,7 @@ const router = createBrowserRouter([
         element: <RegisterVitals />,
         loader: patientLoader,
       },
+      { path: "*", element: <Navigate to="/dashboard" replace /> },
     ],
   },
 ]);
