@@ -1,7 +1,7 @@
 import { validatePacient } from '../../src/helpers/validator.js';
 
 const validPacient = () => ({
-  identificacion: 123456789,
+  identificacion: 'AB12345678',
   nombres: 'Juan',
   apellidos: 'Pérez',
   fecha_de_nacimiento: '1990-05-15',
@@ -16,18 +16,43 @@ describe('validatePacient', () => {
   });
 
   describe('identificacion', () => {
-    it('retorna error cuando identificacion no es entero', () => {
-      const result = validatePacient({ ...validPacient(), identificacion: '123abc' });
+    it('retorna error cuando identificacion no es string (es número)', () => {
+      const result = validatePacient({ ...validPacient(), identificacion: 1234567890 });
       expect(result).toHaveProperty('identificacion');
     });
 
-    it('retorna error cuando identificacion es un número flotante', () => {
-      const result = validatePacient({ ...validPacient(), identificacion: 12.5 });
+    it('retorna error cuando identificacion tiene menos de 10 caracteres', () => {
+      const result = validatePacient({ ...validPacient(), identificacion: 'AB123' });
       expect(result).toHaveProperty('identificacion');
     });
 
-    it('acepta identificacion como entero positivo', () => {
-      const result = validatePacient({ ...validPacient(), identificacion: 1 });
+    it('retorna error cuando identificacion tiene más de 10 caracteres', () => {
+      const result = validatePacient({ ...validPacient(), identificacion: 'AB12345678X' });
+      expect(result).toHaveProperty('identificacion');
+    });
+
+    it('retorna error cuando identificacion contiene letras minúsculas', () => {
+      const result = validatePacient({ ...validPacient(), identificacion: 'ab12345678' });
+      expect(result).toHaveProperty('identificacion');
+    });
+
+    it('retorna error cuando identificacion contiene caracteres especiales', () => {
+      const result = validatePacient({ ...validPacient(), identificacion: 'AB1234-678' });
+      expect(result).toHaveProperty('identificacion');
+    });
+
+    it('acepta identificacion con 10 dígitos numéricos', () => {
+      const result = validatePacient({ ...validPacient(), identificacion: '1234567890' });
+      expect(result).toBeNull();
+    });
+
+    it('acepta identificacion con letras mayúsculas y números (10 chars)', () => {
+      const result = validatePacient({ ...validPacient(), identificacion: 'ABC1234567' });
+      expect(result).toBeNull();
+    });
+
+    it('acepta identificacion solo con letras mayúsculas (10 chars)', () => {
+      const result = validatePacient({ ...validPacient(), identificacion: 'ABCDEFGHIJ' });
       expect(result).toBeNull();
     });
   });
