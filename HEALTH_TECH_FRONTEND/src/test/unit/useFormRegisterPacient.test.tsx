@@ -51,19 +51,19 @@ describe('useFormRegisterPacient', () => {
     expect(result.current.form.genero).toBe('mujer')
   })
 
-  it('handleKeyDown prevents non-digit keys and calls onError', () => {
+  it('handleKeyDown prevents special character keys and calls onError', () => {
     const onError = vi.fn()
     const { result } = renderHook(() => useFormRegisterPacient(undefined, onError), { wrapper })
     const preventDefault = vi.fn()
     act(() => {
       result.current.handleKeyDown({
-        key: 'a',
+        key: '-',
         preventDefault,
       } as unknown as React.KeyboardEvent<HTMLInputElement>)
     })
     expect(preventDefault).toHaveBeenCalled()
-    expect(result.current.formError).toBe('La identificacion debe ser un valor numérico')
-    expect(onError).toHaveBeenCalledWith('La identificacion debe ser un valor numérico')
+    expect(result.current.formError).toBe('La identificación solo puede contener números y letras')
+    expect(onError).toHaveBeenCalledWith('La identificación solo puede contener números y letras')
   })
 
   it('handleKeyDown allows digit keys', () => {
@@ -72,6 +72,30 @@ describe('useFormRegisterPacient', () => {
     act(() => {
       result.current.handleKeyDown({
         key: '7',
+        preventDefault,
+      } as unknown as React.KeyboardEvent<HTMLInputElement>)
+    })
+    expect(preventDefault).not.toHaveBeenCalled()
+  })
+
+  it('handleKeyDown allows uppercase letter keys', () => {
+    const { result } = renderHook(() => useFormRegisterPacient(), { wrapper })
+    const preventDefault = vi.fn()
+    act(() => {
+      result.current.handleKeyDown({
+        key: 'A',
+        preventDefault,
+      } as unknown as React.KeyboardEvent<HTMLInputElement>)
+    })
+    expect(preventDefault).not.toHaveBeenCalled()
+  })
+
+  it('handleKeyDown allows lowercase letter keys (they get uppercased by handleChange)', () => {
+    const { result } = renderHook(() => useFormRegisterPacient(), { wrapper })
+    const preventDefault = vi.fn()
+    act(() => {
+      result.current.handleKeyDown({
+        key: 'a',
         preventDefault,
       } as unknown as React.KeyboardEvent<HTMLInputElement>)
     })
@@ -96,13 +120,23 @@ describe('useFormRegisterPacient', () => {
   it('handleKeyDown clears formError after valid key', () => {
     const { result } = renderHook(() => useFormRegisterPacient(), { wrapper })
     act(() => {
-      result.current.handleKeyDown({ key: 'e', preventDefault: vi.fn() } as unknown as React.KeyboardEvent<HTMLInputElement>)
+      result.current.handleKeyDown({ key: '-', preventDefault: vi.fn() } as unknown as React.KeyboardEvent<HTMLInputElement>)
     })
     expect(result.current.formError).toBeTruthy()
     act(() => {
       result.current.handleKeyDown({ key: '1', preventDefault: vi.fn() } as unknown as React.KeyboardEvent<HTMLInputElement>)
     })
     expect(result.current.formError).toBeNull()
+  })
+
+  it('handleChange converts identificacion to uppercase', () => {
+    const { result } = renderHook(() => useFormRegisterPacient(), { wrapper })
+    act(() => {
+      result.current.handleChange({
+        target: { name: 'identificacion', value: 'abc123def' },
+      } as React.ChangeEvent<HTMLInputElement>)
+    })
+    expect(result.current.form.identificacion).toBe('ABC123DEF')
   })
 
   it('handleSubmit sets errors for completely empty form', async () => {
@@ -118,23 +152,36 @@ describe('useFormRegisterPacient', () => {
     expect(onError).toHaveBeenCalled()
   })
 
-  it('handleSubmit rejects identificacion = "0"', async () => {
+  it('handleSubmit rejects identificacion con menos de 10 chars', async () => {
     const { result } = renderHook(() => useFormRegisterPacient(), { wrapper })
     act(() => {
-      result.current.handleChange({ target: { name: 'identificacion', value: '0' } } as React.ChangeEvent<HTMLInputElement>)
+      result.current.handleChange({ target: { name: 'identificacion', value: 'AB123' } } as React.ChangeEvent<HTMLInputElement>)
     })
     await act(async () => {
       await result.current.handleSubmit({ preventDefault: vi.fn() } as unknown as React.FormEvent<HTMLFormElement>)
     })
     expect(result.current.formError).toEqual(
-      expect.arrayContaining(['Lo siento, debes escribir la identificación del paciente'])
+      expect.arrayContaining(['El parámetro pacientId debe tener 10 caracteres'])
+    )
+  })
+
+  it('handleSubmit rejects identificacion con caracteres inválidos', async () => {
+    const { result } = renderHook(() => useFormRegisterPacient(), { wrapper })
+    act(() => {
+      result.current.handleChange({ target: { name: 'identificacion', value: 'AB-1234567' } } as React.ChangeEvent<HTMLInputElement>)
+    })
+    await act(async () => {
+      await result.current.handleSubmit({ preventDefault: vi.fn() } as unknown as React.FormEvent<HTMLFormElement>)
+    })
+    expect(result.current.formError).toEqual(
+      expect.arrayContaining(['El parámetro pacientId debe contener solo números y letras mayúsculas'])
     )
   })
 
   it('handleSubmit requires nombres', async () => {
     const { result } = renderHook(() => useFormRegisterPacient(), { wrapper })
     act(() => {
-      result.current.handleChange({ target: { name: 'identificacion', value: '99' } } as React.ChangeEvent<HTMLInputElement>)
+      result.current.handleChange({ target: { name: 'identificacion', value: '1234567890' } } as React.ChangeEvent<HTMLInputElement>)
     })
     await act(async () => {
       await result.current.handleSubmit({ preventDefault: vi.fn() } as unknown as React.FormEvent<HTMLFormElement>)
@@ -147,7 +194,7 @@ describe('useFormRegisterPacient', () => {
   it('handleSubmit requires apellidos', async () => {
     const { result } = renderHook(() => useFormRegisterPacient(), { wrapper })
     act(() => {
-      result.current.handleChange({ target: { name: 'identificacion', value: '99' } } as React.ChangeEvent<HTMLInputElement>)
+      result.current.handleChange({ target: { name: 'identificacion', value: '1234567890' } } as React.ChangeEvent<HTMLInputElement>)
       result.current.handleChange({ target: { name: 'nombres', value: 'Ana' } } as React.ChangeEvent<HTMLInputElement>)
     })
     await act(async () => {
@@ -161,7 +208,7 @@ describe('useFormRegisterPacient', () => {
   it('handleSubmit requires fecha_de_nacimiento', async () => {
     const { result } = renderHook(() => useFormRegisterPacient(), { wrapper })
     act(() => {
-      result.current.handleChange({ target: { name: 'identificacion', value: '99' } } as React.ChangeEvent<HTMLInputElement>)
+      result.current.handleChange({ target: { name: 'identificacion', value: '1234567890' } } as React.ChangeEvent<HTMLInputElement>)
       result.current.handleChange({ target: { name: 'nombres', value: 'Ana' } } as React.ChangeEvent<HTMLInputElement>)
       result.current.handleChange({ target: { name: 'apellidos', value: 'Lopez' } } as React.ChangeEvent<HTMLInputElement>)
     })
@@ -173,14 +220,14 @@ describe('useFormRegisterPacient', () => {
     )
   })
 
-  it('submits successfully, resets form and navigates', async () => {
+  it('submits successfully, resets form and navigates with fromRegistration state', async () => {
     global.fetch = vi.fn().mockResolvedValue({
       ok: true,
-      json: () => Promise.resolve({ id: 12345 }),
+      json: () => Promise.resolve({ id: 'AB12345678' }),
     })
     const onSuccess = vi.fn()
     const { result } = renderHook(() => useFormRegisterPacient(onSuccess), { wrapper })
-    act(() => { result.current.handleChange({ target: { name: 'identificacion', value: '12345' } } as React.ChangeEvent<HTMLInputElement>) })
+    act(() => { result.current.handleChange({ target: { name: 'identificacion', value: 'AB12345678' } } as React.ChangeEvent<HTMLInputElement>) })
     act(() => { result.current.handleChange({ target: { name: 'nombres', value: 'Carlos' } } as React.ChangeEvent<HTMLInputElement>) })
     act(() => { result.current.handleChange({ target: { name: 'apellidos', value: 'Ruiz' } } as React.ChangeEvent<HTMLInputElement>) })
     act(() => { result.current.handleChange({ target: { name: 'fecha_de_nacimiento', value: '1990-06-15' } } as React.ChangeEvent<HTMLInputElement>) })
@@ -191,7 +238,7 @@ describe('useFormRegisterPacient', () => {
       'http://localhost:3000/api/v1/pacients',
       expect.objectContaining({ method: 'POST' }),
     )
-    expect(mockNavigate).toHaveBeenCalledWith('/register/12345')
+    expect(mockNavigate).toHaveBeenCalledWith('/register/AB12345678', { state: { fromRegistration: true } })
     expect(onSuccess).toHaveBeenCalled()
     expect(result.current.form.identificacion).toBe('')
     expect(result.current.loading).toBe(false)
@@ -204,7 +251,7 @@ describe('useFormRegisterPacient', () => {
     })
     const onError = vi.fn()
     const { result } = renderHook(() => useFormRegisterPacient(undefined, onError), { wrapper })
-    act(() => { result.current.handleChange({ target: { name: 'identificacion', value: '12345' } } as React.ChangeEvent<HTMLInputElement>) })
+    act(() => { result.current.handleChange({ target: { name: 'identificacion', value: 'AB12345678' } } as React.ChangeEvent<HTMLInputElement>) })
     act(() => { result.current.handleChange({ target: { name: 'nombres', value: 'Carlos' } } as React.ChangeEvent<HTMLInputElement>) })
     act(() => { result.current.handleChange({ target: { name: 'apellidos', value: 'Ruiz' } } as React.ChangeEvent<HTMLInputElement>) })
     act(() => { result.current.handleChange({ target: { name: 'fecha_de_nacimiento', value: '1990-06-15' } } as React.ChangeEvent<HTMLInputElement>) })
@@ -221,7 +268,7 @@ describe('useFormRegisterPacient', () => {
     })
     const onError = vi.fn()
     const { result } = renderHook(() => useFormRegisterPacient(undefined, onError), { wrapper })
-    act(() => { result.current.handleChange({ target: { name: 'identificacion', value: '99999' } } as React.ChangeEvent<HTMLInputElement>) })
+    act(() => { result.current.handleChange({ target: { name: 'identificacion', value: 'XY99999999' } } as React.ChangeEvent<HTMLInputElement>) })
     act(() => { result.current.handleChange({ target: { name: 'nombres', value: 'Test' } } as React.ChangeEvent<HTMLInputElement>) })
     act(() => { result.current.handleChange({ target: { name: 'apellidos', value: 'User' } } as React.ChangeEvent<HTMLInputElement>) })
     act(() => { result.current.handleChange({ target: { name: 'fecha_de_nacimiento', value: '2000-01-01' } } as React.ChangeEvent<HTMLInputElement>) })
@@ -238,7 +285,7 @@ describe('useFormRegisterPacient', () => {
     })
     const onError = vi.fn()
     const { result } = renderHook(() => useFormRegisterPacient(undefined, onError), { wrapper })
-    act(() => { result.current.handleChange({ target: { name: 'identificacion', value: '11111' } } as React.ChangeEvent<HTMLInputElement>) })
+    act(() => { result.current.handleChange({ target: { name: 'identificacion', value: 'ZZ11111111' } } as React.ChangeEvent<HTMLInputElement>) })
     act(() => { result.current.handleChange({ target: { name: 'nombres', value: 'Test' } } as React.ChangeEvent<HTMLInputElement>) })
     act(() => { result.current.handleChange({ target: { name: 'apellidos', value: 'User' } } as React.ChangeEvent<HTMLInputElement>) })
     act(() => { result.current.handleChange({ target: { name: 'fecha_de_nacimiento', value: '2000-01-01' } } as React.ChangeEvent<HTMLInputElement>) })
@@ -252,7 +299,7 @@ describe('useFormRegisterPacient', () => {
     global.fetch = vi.fn().mockRejectedValue(new Error('Connection refused'))
     const onError = vi.fn()
     const { result } = renderHook(() => useFormRegisterPacient(undefined, onError), { wrapper })
-    act(() => { result.current.handleChange({ target: { name: 'identificacion', value: '12345' } } as React.ChangeEvent<HTMLInputElement>) })
+    act(() => { result.current.handleChange({ target: { name: 'identificacion', value: 'AB12345678' } } as React.ChangeEvent<HTMLInputElement>) })
     act(() => { result.current.handleChange({ target: { name: 'nombres', value: 'Carlos' } } as React.ChangeEvent<HTMLInputElement>) })
     act(() => { result.current.handleChange({ target: { name: 'apellidos', value: 'Ruiz' } } as React.ChangeEvent<HTMLInputElement>) })
     act(() => { result.current.handleChange({ target: { name: 'fecha_de_nacimiento', value: '1990-06-15' } } as React.ChangeEvent<HTMLInputElement>) })
