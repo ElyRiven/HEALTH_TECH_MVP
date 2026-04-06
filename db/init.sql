@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS public.pacientes (
-    identificacion  INTEGER         PRIMARY KEY,
+    identificacion  VARCHAR(10)     PRIMARY KEY,
     nombres         VARCHAR(100)    NOT NULL,
     apellidos       VARCHAR(100)    NOT NULL,
     fecha_de_nacimiento DATE        NOT NULL,
@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS public.pacientes (
 
 CREATE TABLE IF NOT EXISTS public.constantes_vitales (
     id                      SERIAL          PRIMARY KEY,
-    id_paciente             INTEGER         NOT NULL REFERENCES public.pacientes(identificacion),
+    id_paciente             VARCHAR(10)     NOT NULL REFERENCES public.pacientes(identificacion),
     frecuencia_cardiaca     INTEGER         NOT NULL,
     frecuencia_respiratoria INTEGER         NOT NULL,
     saturacion_o2           NUMERIC(5,1)    NOT NULL,
