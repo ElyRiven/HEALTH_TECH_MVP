@@ -68,7 +68,7 @@ beforeEach(() => {
 // GetPacient
 // ─────────────────────────────────────────────
 describe("GetPacient", () => {
-  it("retorna 400 cuando el id no es un número entero válido", async () => {
+  it("retorna 400 cuando el id tiene menos de 10 caracteres", async () => {
     const req = mockReq({ params: { id: "abc" } });
     const res = mockRes();
     await GetPacient(req, res);
@@ -78,26 +78,36 @@ describe("GetPacient", () => {
     );
   });
 
+  it("retorna 400 cuando el id contiene letras minúsculas", async () => {
+    const req = mockReq({ params: { id: "ab12345678" } });
+    const res = mockRes();
+    await GetPacient(req, res);
+    expect(res.status).toHaveBeenCalledWith(400);
+    expect(res.json).toHaveBeenCalledWith(
+      expect.objectContaining({ message: "El parámetro pacientId debe contener solo números y letras mayúsculas" }),
+    );
+  });
+
   it("retorna 404 cuando el paciente no existe", async () => {
     mockQuery.mockResolvedValueOnce({ rows: [] });
-    const req = mockReq({ params: { id: "999" } });
+    const req = mockReq({ params: { id: "XY99999999" } });
     const res = mockRes();
     await GetPacient(req, res);
     expect(res.status).toHaveBeenCalledWith(404);
   });
 
   it("retorna 200 con el id cuando el paciente existe", async () => {
-    mockQuery.mockResolvedValueOnce({ rows: [{ identificacion: 123456 }] });
-    const req = mockReq({ params: { id: "123456" } });
+    mockQuery.mockResolvedValueOnce({ rows: [{ identificacion: 'AB12345678' }] });
+    const req = mockReq({ params: { id: "AB12345678" } });
     const res = mockRes();
     await GetPacient(req, res);
     expect(res.status).toHaveBeenCalledWith(200);
-    expect(res.json).toHaveBeenCalledWith({ id: 123456 });
+    expect(res.json).toHaveBeenCalledWith({ id: 'AB12345678' });
   });
 
   it("retorna 500 cuando hay un error de base de datos", async () => {
     mockQuery.mockRejectedValueOnce(new Error("DB error"));
-    const req = mockReq({ params: { id: "123" } });
+    const req = mockReq({ params: { id: "AB12345678" } });
     const res = mockRes();
     await GetPacient(req, res);
     expect(res.status).toHaveBeenCalledWith(500);
@@ -109,7 +119,7 @@ describe("GetPacient", () => {
 // ─────────────────────────────────────────────
 describe("CreatePacient", () => {
   const validBody = {
-    identificacion: 123456789,
+    identificacion: 'AB12345678',
     nombres: "Juan",
     apellidos: "Pérez",
     fecha_de_nacimiento: "1990-05-15",
@@ -154,13 +164,13 @@ describe("CreatePacient", () => {
   });
 
   it("retorna 201 cuando el paciente se crea exitosamente", async () => {
-    mockQuery.mockResolvedValueOnce({ rows: [{ identificacion: 123456789 }] });
+    mockQuery.mockResolvedValueOnce({ rows: [{ identificacion: 'AB12345678' }] });
     const req = mockReq({ body: validBody });
     const res = mockRes();
     await CreatePacient(req, res);
     expect(res.status).toHaveBeenCalledWith(201);
     expect(res.json).toHaveBeenCalledWith(
-      expect.objectContaining({ message: expect.any(String), id: 123456789 }),
+      expect.objectContaining({ message: expect.any(String), id: 'AB12345678' }),
     );
   });
 
@@ -209,22 +219,35 @@ describe("CreateVitalsPacient", () => {
   });
 
   it("retorna 400 cuando el body no es un objeto válido", async () => {
-    const req = mockReq({ params: { patientId: "123" }, body: null });
+    const req = mockReq({ params: { patientId: "AB12345678" }, body: null });
     const res = mockRes();
     await CreateVitalsPacient(req, res);
     expect(res.status).toHaveBeenCalledWith(400);
   });
 
-  it("retorna 400 cuando patientId no es un número", async () => {
+  it("retorna 400 cuando patientId tiene menos de 10 caracteres", async () => {
     const req = mockReq({ params: { patientId: "abc" }, body: validBody });
     const res = mockRes();
     await CreateVitalsPacient(req, res);
     expect(res.status).toHaveBeenCalledWith(400);
+    expect(res.json).toHaveBeenCalledWith(
+      expect.objectContaining({ message: "El parámetro pacientId debe tener 10 caracteres" }),
+    );
+  });
+
+  it("retorna 400 cuando patientId contiene letras minúsculas", async () => {
+    const req = mockReq({ params: { patientId: "ab12345678" }, body: validBody });
+    const res = mockRes();
+    await CreateVitalsPacient(req, res);
+    expect(res.status).toHaveBeenCalledWith(400);
+    expect(res.json).toHaveBeenCalledWith(
+      expect.objectContaining({ message: "El parámetro pacientId debe contener solo números y letras mayúsculas" }),
+    );
   });
 
   it("retorna 400 cuando hay campos faltantes", async () => {
     const req = mockReq({
-      params: { patientId: "123" },
+      params: { patientId: "AB12345678" },
       body: { frecuencia_cardiaca: 80 },
     });
     const res = mockRes();
@@ -236,7 +259,7 @@ describe("CreateVitalsPacient", () => {
     validateVitals.mockReturnValueOnce({
       frecuencia_cardiaca: "Valor inválido",
     });
-    const req = mockReq({ params: { patientId: "123" }, body: validBody });
+    const req = mockReq({ params: { patientId: "AB12345678" }, body: validBody });
     const res = mockRes();
     await CreateVitalsPacient(req, res);
     expect(res.status).toHaveBeenCalledWith(422);
@@ -244,7 +267,7 @@ describe("CreateVitalsPacient", () => {
 
   it("retorna 404 cuando el paciente no existe", async () => {
     mockQuery.mockResolvedValueOnce({ rowCount: 0 });
-    const req = mockReq({ params: { patientId: "999" }, body: validBody });
+    const req = mockReq({ params: { patientId: "XY99999999" }, body: validBody });
     const res = mockRes();
     await CreateVitalsPacient(req, res);
     expect(res.status).toHaveBeenCalledWith(404);
@@ -260,11 +283,11 @@ describe("CreateVitalsPacient", () => {
     // client queries: BEGIN, INSERT, UPDATE, COMMIT
     mockClient.query
       .mockResolvedValueOnce({}) // BEGIN
-      .mockResolvedValueOnce({ rows: [{ id: 1, id_paciente: 123 }] }) // INSERT vitals
+      .mockResolvedValueOnce({ rows: [{ id: 1, id_paciente: 'AB12345678' }] }) // INSERT vitals
       .mockResolvedValueOnce({ rowCount: 1 }) // UPDATE criticidad
       .mockResolvedValueOnce({}); // COMMIT
 
-    const req = mockReq({ params: { patientId: "123" }, body: validBody });
+    const req = mockReq({ params: { patientId: "AB12345678" }, body: validBody });
     const res = mockRes();
     await CreateVitalsPacient(req, res);
     expect(res.status).toHaveBeenCalledWith(201);
@@ -285,7 +308,7 @@ describe("CreateVitalsPacient", () => {
       .mockResolvedValueOnce({ rowCount: 0 }) // UPDATE no encuentra paciente
       .mockResolvedValueOnce({}); // ROLLBACK
 
-    const req = mockReq({ params: { patientId: "123" }, body: validBody });
+    const req = mockReq({ params: { patientId: "AB12345678" }, body: validBody });
     const res = mockRes();
     await CreateVitalsPacient(req, res);
     expect(res.status).toHaveBeenCalledWith(404);
@@ -298,7 +321,7 @@ describe("CreateVitalsPacient", () => {
       .mockResolvedValueOnce({}) // BEGIN
       .mockRejectedValueOnce(new Error("Error de transacción")); // INSERT falla
 
-    const req = mockReq({ params: { patientId: "123" }, body: validBody });
+    const req = mockReq({ params: { patientId: "AB12345678" }, body: validBody });
     const res = mockRes();
     await CreateVitalsPacient(req, res);
     expect(res.status).toHaveBeenCalledWith(500);

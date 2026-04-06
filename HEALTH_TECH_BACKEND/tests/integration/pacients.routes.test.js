@@ -36,7 +36,7 @@ beforeEach(() => {
 // ─────────────────────────────────────────────
 describe("POST /api/v1/pacients", () => {
   const validBody = {
-    identificacion: 123456789,
+    identificacion: 'AB12345678',
     nombres: "Juan",
     apellidos: "Pérez",
     fecha_de_nacimiento: "1990-05-15",
@@ -45,10 +45,10 @@ describe("POST /api/v1/pacients", () => {
   };
 
   it("retorna 201 al crear un paciente válido", async () => {
-    mockQuery.mockResolvedValueOnce({ rows: [{ identificacion: 123456789 }] });
+    mockQuery.mockResolvedValueOnce({ rows: [{ identificacion: 'AB12345678' }] });
     const res = await request(app).post("/api/v1/pacients").send(validBody);
     expect(res.status).toBe(201);
-    expect(res.body).toHaveProperty("id", 123456789);
+    expect(res.body).toHaveProperty("id", 'AB12345678');
     expect(res.body).toHaveProperty("message");
   });
 
@@ -68,11 +68,33 @@ describe("POST /api/v1/pacients", () => {
     expect(res.body.errors).toHaveProperty("criticidad");
   });
 
-  it("retorna 400 cuando identificacion no es número", async () => {
+  it("retorna 400 cuando identificacion no es string válido de 10 chars", async () => {
     const res = await request(app)
       .post("/api/v1/pacients")
-      .send({ ...validBody, identificacion: "no-es-numero" });
+      .send({ ...validBody, identificacion: "corto" });
     expect(res.status).toBe(400);
+  });
+
+  it("retorna 400 cuando identificacion contiene caracteres especiales", async () => {
+    const res = await request(app)
+      .post("/api/v1/pacients")
+      .send({ ...validBody, identificacion: "AB1234-678" });
+    expect(res.status).toBe(400);
+  });
+
+  it("retorna 400 cuando identificacion tiene más de 10 caracteres", async () => {
+    const res = await request(app)
+      .post("/api/v1/pacients")
+      .send({ ...validBody, identificacion: "AB12345678EXTRA" });
+    expect(res.status).toBe(400);
+  });
+
+  it("acepta identificacion como string de 10 chars alfanuméricos mayúsculas", async () => {
+    mockQuery.mockResolvedValueOnce({ rows: [{ identificacion: 'ABC1234567' }] });
+    const res = await request(app)
+      .post("/api/v1/pacients")
+      .send({ ...validBody, identificacion: 'ABC1234567' });
+    expect(res.status).toBe(201);
   });
 
   it("retorna 400 cuando nombres está vacío", async () => {
@@ -109,26 +131,48 @@ describe("POST /api/v1/pacients", () => {
 // ─────────────────────────────────────────────
 describe("GET /api/v1/pacients/:id", () => {
   it("retorna 200 con el id del paciente cuando existe", async () => {
-    mockQuery.mockResolvedValueOnce({ rows: [{ identificacion: 111 }] });
-    const res = await request(app).get("/api/v1/pacients/111");
+    mockQuery.mockResolvedValueOnce({ rows: [{ identificacion: 'AB12345678' }] });
+    const res = await request(app).get("/api/v1/pacients/AB12345678");
     expect(res.status).toBe(200);
-    expect(res.body).toHaveProperty("id", 111);
+    expect(res.body).toHaveProperty("id", 'AB12345678');
   });
 
   it("retorna 404 cuando el paciente no existe", async () => {
     mockQuery.mockResolvedValueOnce({ rows: [] });
-    const res = await request(app).get("/api/v1/pacients/999");
+    const res = await request(app).get("/api/v1/pacients/XY99999999");
     expect(res.status).toBe(404);
   });
 
-  it("retorna 400 cuando el id no es un entero", async () => {
+  it("retorna 400 cuando el id tiene menos de 10 caracteres", async () => {
     const res = await request(app).get("/api/v1/pacients/abc");
     expect(res.status).toBe(400);
   });
 
+  it("retorna 400 cuando el id contiene letras minúsculas", async () => {
+    const res = await request(app).get("/api/v1/pacients/ab12345678");
+    expect(res.status).toBe(400);
+  });
+
+  it("retorna 400 cuando el id tiene más de 10 caracteres", async () => {
+    const res = await request(app).get("/api/v1/pacients/AB12345678EXTRA");
+    expect(res.status).toBe(400);
+  });
+
+  it("retorna 400 con mensaje correcto para id con longitud incorrecta", async () => {
+    const res = await request(app).get("/api/v1/pacients/123");
+    expect(res.status).toBe(400);
+    expect(res.body).toHaveProperty("message", "El parámetro pacientId debe tener 10 caracteres");
+  });
+
+  it("retorna 400 con mensaje correcto para id con caracteres inválidos", async () => {
+    const res = await request(app).get("/api/v1/pacients/ab-1234567");
+    expect(res.status).toBe(400);
+    expect(res.body).toHaveProperty("message", "El parámetro pacientId debe contener solo números y letras mayúsculas");
+  });
+
   it("retorna 500 cuando hay un error de base de datos", async () => {
     mockQuery.mockRejectedValueOnce(new Error("DB fail"));
-    const res = await request(app).get("/api/v1/pacients/123");
+    const res = await request(app).get("/api/v1/pacients/AB12345678");
     expect(res.status).toBe(500);
   });
 });
@@ -192,24 +236,37 @@ describe("POST /api/v1/vitals/:patientId", () => {
 
     mockClient.query
       .mockResolvedValueOnce({}) // BEGIN
-      .mockResolvedValueOnce({ rows: [{ id: 10, id_paciente: 123 }] }) // INSERT vitals
+      .mockResolvedValueOnce({ rows: [{ id: 10, id_paciente: 'AB12345678' }] }) // INSERT vitals
       .mockResolvedValueOnce({ rowCount: 1 }) // UPDATE criticidad
       .mockResolvedValueOnce({}); // COMMIT
 
-    const res = await request(app).post("/api/v1/vitals/123").send(validVitals);
+    const res = await request(app).post("/api/v1/vitals/AB12345678").send(validVitals);
     expect(res.status).toBe(201);
     expect(res.body).toHaveProperty("message");
     expect(res.body).toHaveProperty("criticidad");
   });
 
-  it("retorna 400 cuando patientId no es número", async () => {
+  it("retorna 400 cuando patientId tiene menos de 10 caracteres", async () => {
     const res = await request(app).post("/api/v1/vitals/abc").send(validVitals);
     expect(res.status).toBe(400);
+    expect(res.body).toHaveProperty("message", "El parámetro pacientId debe tener 10 caracteres");
+  });
+
+  it("retorna 400 cuando patientId contiene letras minúsculas", async () => {
+    const res = await request(app).post("/api/v1/vitals/ab12345678").send(validVitals);
+    expect(res.status).toBe(400);
+    expect(res.body).toHaveProperty("message", "El parámetro pacientId debe contener solo números y letras mayúsculas");
+  });
+
+  it("retorna 400 cuando patientId tiene más de 10 caracteres", async () => {
+    const res = await request(app).post("/api/v1/vitals/AB12345678EXTRA").send(validVitals);
+    expect(res.status).toBe(400);
+    expect(res.body).toHaveProperty("message", "El parámetro pacientId debe tener 10 caracteres");
   });
 
   it("retorna 400 cuando faltan campos obligatorios", async () => {
     const res = await request(app)
-      .post("/api/v1/vitals/123")
+      .post("/api/v1/vitals/AB12345678")
       .send({ frecuencia_cardiaca: 80 });
     expect(res.status).toBe(400);
     expect(res.body).toHaveProperty("campos_faltantes");
@@ -217,35 +274,35 @@ describe("POST /api/v1/vitals/:patientId", () => {
 
   it("retorna 422 cuando los datos no pasan la validación (FC fuera de rango)", async () => {
     const res = await request(app)
-      .post("/api/v1/vitals/123")
+      .post("/api/v1/vitals/AB12345678")
       .send({ ...validVitals, frecuencia_cardiaca: 5 });
     expect(res.status).toBe(422);
   });
 
   it("retorna 422 cuando nivel_de_conciencia es inválido", async () => {
     const res = await request(app)
-      .post("/api/v1/vitals/123")
+      .post("/api/v1/vitals/AB12345678")
       .send({ ...validVitals, nivel_de_conciencia: "Dormido" });
     expect(res.status).toBe(422);
   });
 
   it("retorna 422 cuando nivel_de_dolor es string", async () => {
     const res = await request(app)
-      .post("/api/v1/vitals/123")
+      .post("/api/v1/vitals/AB12345678")
       .send({ ...validVitals, nivel_de_dolor: "mucho" });
     expect(res.status).toBe(422);
   });
 
   it("retorna 422 cuando presion tiene formato incorrecto", async () => {
     const res = await request(app)
-      .post("/api/v1/vitals/123")
+      .post("/api/v1/vitals/AB12345678")
       .send({ ...validVitals, presion: "invalid" });
     expect(res.status).toBe(422);
   });
 
   it("retorna 404 cuando el paciente no existe", async () => {
     mockQuery.mockResolvedValueOnce({ rowCount: 0 });
-    const res = await request(app).post("/api/v1/vitals/999").send(validVitals);
+    const res = await request(app).post("/api/v1/vitals/XY99999999").send(validVitals);
     expect(res.status).toBe(404);
   });
 
@@ -256,7 +313,7 @@ describe("POST /api/v1/vitals/:patientId", () => {
       .mockRejectedValueOnce(new Error("Error en INSERT"))
       .mockResolvedValueOnce({}); // ROLLBACK
 
-    const res = await request(app).post("/api/v1/vitals/123").send(validVitals);
+    const res = await request(app).post("/api/v1/vitals/AB12345678").send(validVitals);
     expect(res.status).toBe(500);
   });
 
@@ -268,7 +325,7 @@ describe("POST /api/v1/vitals/:patientId", () => {
       .mockResolvedValueOnce({ rowCount: 0 }) // UPDATE - no encontró
       .mockResolvedValueOnce({}); // ROLLBACK
 
-    const res = await request(app).post("/api/v1/vitals/123").send(validVitals);
+    const res = await request(app).post("/api/v1/vitals/AB12345678").send(validVitals);
     expect(res.status).toBe(404);
   });
 });
