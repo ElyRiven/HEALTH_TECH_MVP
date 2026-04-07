@@ -22,6 +22,7 @@ const defaultHookValue: UseFormRegisterVitals = {
   },
   loading: false,
   formError: null,
+  fieldErrors: {},
   formSuccess: null,
   handleChange: vi.fn(),
   handleSubmit: vi.fn(),
@@ -84,25 +85,69 @@ describe('VitalSignsForm', () => {
     expect(screen.getByRole('button', { name: /guardar/i })).not.toBeDisabled()
   })
 
-  it('shows error messages when formError is a string', () => {
-    mockHook.mockReturnValue({ ...defaultHookValue, formError: 'Campo inválido' })
-    render(<VitalSignsForm patientId="123" />)
-    expect(screen.getByText('Campo inválido')).toBeInTheDocument()
-  })
-
-  it('shows multiple error messages when formError is an array', () => {
+  it('shows per-field error for frecuencia_cardiaca', () => {
     mockHook.mockReturnValue({
       ...defaultHookValue,
-      formError: ['Error 1', 'Error 2'],
+      fieldErrors: { frecuencia_cardiaca: 'Frecuencia cardíaca: campo requerido' },
     })
     render(<VitalSignsForm patientId="123" />)
-    expect(screen.getByText('Error 1')).toBeInTheDocument()
-    expect(screen.getByText('Error 2')).toBeInTheDocument()
+    const error = screen.getByText('Frecuencia cardíaca: campo requerido')
+    expect(error).toBeInTheDocument()
+    // Error appears adjacent to the field, not at the bottom
+    const input = screen.getByLabelText(/frecuencia cardiaca/i)
+    expect(input.nextElementSibling).not.toBeNull()
+    expect(input.closest('div')?.textContent).toContain('Frecuencia cardíaca: campo requerido')
   })
 
-  it('does not show error div when formError is null', () => {
+  it('shows per-field error for temperatura', () => {
+    mockHook.mockReturnValue({
+      ...defaultHookValue,
+      fieldErrors: { temperatura: 'Temperatura: campo requerido' },
+    })
     render(<VitalSignsForm patientId="123" />)
-    expect(screen.queryByText('Error 1')).not.toBeInTheDocument()
+    expect(screen.getByText('Temperatura: campo requerido')).toBeInTheDocument()
+    const input = screen.getByLabelText(/temperatura/i)
+    expect(input.closest('div')?.textContent).toContain('Temperatura: campo requerido')
+  })
+
+  it('shows per-field error for presion', () => {
+    mockHook.mockReturnValue({
+      ...defaultHookValue,
+      fieldErrors: { presion: 'Presión arterial: campo requerido' },
+    })
+    render(<VitalSignsForm patientId="123" />)
+    expect(screen.getByText('Presión arterial: campo requerido')).toBeInTheDocument()
+  })
+
+  it('shows per-field error for nivel_de_dolor', () => {
+    mockHook.mockReturnValue({
+      ...defaultHookValue,
+      fieldErrors: { nivel_de_dolor: 'Nivel de dolor: campo requerido' },
+    })
+    render(<VitalSignsForm patientId="123" />)
+    expect(screen.getByText('Nivel de dolor: campo requerido')).toBeInTheDocument()
+    const input = screen.getByLabelText(/nivel de dolor/i)
+    expect(input.closest('div')?.textContent).toContain('Nivel de dolor: campo requerido')
+  })
+
+  it('shows multiple per-field errors each below their respective field', () => {
+    mockHook.mockReturnValue({
+      ...defaultHookValue,
+      fieldErrors: {
+        frecuencia_cardiaca: 'Frecuencia cardíaca: campo requerido',
+        temperatura: 'Temperatura: campo requerido',
+        nivel_de_dolor: 'Nivel de dolor: campo requerido',
+      },
+    })
+    render(<VitalSignsForm patientId="123" />)
+    expect(screen.getByText('Frecuencia cardíaca: campo requerido')).toBeInTheDocument()
+    expect(screen.getByText('Temperatura: campo requerido')).toBeInTheDocument()
+    expect(screen.getByText('Nivel de dolor: campo requerido')).toBeInTheDocument()
+  })
+
+  it('does not show error div when fieldErrors is empty', () => {
+    render(<VitalSignsForm patientId="123" />)
+    expect(screen.queryByText(/campo requerido/i)).not.toBeInTheDocument()
   })
 
   it('nivel_de_conciencia shows all AVPU options', () => {

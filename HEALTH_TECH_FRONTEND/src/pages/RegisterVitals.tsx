@@ -1,12 +1,14 @@
 import { useCallback, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useLocation } from 'react-router-dom'
 import ResponseAlert from '../components/ResponseAlert'
 import VitalSignsForm from '../components/VitalSignsForm/VitalSignsForm'
 
 export default function RegisterVitals() {
   const { id } = useParams()
+  const location = useLocation()
+  const fromRegistration = location.state?.fromRegistration === true
   const [alertMsg, setAlertMsg] = useState<string | string[] | null>(
-    id ? `Paciente con identificación ${id} registrado exitosamente` : null
+    id && fromRegistration ? `Paciente con identificación ${id} registrado exitosamente` : null
   )
   const [alertVariant, setAlertVariant] = useState<'success' | 'error'>('success')
   const [alertKey, setAlertKey] = useState(0)

@@ -14,14 +14,19 @@ export function useFormRegisterPacient(
   const [formError, setFormError] = useState<string | string[] | null>(null)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    setForm({ ...form, [e.target.name]: e.target.value })
+    const { name, value } = e.target
+    if (name === 'identificacion') {
+      setForm({ ...form, identificacion: value.toUpperCase() })
+    } else {
+      setForm({ ...form, [name]: value })
+    }
   }
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     const allowed = ['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab', 'Enter']
-    if (!allowed.includes(e.key) && !/^\d$/.test(e.key)) {
+    if (!allowed.includes(e.key) && !/^[A-Z0-9a-z]$/.test(e.key)) {
       e.preventDefault()
-      const msg = 'La identificacion debe ser un valor numérico'
+      const msg = 'La identificación solo puede contener números y letras'
       setFormError(msg)
       onError?.(msg)
     } else {
@@ -35,10 +40,12 @@ export function useFormRegisterPacient(
 
     const clientErrors: string[] = []
 
-    if (!form.identificacion || form.identificacion === '0') {
+    if (!form.identificacion) {
       clientErrors.push('Lo siento, debes escribir la identificación del paciente')
-    } else if (!/^\d+$/.test(form.identificacion)) {
-      clientErrors.push('La identificación debe ser un valor numérico')
+    } else if (form.identificacion.length !== 10) {
+      clientErrors.push('El parámetro pacientId debe tener 10 caracteres')
+    } else if (!/^[A-Z0-9]+$/.test(form.identificacion)) {
+      clientErrors.push('El parámetro pacientId debe contener solo números y letras mayúsculas')
     }
     if (!form.nombres.trim()) {
       clientErrors.push('Lo siento, debes escribir los nombres del paciente')
@@ -63,7 +70,7 @@ export function useFormRegisterPacient(
 
     try {
       const body = {
-        identificacion: Number(form.identificacion),
+        identificacion: form.identificacion,
         nombres: form.nombres,
         apellidos: form.apellidos,
         fecha_de_nacimiento: form.fecha_de_nacimiento,
@@ -96,7 +103,7 @@ export function useFormRegisterPacient(
       if (typeof onSuccess === 'function') {
         onSuccess(e)
       }
-      navigate(`/register/${form.identificacion}`)
+      navigate(`/register/${form.identificacion}`, { state: { fromRegistration: true } })
     } catch {
       const msg = 'No se pudo conectar con el servidor'
       setFormError(msg)
