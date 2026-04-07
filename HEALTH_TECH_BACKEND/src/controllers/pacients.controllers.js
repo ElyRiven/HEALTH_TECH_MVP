@@ -6,9 +6,12 @@ import { classifyTriage } from '../helpers/TriageEngine.js';
 
 export const GetPacient = async (req, res) => {
     try {
-        const id = parseInt(req.params.id, 10);
-        if (isNaN(id)) {
-            return res.status(400).json({ message: "El id debe ser un número entero válido" });
+        const id = req.params.id;
+        if (!id || id.length !== 10) {
+            return res.status(400).json({ message: "El parámetro pacientId debe tener 10 caracteres" });
+        }
+        if (!/^[A-Z0-9]+$/.test(id)) {
+            return res.status(400).json({ message: "El parámetro pacientId debe contener solo números y letras mayúsculas" });
         }
         const { rows } = await pool.query(
             'SELECT identificacion FROM public.pacientes WHERE identificacion = $1',
@@ -40,6 +43,10 @@ export const CreatePacient = async (req,res) => {
         }
 
         let { identificacion, nombres, apellidos, fecha_de_nacimiento, genero, estado } = req.body;
+
+        if (typeof identificacion === 'string') {
+            identificacion = identificacion.toUpperCase();
+        }
 
         const hora_de_registro = adaptToTimeFormat(new Date());
 
@@ -87,7 +94,7 @@ export const CreatePacient = async (req,res) => {
         }
     } catch (error) {
         console.error('[BACKEND] Error en CreatePacient:', error);
-        res.status(500).json({ message: "Error al crear el paciente", error: error.message, stack: error.stack });
+        res.status(500).json({ message: "Error al crear el paciente" });
     }
 };
 
@@ -103,12 +110,11 @@ export const CreateVitalsPacient = async (req, res) => {
         if (typeof patientId === 'string') {
             patientId = patientId.replace(/^:/, ''); 
         }
-        patientId = parseInt(patientId, 10);
-        if (isNaN(patientId)) {
-            return res.status(400).json({
-                message: "El patientId debe ser un número entero válido",
-                patientId: req.params.patientId
-            });
+        if (!patientId || patientId.length !== 10) {
+            return res.status(400).json({ message: "El parámetro pacientId debe tener 10 caracteres" });
+        }
+        if (!/^[A-Z0-9]+$/.test(patientId)) {
+            return res.status(400).json({ message: "El parámetro pacientId debe contener solo números y letras mayúsculas" });
         }
         const {
             frecuencia_cardiaca,

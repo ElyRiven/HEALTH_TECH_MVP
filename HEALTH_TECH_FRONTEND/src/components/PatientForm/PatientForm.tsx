@@ -13,14 +13,13 @@ export default function PatientForm({ onSuccess, onError }: PatientFormProps) {
           </label>
           <input
             id="identificacion"
-            type="number"
+            type="text"
             name="identificacion"
             value={form.identificacion}
             onChange={handleChange}
-            min="1"
-            step="1"
+            maxLength={10}
             onKeyDown={handleKeyDown}
-            className="bg-main-white-back rounded px-3 py-2 text-black-main-font text-sm focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+            className="bg-main-white-back rounded px-3 py-2 text-black-main-font text-sm focus:outline-none"
           />
         </div>
 

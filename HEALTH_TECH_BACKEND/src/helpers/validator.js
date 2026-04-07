@@ -3,8 +3,10 @@ import validator from 'validator';
 function validatePacient(pacient) {
     const errors = {};
 
-    if (!Number.isInteger(pacient.identificacion)) {
-        errors.identificacion = 'El id debe ser un número';
+    if (typeof pacient.identificacion !== 'string' || pacient.identificacion.length !== 10) {
+        errors.identificacion = 'El parámetro pacientId debe tener 10 caracteres';
+    } else if (!/^[A-Z0-9]+$/.test(pacient.identificacion)) {
+        errors.identificacion = 'El parámetro pacientId debe contener solo números y letras mayúsculas';
     }
 
     if (typeof pacient.nombres !== 'string' || !validator.isLength(pacient.nombres, { min: 1, max: 100 })) {

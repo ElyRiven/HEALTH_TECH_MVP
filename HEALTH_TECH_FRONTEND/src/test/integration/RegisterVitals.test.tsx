@@ -10,10 +10,10 @@ vi.mock("react-router-dom", async (importOriginal) => {
   return { ...actual, useNavigate: () => mockNavigate };
 });
 
-function renderRegisterVitals(patientId: string) {
+function renderRegisterVitals(patientId: string, state?: Record<string, unknown>) {
   const router = createMemoryRouter(
     [{ path: "/register/:id", element: <RegisterVitals /> }],
-    { initialEntries: [`/register/${patientId}`] },
+    { initialEntries: [{ pathname: `/register/${patientId}`, state: state ?? null }] },
   );
   return render(<RouterProvider router={router} />);
 }
@@ -29,8 +29,13 @@ describe("RegisterVitals page (integration)", () => {
     expect(screen.getByLabelText(/temperatura/i)).toBeInTheDocument();
   });
 
-  it("shows initial success alert for newly registered patient", () => {
+  it("does NOT show success alert when accessing route directly (no fromRegistration state)", () => {
     renderRegisterVitals("456");
+    expect(screen.queryByRole("alert")).not.toBeInTheDocument();
+  });
+
+  it("shows success alert when navigating from registration (fromRegistration state)", () => {
+    renderRegisterVitals("456", { fromRegistration: true });
     expect(screen.getByRole("alert")).toBeInTheDocument();
     expect(
       screen.getByText(
