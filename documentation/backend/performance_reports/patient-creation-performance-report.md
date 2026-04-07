@@ -41,28 +41,28 @@ Todos los umbrales definidos fueron superados con amplio margen. El sistema demo
 
 | Métrica                | Valor                   |
 | ---------------------- | ----------------------- |
-| **Promedio (avg)**     | 1.761 ms                |
-| **Mínimo (min)**       | 0.877 ms                |
-| **Mediana (med)**      | 1.680 ms                |
-| **Máximo (max)**       | 13.311 ms               |
-| **Percentil 90 (p90)** | 2.324 ms                |
-| **Percentil 95 (p95)** | 2.848 ms ✅ `< 2000 ms` |
-| **Percentil 99 (p99)** | 4.783 ms                |
+| **Promedio (avg)**     | 2.063 ms                |
+| **Mínimo (min)**       | 0.885 ms                |
+| **Mediana (med)**      | 1.905 ms                |
+| **Máximo (max)**       | 23.212 ms               |
+| **Percentil 90 (p90)** | 2.615 ms                |
+| **Percentil 95 (p95)** | 3.145 ms ✅ `< 2000 ms` |
+| **Percentil 99 (p99)** | 5.752 ms                |
 
-> Los tiempos de respuesta son excepcionalmente bajos, con un p95 de 2.848 ms que supera con amplitud el umbral de 2000 ms. El tiempo máximo registrado (13.311 ms) corresponde probablemente a peticiones durante la fase inicial de ramp-up de VUs, y tampoco representa un valor preocupante.
+> Los tiempos de respuesta son excepcionalmente bajos, con un p95 de 3.145 ms que supera con amplitud el umbral de 2000 ms. El tiempo máximo registrado (23.212 ms) corresponde probablemente a peticiones durante la fase inicial de ramp-up de VUs o a un pico transiente puntual, y no representa un valor preocupante en el contexto general de la prueba.
 
 #### Rendimiento del Sistema (TPS/RPS)
 
-| Métrica                         | Valor                     |
-| ------------------------------- | ------------------------- |
-| **Total de peticiones HTTP**    | 5,440                     |
-| **Tasa de peticiones (rate)**   | 67.64 req/s ✅ `≥ 25 TPS` |
-| **Total de iteraciones**        | 2,720                     |
-| **Tasa de iteraciones**         | 33.82 iter/s              |
-| **Duración media de iteración** | 1,004.3 ms                |
-| **VUs máximos (vus_max)**       | 45                        |
+| Métrica                         | Valor                      |
+| ------------------------------- | -------------------------- |
+| **Total de peticiones HTTP**    | 5,438                      |
+| **Tasa de peticiones (rate)**   | 67.605 req/s ✅ `≥ 25 TPS` |
+| **Total de iteraciones**        | 2,719                      |
+| **Tasa de iteraciones**         | 33.802 iter/s              |
+| **Duración media de iteración** | 1,005.0 ms                 |
+| **VUs máximos (vus_max)**       | 45                         |
 
-> Cada iteración ejecuta 2 peticiones HTTP (POST paciente + POST vitales), por lo que la tasa efectiva de operaciones completas es 33.82 iter/s (doble del mínimo requerido de 25 TPS por endpoint individual). El umbral mínimo de 25 TPS es ampliamente superado con 67.64 req/s en total.
+> Cada iteración ejecuta 2 peticiones HTTP (POST paciente + POST vitales), por lo que la tasa efectiva de operaciones completas es 33.802 iter/s (doble del mínimo requerido de 25 TPS por endpoint individual). El umbral mínimo de 25 TPS es ampliamente superado con 67.605 req/s en total.
 
 ---
 
@@ -72,11 +72,11 @@ Todos los umbrales definidos fueron superados con amplio margen. El sistema demo
 
 | Recurso                   | Observación                                                                                                                                                                                        |
 | ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **CPU**                   | No instrumentada directamente. La duración media de iteración de ~1004 ms (dominada por el sleep de 1 segundo entre iteraciones) indica que la CPU del servidor no fue saturada durante la prueba. |
-| **Memoria RAM**           | No instrumentada. Los tiempos de respuesta estables y sin degradación a lo largo de los 110 segundos de prueba sugieren que no hubo presión de memoria significativa.                              |
-| **Red — Datos recibidos** | 3,609,916 bytes (≈ 3.6 MB total) a **44.9 KB/s** promedio. Aproximadamente **663 bytes por petición**.                                                                                             |
-| **Red — Datos enviados**  | 1,622,703 bytes (≈ 1.6 MB total) a **20.2 KB/s** promedio.                                                                                                                                         |
-| **Almacenamiento**        | No instrumentado. Se realizaron 2,720 inserciones en base de datos (pacientes + vitales). Sin evidencia de degradación por presión de I/O de disco.                                                |
+| **CPU**                   | No instrumentada directamente. La duración media de iteración de ~1005 ms (dominada por el sleep de 1 segundo entre iteraciones) indica que la CPU del servidor no fue saturada durante la prueba. |
+| **Memoria RAM**           | No instrumentada. Los tiempos de respuesta estables y sin degradación a lo largo de los 110 segundos de prueba sugieren que no hubo presión de memoria significativa.                               |
+| **Red — Datos recibidos** | 3,630,341 bytes (≈ 3.46 MB total) a **44.1 KB/s** promedio. Aproximadamente **668 bytes por petición**.                                                                                             |
+| **Red — Datos enviados**  | 1,638,421 bytes (≈ 1.56 MB total) a **19.9 KB/s** promedio.                                                                                                                                         |
+| **Almacenamiento**        | No instrumentado. Se realizaron 2,719 inserciones en base de datos (pacientes + vitales). Sin evidencia de degradación por presión de I/O de disco.                                                 |
 
 ---
 
@@ -85,10 +85,10 @@ Todos los umbrales definidos fueron superados con amplio margen. El sistema demo
 | Parámetro                                | Valor                                                                                                                    |
 | ---------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
 | **VUs concurrentes máximos soportados**  | 45 VUs                                                                                                                   |
-| **Máxima tasa de peticiones sostenida**  | 67.64 req/s                                                                                                              |
-| **Máxima tasa de iteraciones sostenida** | 33.82 iter/s                                                                                                             |
+| **Máxima tasa de peticiones sostenida**  | 67.605 req/s                                                                                                             |
+| **Máxima tasa de iteraciones sostenida** | 33.802 iter/s                                                                                                            |
 | **Duración de la prueba**                | 110 segundos                                                                                                             |
-| **Degradación observada**                | Ninguna. Los tiempos de respuesta se mantuvieron estables durante toda la ejecución (p95 < 3 ms en todos los snapshots). |
+| **Degradación observada**                | Ninguna. Los tiempos de respuesta se mantuvieron estables durante toda la ejecución (p95 < 4 ms en todos los snapshots). |
 
 > El sistema demostró capacidad de procesar simultáneamente 45 usuarios virtuales realizando registros de pacientes y signos vitales sin ningún signo de saturación. El límite máximo real del sistema no fue determinado en esta prueba (prueba de carga normal, no de estrés).
 
@@ -104,13 +104,13 @@ Todos los umbrales definidos fueron superados con amplio margen. El sistema demo
 | **Tasa de error**       | 0.00% ✅ `< 2%` |
 | **Checks HTTP pasados** | 100%            |
 
-> No se registró ningún error en las 5,440 peticiones ejecutadas durante la prueba. La tasa de error es exactamente 0%, superando el umbral máximo permitido del 2%.
+> No se registró ningún error en las 5,438 peticiones ejecutadas durante la prueba. La tasa de error es exactamente 0%, superando el umbral máximo permitido del 2%.
 
 ### Códigos de Estado HTTP
 
 | Código             | Cantidad | Descripción                                   |
 | ------------------ | -------- | --------------------------------------------- |
-| **2xx (éxito)**    | 5,440    | Todas las peticiones finalizaron exitosamente |
+| **2xx (éxito)**    | 5,438    | Todas las peticiones finalizaron exitosamente |
 | **4xx (cliente)**  | 0        | Sin errores de cliente                        |
 | **5xx (servidor)** | 0        | Sin errores de servidor                       |
 
@@ -127,10 +127,10 @@ El sistema mantuvo **100% de disponibilidad** durante toda la duración de la pr
 ### Conclusiones
 
 1. **El sistema supera todos los umbrales de rendimiento definidos** para el flujo de creación de pacientes y registro de signos vitales bajo carga normal con 45 VUs.
-2. **Los tiempos de respuesta son excepcionalmente bajos** (p95 = 2.848 ms), más de 700 veces por debajo del umbral máximo de 2000 ms, lo que indica que los endpoints POST presentan una latencia mínima en el entorno de prueba.
-3. **La tasa de peticiones de 67.64 req/s** (más del doble del mínimo requerido de 25 TPS) demuestra que el sistema puede manejar con holgura la carga esperada del flujo de registro.
-4. **No se registraron errores** en ninguna de las 5,440 peticiones ejecutadas, confirmando la fiabilidad del sistema bajo condiciones de carga normal.
-5. **El tamaño de payload promedio de 663 bytes por respuesta** es apropiado para este tipo de endpoint de escritura, sin presión excesiva sobre el ancho de banda de red.
+2. **Los tiempos de respuesta son excepcionalmente bajos** (p95 = 3.145 ms), más de 630 veces por debajo del umbral máximo de 2000 ms, lo que indica que los endpoints POST presentan una latencia mínima en el entorno de prueba.
+3. **La tasa de peticiones de 67.605 req/s** (más del doble del mínimo requerido de 25 TPS) demuestra que el sistema puede manejar con holgura la carga esperada del flujo de registro.
+4. **No se registraron errores** en ninguna de las 5,438 peticiones ejecutadas, confirmando la fiabilidad del sistema bajo condiciones de carga normal.
+5. **El tamaño de payload promedio de 668 bytes por respuesta** es apropiado para este tipo de endpoint de escritura, sin presión excesiva sobre el ancho de banda de red.
 
 ### Recomendaciones
 
