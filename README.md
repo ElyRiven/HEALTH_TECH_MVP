@@ -115,7 +115,6 @@ Base URL: `http://localhost:3000/api/v1`
 | `POST`  | `/pacients`            | Registrar un nuevo paciente                        |
 | `GET`   | `/pacients`            | Listar pacientes con signos vitales registrados    |
 | `GET`   | `/pacients/:pacientId` | Consultar un paciente por número de identificación |
-| `PATCH` | `/pacients/:pacientId` | Actualizar el estado de atención de un paciente    |
 | `POST`  | `/vitals/:patientId`   | Registrar signos vitales de un paciente            |
 
 ---
